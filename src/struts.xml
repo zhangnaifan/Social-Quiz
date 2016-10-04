@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="default" extends="struts-default">
+        
+        <default-action-ref name="index" />
+
+        <global-results>
+            <result name="error">
+				<param name="actionName">errorProcessor</param>
+			</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>
+        
+        <action name="errorProcessor" class="com.action.BooksAction" method="popCreate">
+        	<result>index.jsp</result>
+        </action>
+        
+        <action name="index" class="com.action.BooksAction" method="popCreate">
+            <result>index.jsp</result>
+        </action>
+        
+    </package>
+</struts>
