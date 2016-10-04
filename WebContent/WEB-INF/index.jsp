@@ -5,6 +5,12 @@
 
 </head>
 <body>
+	
 	<h1>Project Staples!</h1>
+	
+	<form action="show">
+		<input type="submit"/>
+	</form>
+	
 </body>
 </html>
