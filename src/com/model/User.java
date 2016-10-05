@@ -1,4 +1,4 @@
-package com.basic.user;
+package com.model;
 
 import java.util.Date;
 import java.util.Vector;
@@ -12,11 +12,11 @@ public class User {
 
 	// personal information
 	private String nickName;
-	private String gender;
-	private String birthday;
+	private Boolean gender; //true for male, false for female
+	private Date birthday;
 
 	// account info
-	private int ID;
+	private int id;
 	private Date memberSince;
 
 	// account level 0 for supper root
@@ -25,6 +25,10 @@ public class User {
 	// account level 3 for normal
 	// account level 4 for tourist
 	private int accountLevel;
+
+	private Vector<Integer> quiz;
+	
+	private Vector<Integer> friends;
 
 	public String getEmail() {
 		return email;
@@ -66,28 +70,28 @@ public class User {
 		this.nickName = nickName;
 	}
 
-	public String getGender() {
+	public Boolean getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Boolean gender) {
 		this.gender = gender;
 	}
 
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
-	public int getID() {
-		return ID;
+	public int getId() {
+		return id;
 	}
 
-	public void setID(int iD) {
-		ID = iD;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Date getMemberSince() {
@@ -106,24 +110,21 @@ public class User {
 		this.accountLevel = accountLevel;
 	}
 
-	public Vector<Integer> getProblem() {
-		return problem;
+	public Vector<Integer> getQuiz() {
+		return quiz;
 	}
 
-	public void setProblem(Vector<Integer> problem) {
-		this.problem = problem;
+	public void setQuiz(Vector<Integer> quiz) {
+		this.quiz = quiz;
 	}
 
-	private Vector<Integer> problem;
-
-	public User(String username, String password, String nickName, int iD,
-			Date memberSince) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.nickName = nickName;
-		ID = iD;
-		this.memberSince = memberSince;
+	public Vector<Integer> getFriends() {
+		return friends;
 	}
 
+	public void setFriends(Vector<Integer> friends) {
+		this.friends = friends;
+	}
+	
+	
 }

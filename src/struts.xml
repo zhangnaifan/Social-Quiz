@@ -5,25 +5,52 @@
 
 <struts>
 	<package name="default" extends="struts-default">
-        
+	
         <default-action-ref name="index" />
 
         <global-results>
-            <result name="error">
-				<param name="actionName">errorProcessor</param>
-			</result>
+        	<result name="INDEX">index.jsp</result>
+            <result name="ERROR">error.jsp</result>
+			<result name="FAIL">home.jsp</result>
         </global-results>
 
         <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="error"/>
+            <exception-mapping exception="java.lang.Exception" result="ERROR"/>
+            <exception-mapping exception="java.sql.SQLException" result="ERROR"/>
+            <exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/>
         </global-exception-mappings>
         
-        <action name="errorProcessor" class="com.action.BooksAction" method="popCreate">
-        	<result>index.jsp</result>
+        <action name="index" class="com.service.Index"></action>
+        
+        <action name="logIn" class="com.service.Login">
+        	<result>home.jsp</result>
         </action>
         
-        <action name="index" class="com.action.BooksAction" method="popCreate">
-            <result>index.jsp</result>
+        <action name="toSignUp" class="com.service.Index">
+        	<result>signup.jsp</result>
+        </action>
+        
+        <action name="signUp" class="com.service.Signup">
+        	<result>home.jsp</result>
+        </action>
+        
+        
+        <!--  TODO --> 
+        
+        <action name="addFriend" class="com.service.Index">
+        	<result>home.jsp</result>
+        </action>
+        
+        <action name="addGroup" class="com.service.Index">
+        	<result>home.jsp</result>
+        </action>
+        
+        <action name="createGroup" class="com.service.Index">
+        	<result>home.jsp</result>
+        </action>
+        
+        <action name="createQuiz" class="com.service.Index">
+        	<result>home.jsp</result>
         </action>
         
     </package>
