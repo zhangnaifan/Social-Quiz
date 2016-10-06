@@ -6,12 +6,26 @@
 <struts>
 	<package name="default" extends="struts-default">
 	
+		<interceptors>
+			<interceptor name="login" class="com.interceptor.LoginInterceptor"></interceptor>
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="login">
+					<param name="excludeMethods">index,login,signup</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="loginStack"></default-interceptor-ref>
+		
         <default-action-ref name="index" />
 
+		<default-class-ref class="com.service.Index"></default-class-ref>
+		
         <global-results>
-        	<result name="INDEX">index.jsp</result>
-            <result name="ERROR">error.jsp</result>
-			<result name="FAIL">home.jsp</result>
+        	<result name="INDEX">/WEB-INF/index.jsp</result>
+            <result name="ERROR">/WEB-INF/error.jsp</result>
+			<result name="HOME">/WEB-INF/home.jsp</result>
         </global-results>
 
         <global-exception-mappings>
@@ -20,18 +34,25 @@
             <exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/>
         </global-exception-mappings>
         
-        <action name="index" class="com.service.Index"></action>
-        
-        <action name="logIn" class="com.service.Login">
-        	<result>home.jsp</result>
+        <action name="index" class="com.service.Index" method="index">
+        	<result>/WEB-INF/index.jsp</result>
         </action>
         
-        <action name="toSignUp" class="com.service.Index">
-        	<result>signup.jsp</result>
+        <action name="home">
+        	<result>/WEB-INF/home.jsp</result>
         </action>
         
-        <action name="signUp" class="com.service.Signup">
-        	<result>home.jsp</result>
+        <action name="logIn" class="com.service.Login" method="login">
+        	<result>/WEB-INF/home.jsp</result>
+        </action>
+        
+        <action name="toSignUp" class="com.service.Index" method="index">
+        	<result>/WEB-INF/signup.jsp</result>
+        </action>
+        
+        <action name="signUp" class="com.service.Signup" method="signup">
+        	<result>/WEB-INF/home.jsp</result>
+        	<result name="SIGNUP">/WEB-INF/signup.jsp</result>
         </action>
         
         

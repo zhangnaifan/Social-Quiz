@@ -1,6 +1,6 @@
 package com.model;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Vector;
 
 public class User {
@@ -12,7 +12,7 @@ public class User {
 
 	// personal information
 	private String nickName;
-	private Boolean gender; //true for male, false for female
+	private String gender;
 	private Date birthday;
 
 	// account info
@@ -26,10 +26,15 @@ public class User {
 	// account level 4 for tourist
 	private int accountLevel;
 
-	private Vector<Integer> quiz;
+	//functions
+	private Vector<Integer> publishedQuiz;
+	
+	private Vector<Integer> todoQuiz;
 	
 	private Vector<Integer> friends;
 
+	private Vector<Integer> groups;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -70,11 +75,11 @@ public class User {
 		this.nickName = nickName;
 	}
 
-	public Boolean getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(Boolean gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
@@ -110,13 +115,6 @@ public class User {
 		this.accountLevel = accountLevel;
 	}
 
-	public Vector<Integer> getQuiz() {
-		return quiz;
-	}
-
-	public void setQuiz(Vector<Integer> quiz) {
-		this.quiz = quiz;
-	}
 
 	public Vector<Integer> getFriends() {
 		return friends;
@@ -124,6 +122,30 @@ public class User {
 
 	public void setFriends(Vector<Integer> friends) {
 		this.friends = friends;
+	}
+
+	public Vector<Integer> getPublishedQuiz() {
+		return publishedQuiz;
+	}
+
+	public void setPublishedQuiz(Vector<Integer> publishedQuiz) {
+		this.publishedQuiz = publishedQuiz;
+	}
+
+	public Vector<Integer> getTodoQuiz() {
+		return todoQuiz;
+	}
+
+	public void setTodoQuiz(Vector<Integer> todoQuiz) {
+		this.todoQuiz = todoQuiz;
+	}
+
+	public Vector<Integer> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(Vector<Integer> groups) {
+		this.groups = groups;
 	}
 	
 	

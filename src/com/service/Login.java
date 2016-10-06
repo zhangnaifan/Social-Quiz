@@ -2,9 +2,11 @@ package com.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 import com.db.Dao;
 import com.model.User;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class Login extends ActionSupport{
@@ -15,7 +17,7 @@ public class Login extends ActionSupport{
 	
 	private User user;
 	
-	public String execute() throws SQLException, ClassNotFoundException{
+	public String login() throws SQLException, ClassNotFoundException{
 		
 		Dao dao = new Dao();
 		ResultSet rs = dao.executeQuery("SELECT * FROM user WHERE username = '"
@@ -26,6 +28,17 @@ public class Login extends ActionSupport{
 		if (rs.next()){
 			//TODO build user's information from rs
 			//TODO put user's information into session
+			
+			user.setId(rs.getInt("id"));
+			user.setNickName(rs.getString("nickname"));
+			user.setMemberSince(rs.getDate("membersince"));
+			user.setAccountLevel(rs.getInt("accountlevel"));
+			user.setBirthday(rs.getDate("birthday"));
+			user.setEmail(rs.getString("email"));
+			user.setGender(rs.getString("gender"));
+			
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			session.put("user", user);
 			
 			msg = null;
 			return SUCCESS;

@@ -7,6 +7,7 @@
 <body>
 	
 	<h1>Welcome to Home Page Template V0.1</h1>
+	<h2>Nice to see you, ${user.nickName } </h2>
 	
 	<fieldset>
 		<legend>Friends</legend>

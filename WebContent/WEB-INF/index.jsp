@@ -22,7 +22,15 @@
 </head>
 <body>
 
+	<%
+    if(request.getSession().getAttribute("user") != null) {
+        response.sendRedirect("home.action");
+    }
+	%>
+	
 	<h1>Welcome to our test.</h1>
+	
+	<h3><em>${msg } </em></h3>
 	
 	<table>
 		<tr>
@@ -39,7 +47,7 @@
 			</td>
 			<td>
 				<h3>Sign up</h3>
-				<form action="signUp" method="post">
+				<form action="toSignUp" method="post">
 					<input type="submit" value="Sign up"/>
 				</form>
 			</td>
