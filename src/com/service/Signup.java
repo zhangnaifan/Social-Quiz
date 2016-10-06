@@ -19,8 +19,6 @@ public class Signup extends ActionSupport {
 	private User user;
 	
 	public String signup() throws ClassNotFoundException, SQLException{
-		//TODO store user's information into user by dao
-		//TODO put user's information into session
 		
 		user.setAccountLevel(3);
 		user.setMemberSince(new Date(System.currentTimeMillis()));
@@ -42,7 +40,7 @@ public class Signup extends ActionSupport {
 		}else{
 			throw new SQLException();
 		}
-		System.out.println(user.getBirthday());
+		
 		//store into user
 		dao.execute("INSERT INTO user(id,username,password,nickname,membersince,accountlevel,"
 				+ "email,phonenum,gender,birthday ) VALUES("

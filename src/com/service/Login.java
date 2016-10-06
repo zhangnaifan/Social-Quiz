@@ -26,8 +26,7 @@ public class Login extends ActionSupport{
 				+ user.getPassword()
 				+ "';");
 		if (rs.next()){
-			//TODO build user's information from rs
-			//TODO put user's information into session
+			//build user's information from rs
 			
 			user.setId(rs.getInt("id"));
 			user.setNickName(rs.getString("nickname"));
@@ -36,7 +35,8 @@ public class Login extends ActionSupport{
 			user.setBirthday(rs.getDate("birthday"));
 			user.setEmail(rs.getString("email"));
 			user.setGender(rs.getString("gender"));
-			
+
+			//put user's information into session
 			Map<String, Object> session = ActionContext.getContext().getSession();
 			session.put("user", user);
 			
