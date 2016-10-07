@@ -38,7 +38,7 @@
         	<result>/WEB-INF/index.jsp</result>
         </action>
         
-        <action name="home">
+        <action name="home" class="com.service.Index">
         	<result>/WEB-INF/home.jsp</result>
         </action>
         
@@ -55,24 +55,37 @@
         	<result name="SIGNUP">/WEB-INF/signup.jsp</result>
         </action>
         
+        <action name="logOut" class="com.service.Logout">
+        	<result>/WEB-INF/index.jsp</result>
+        </action>
         
         <!--  TODO --> 
         
-        <action name="addFriend" class="com.service.Index">
-        	<result>home.jsp</result>
+        <action name="search" class="com.service.Index">
+        	<result>/WEB-INF/search.jsp</result>
         </action>
         
-        <action name="addGroup" class="com.service.Index">
-        	<result>home.jsp</result>
+        <action name="toCreateGroup" class="com.service.Index">
+        	<result>/WEB-INF/createGroup.jsp</result>
         </action>
         
-        <action name="createGroup" class="com.service.Index">
-        	<result>home.jsp</result>
+        <action name="createGroup" class="com.service.CreateGroup">
+        	<result>/WEB-INF/home.jsp</result>
         </action>
         
-        <action name="createQuiz" class="com.service.Index">
-        	<result>home.jsp</result>
+        <action name="toCreateQuiz" class="com.service.Index">
+        	<result>/WEB-INF/createQuiz.jsp</result>
         </action>
+        
+        <action name="createQuiz" class="com.service.CreateQuiz">
+        	<result>/WEB-INF/home.jsp</result>
+        </action>
+        
+        <!-- FUTURE ACTIONS -->
+        
+        <!-- addFriend, addGroup -->
+        
+        <!-- Messages(Invited quizzes, friends, groups, chatters) -->
         
     </package>
 </struts>
