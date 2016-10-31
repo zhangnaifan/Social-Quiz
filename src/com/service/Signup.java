@@ -43,7 +43,7 @@ public class Signup extends ActionSupport {
 		
 		//store into user
 		dao.execute("INSERT INTO user(id,username,password,nickname,membersince,accountlevel,"
-				+ "email,phonenum,gender,birthday ) VALUES("
+				+ "email,phonenum,gender,birthday,pubQuiz ) VALUES("
 				+ user.getId()
 				+ ", '"
 				+ user.getUsername()
@@ -63,7 +63,7 @@ public class Signup extends ActionSupport {
 				+ user.getGender()
 				+ "', '"
 				+ user.getBirthday()
-				+ "');");
+				+ "','');");
 		
 		//put user's information into session
 		ActionContext actionContext = ActionContext.getContext();   //È¡µ½strutsÈÝÆ÷

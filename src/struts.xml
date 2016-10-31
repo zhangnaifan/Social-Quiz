@@ -28,11 +28,13 @@
 			<result name="HOME">/WEB-INF/home.jsp</result>
         </global-results>
 
+		<!--  
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="ERROR"/>
             <exception-mapping exception="java.sql.SQLException" result="ERROR"/>
             <exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/>
         </global-exception-mappings>
+        -->
         
         <action name="index" class="com.service.Index" method="index">
         	<result>/WEB-INF/index.jsp</result>
@@ -59,8 +61,25 @@
         	<result>/WEB-INF/index.jsp</result>
         </action>
         
-        <!--  TODO --> 
+        <action name="toCreateQuiz" class="com.service.Index">
+        	<result>/WEB-INF/createQuiz.jsp</result>
+        </action>
         
+        <action name="createQuiz" class="com.service.CreateQuiz">
+        	<result>/WEB-INF/home.jsp</result>
+        </action>
+        
+        <action name="myQuiz" class="com.service.Index">
+        	<result>/WEB-INF/myQuiz.jsp</result>
+        </action>
+        
+        <action name="quiz" class="com.service.Index">
+        	<result>/WEB-INF/quiz.jsp</result>
+        </action>
+        
+        <!--  TODO --> 
+
+                
         <action name="search" class="com.service.Index">
         	<result>/WEB-INF/search.jsp</result>
         </action>
@@ -70,14 +89,6 @@
         </action>
         
         <action name="createGroup" class="com.service.CreateGroup">
-        	<result>/WEB-INF/home.jsp</result>
-        </action>
-        
-        <action name="toCreateQuiz" class="com.service.Index">
-        	<result>/WEB-INF/createQuiz.jsp</result>
-        </action>
-        
-        <action name="createQuiz" class="com.service.CreateQuiz">
         	<result>/WEB-INF/home.jsp</result>
         </action>
         
