@@ -23,12 +23,12 @@ Database:
 	Table Info:
 		Field			Type		Null	Key
 		---------------------------------------
-		id				int(11)		NO		PRI
+		id			int(11)		NO		PRI
 		username		varchar(45)	NO		UNI
 		password		varchar(45)	NO	
-		nickname		varchar(45)	NO	
-		membersince		date		NO	
-		accountlevel	int(11)		NO	
+    昵称	nickname		varchar(45)	NO	
+    注册时间	membersince		date		NO	
+    用户等级	accountlevel	int(11)		NO	
 		email			varchar(45)	YES	
 		phonenum		varchar(45)	YES	
 		gender			varchar(45)	YES	

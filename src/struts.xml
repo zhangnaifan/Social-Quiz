@@ -28,11 +28,11 @@
 			<result name="HOME">/WEB-INF/home.jsp</result>
         </global-results>
 
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="ERROR"/>
-            <exception-mapping exception="java.sql.SQLException" result="ERROR"/>
-            <exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/>
-        </global-exception-mappings>
+<!--         <global-exception-mappings> -->
+<!--             <exception-mapping exception="java.lang.Exception" result="ERROR"/> -->
+<!--             <exception-mapping exception="java.sql.SQLException" result="ERROR"/> -->
+<!--             <exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/> -->
+<!--         </global-exception-mappings> -->
         
         <action name="index" class="com.service.Index" method="index">
         	<result>/WEB-INF/index.jsp</result>
@@ -74,13 +74,15 @@
         </action>
         
         <action name="toCreateQuiz" class="com.service.Index">
-        	<result>/WEB-INF/createQuiz.jsp</result>
+        	<result>/WEB-INF/test2.jsp</result>
         </action>
         
         <action name="createQuiz" class="com.service.CreateQuiz">
         	<result>/WEB-INF/home.jsp</result>
         </action>
-        
+        <action name="createQuestion" class="com.service.CreateQuestion">
+        	<result>/WEB-INF/createQuestion.jsp</result>
+        </action>
         <!-- FUTURE ACTIONS -->
         
         <!-- addFriend, addGroup -->
