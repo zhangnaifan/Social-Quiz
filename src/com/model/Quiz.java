@@ -10,6 +10,10 @@ public class Quiz {
 	private int ownerID;
 	private Date createDate;
 	private Vector<Integer> questions;
+	private String title;
+	private String description;
+	
+	public Quiz() {}
 	
 	public Quiz(int id, String type, int ownerID, Date createDate, Vector<Integer> questions) {
 		super();
@@ -58,6 +62,22 @@ public class Quiz {
 
 	public void setQuestions(Vector<Integer> questions) {
 		this.questions = questions;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }

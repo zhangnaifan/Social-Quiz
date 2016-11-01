@@ -1,6 +1,5 @@
 package com.service;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -10,49 +9,43 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class Login extends ActionSupport{
-	
 	private static final long serialVersionUID = -8183503233837289498L;
-
 	private String msg;
-	
-	private User user;
-	
-	public String login() throws SQLException, ClassNotFoundException{
-		
+	private String password;
+	private String username;
+	public String login() throws SQLException, ClassNotFoundException{	
 		Dao dao = new Dao();
-		ResultSet rs = dao.executeQuery("SELECT * FROM user WHERE username = '"
-				+ user.getUsername() 
-				+ "' and password = '"
-				+ user.getPassword()
-				+ "';");
-		if (rs.next()){
-			//build user's information from rs
-			
-			user.setId(rs.getInt("id"));
-			user.setNickName(rs.getString("nickname"));
-			user.setMemberSince(rs.getDate("membersince"));
-			user.setAccountLevel(rs.getInt("accountlevel"));
-			user.setBirthday(rs.getDate("birthday"));
-			user.setEmail(rs.getString("email"));
-			user.setGender(rs.getString("gender"));
-
-			//put user's information into session
-			Map<String, Object> session = ActionContext.getContext().getSession();
-			session.put("user", user);
-			
-			msg = null;
-			return SUCCESS;
-		}
-		setMsg("Please comfirm your username or password.");
-		return "INDEX";
+		User user = dao.getUser(username);
+		if (user == null) {
+			setMsg("User Not Found.");
+			return "INDEX";
+		} else if (!user.getPassword().equals(password)) {
+			setMsg("Wrong Password.");
+			return "INDEX";
+		} 
+		
+		//put user's information into session
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		session.put("user", user);
+		
+		msg = null;
+		return SUCCESS;
+	}
+	
+	public String getPassword() {
+		return password;
 	}
 
-	public User getUser() {
-		return user;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getMsg() {
