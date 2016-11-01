@@ -32,11 +32,11 @@
 		
 		body{
 			font-family: 'Roboto', sans-serif;
-			background:url("image/1.jpg");
+			background:url("image/1.jpg") no-repeat;
 			margin-top:100px;
-			height:100%
-			width:100%
-			background-size:cover 
+			height:100%;
+			width:100%;
+			background-size:cover; 
 		    font-size: 16px;
 		    font-weight: 300;
 		   
