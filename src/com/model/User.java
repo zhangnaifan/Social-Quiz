@@ -27,13 +27,17 @@ public class User {
 	private int accountLevel;
 
 	//functions
-	private Vector<Integer> publishedQuiz;
+	private Vector<Integer> publishedQuiz = new Vector<Integer>();
 	
-	private Vector<Integer> todoQuiz;
+	private Vector<Integer> todoQuiz = new Vector<Integer>();
 	
-	private Vector<Integer> friends;
+	private Vector<Integer> friends = new Vector<Integer>();
 
-	private Vector<Integer> groups;
+	private Vector<Integer> groups = new Vector<Integer>();
+	
+	public void addQuiz(int id) {
+		publishedQuiz.add(id);
+	}
 	
 	public String getEmail() {
 		return email;

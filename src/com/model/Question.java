@@ -2,12 +2,15 @@ package com.model;
 
 public class Question {
 	private int id;
-	private int type;
+	private char type;
+	private String tag;
 	private int ownerID;
 	private String content;
 	private String answer;
 	
-	public Question(int id, int type, int ownerID, String content, String answer) {
+	public Question() {}
+	
+	public Question(int id, char type, int ownerID, String content, String answer) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -22,10 +25,10 @@ public class Question {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getType() {
+	public char getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(char type) {
 		this.type = type;
 	}
 	public int getOwnerID() {
@@ -45,5 +48,13 @@ public class Question {
 	}
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 }	

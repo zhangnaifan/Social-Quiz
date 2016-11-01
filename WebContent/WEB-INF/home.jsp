@@ -13,6 +13,22 @@
 		<input type="submit" value="Log out"/>
 	</form>
 	
+	<fieldset>
+		<legend>Create A New Quiz!</legend>
+		<form action="toCreateQuiz" method="post">
+			<input type="submit" value="Create A NEW Quiz!"/>
+		</form>
+	</fieldset>
+	
+	<!-- DOING -->
+	<fieldset>
+		<legend>Published Quizzes</legend>
+		<form action="myQuiz" method="post">
+			<input type="submit" value="See published Quiz" />
+		</form>	
+	</fieldset>
+	
+	<!-- TODO -->
 	<form action="search" method="post">
 		<input type="submit" value="Search Anything!"/>
 	</form>
@@ -54,25 +70,6 @@
 		
 		<form action="toCreateGroup" method="post">
 			<input type="submit" value="Create a New Group"/>
-		</form>
-	</fieldset>
-	
-	<fieldset>
-		<legend>Published Quizzes</legend>
-		
-		<h3><em>TODO SHOW PUBLISHED QUIZZES</em></h3>
-		<ol>
-			<li><a href="#">Quiz A</a></li>
-			<li><a href="#">Quiz B</a></li>
-			<li><a href="#">Quiz C</a></li>
-		</ol>
-		
-	</fieldset>
-	
-	<fieldset>
-		<legend>Create A New Quiz!</legend>
-		<form action="toCreateQuiz" method="post">
-			<input type="submit" value="Create A NEW Quiz!"/>
 		</form>
 	</fieldset>
 	

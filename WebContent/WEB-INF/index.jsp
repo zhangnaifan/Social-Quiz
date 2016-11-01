@@ -30,16 +30,14 @@
 	
 	<h1>Welcome to our test.</h1>
 	
-	<h3><em>${msg } </em></h3>
-	
 	<table>
 		<tr>
 			<td>
 				<h3>Log in</h3>
 				
 				<form action="logIn" method="post">
-					<input type="text" placeholder="User Name" name="user.username"/>
-					<input type="password" placeholder="Password" name="user.password"/>
+					<input type="text" placeholder="User Name" name="username"/>
+					<input type="password" placeholder="Password" name="password"/>
 					<input type="submit" value="Log in"/>
 				</form>
 				
