@@ -4,13 +4,13 @@ Done: create quiz, view published quizzes.
 NOTICE: data structure and DB both changed.    
 TODO: Do quizzes; Friends; Groups.    
 
-# Project Status
+# Project Status  
 created by augus at 2016.10.7	
 updated by poore at 2016.10.31	
 update log:
 > add group (database for group)  
 
-Done: 
+Done:  
 	1.Dao(to interact with database)  
 		(REMEMBER to modify the username, password if under local db test)  
 	2.Login/ SignUp/ LogOut  
@@ -21,7 +21,7 @@ TODO action class:
 	2.CreateQuiz.java (to build a new quiz, which also includes building a new question)  
 	3.CreateGroup.java (to build a new group)  
 	
-TODO .jsp pages:
+TODO .jsp pages:  
 	1.search.jsp  
 	2.createQuiz.jsp  
 	3.createGroup.jsp  
@@ -51,18 +51,26 @@ Database:
 	to get the user's information (if logged in). 
 
 
-	Table Name: group
+	Table Name: group_db
 	Table Info:
-		Field			Type			Null	Key
-		-------------------------------------------
-		groupid			int(11)			NO		PRI	 
+		Field			Type			Null	Key		Extra
+		-----------------------------------------------------
+		groupid			int(11)			NO		PRI	 	auto_inc
 		groupname		varchar(45)		NO		UNI  
 		manager			varchar(100) 	NO  
 		createdate		date			NO	 
 		info 			varchar(1024)	YES  
-		totmembers		int(11) 		NO
+		members			varchar(1100) 	NO
 	
 > 	(* info include group discription and basic infomations)
+
+  Table Name: message
+	Table Info:
+		Field			Type			Null	Key
+		-------------------------------------------
+		msg				varchar(100)	NO		PRI	 			
+
+>   (* msg = type + " " + from + " " + to)
 
 
 ******************************************************
