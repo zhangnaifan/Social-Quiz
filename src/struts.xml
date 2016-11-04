@@ -102,7 +102,12 @@
 			<result name="success">/WEB-INF/createGroupResult.jsp</result>
 			<result name="fail">/WEB-INF/error.jsp</result>
 		</action>
-
+		
+		<action name="registerGroup" class="com.service.registerGroup">
+			<result name="success">/WEB-INF/registerGroupResult.jsp</result>
+			<result name="fail">/WEB-INF/error.jsp</result>
+		</action>
+		
 		<!-- Messages(Invited quizzes, friends, groups, chatters) -->
 
 	</package>

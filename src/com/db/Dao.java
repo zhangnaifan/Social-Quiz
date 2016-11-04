@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 
+import com.model.Message;
 import com.model.Question;
 import com.model.Quiz;
 import com.model.User;
@@ -206,5 +208,33 @@ public class Dao {
 		System.out.println("233");
 		rs.next();
 		return rs.getInt("last_insert_id()");
+	}
+
+	public group getGrpById(Integer groupId) throws SQLException {
+		
+		ResultSet rs = this.executeQuery(String.format("select * from group_db where groupid=%d", groupId));
+		if (rs.next()) {
+			group grp = new group();
+			grp.setGroupId(new Integer(groupId));
+			grp.setGroupName(rs.getString("groupname"));
+			grp.setManagerIds(toList(rs.getString("managerid")));
+			grp.setMemberIds(toList(rs.getString("member")));
+			grp.setCreateDate(rs.getDate("createdate"));
+			grp.setInfo(rs.getString("info"));
+			grp.setTotMembers(grp.getMemberIds().size());
+			return grp;
+		}
+		return null;
+	}
+	private ArrayList<Integer> toList(String string) {
+		// TODO Auto-generated method stub
+		String[] str = string.split(" ");
+		ArrayList<Integer> ret = new ArrayList<Integer>();
+		for (int i = 0; i < str.length; i++)
+			ret.add(Integer.valueOf(str[i]));
+		return ret;
+	}
+	public void addRegisterGroupMsg(int id, long groupId) throws SQLException {
+		this.execute("insert into message "+Message.formRegisterGroup(id, groupId));
 	}
 }

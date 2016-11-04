@@ -66,11 +66,19 @@ Database:
 
   Table Name: message
 	Table Info:
-		Field			Type			Null	Key
-		-------------------------------------------
-		msg				varchar(100)	NO		PRI	 			
+		Field	Type			Null	Key
+		------------------------------------------
+		id		int(11)			NO		PRI	 		
+		fromid	int(11)			NO	
+		toid 	int(11)			NO	
+		msg		varchar(1024) 	NO
 
->   (* msg = type + " " + from + " " + to)
+		
+		Type	
+		---------------------  
+		1		groupRegister  
+
+	
 
 
 ******************************************************

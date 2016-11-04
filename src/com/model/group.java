@@ -116,4 +116,11 @@ public class group {
 		this.totMembers = totMembers;
 	}
 
+	public boolean hasUser(int id) {
+		for (int i = 0; i < memberIds.size(); i++)
+			if (memberIds.get(i) == id)
+				return true;
+		return false;
+	}
+
 }

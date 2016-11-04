@@ -42,18 +42,9 @@ public class GroupInfo implements Action {
 			return "fail";
 		}
 		Dao dao = new Dao();
-		ResultSet rs = dao.executeQuery("select * from group_db where groupid="
-				+ String.valueOf(groupId));
-		grp = new group();
-		{
-			rs.next();
-			grp.setGroupId(new Integer(groupId));
-			grp.setGroupName(rs.getString("groupname"));
-			grp.setManagerIds(toList(rs.getString("managerid")));
-			grp.setMemberIds(toList(rs.getString("member")));
-			grp.setCreateDate(rs.getDate("createdate"));
-			grp.setInfo(rs.getString("info"));
-			grp.setTotMembers(grp.getMemberIds().size());
+		grp = dao.getGrpById(groupId);
+		if (grp == null) {
+			return "fail";
 		}
 		members = new ArrayList<User>();
 		for (int i = 0; i < grp.getMemberIds().size(); i++) {

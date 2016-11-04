@@ -46,7 +46,7 @@ body {
 			</tr>
 
 		</table>
-		<a href="registGroup?groupId=${grp.groupId }">register</a>
+		<a href="registerGroup?groupId=${grp.groupId }">register</a>
 	</div>
 	<s:iterator value="members" var="li">
 		<div class="memberblock" onmouseover="this.style.cursor='pointer'"
@@ -54,9 +54,7 @@ body {
 			<s:property value="#li.nickName"></s:property>
 			<s:property value="#li.email"></s:property>
 		</div>
-
 	</s:iterator>
-
 
 </body>
 </html>
