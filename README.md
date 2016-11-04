@@ -51,11 +51,11 @@ Database:
 	to get the user's information (if logged in). 
 
 
-	Table Name: group_db
-	Table Info:
-		Field			Type			Null	Key		Extra
+	Table Name: group_db  
+	Table Info:  
+		Field			Type			Null	Key		Extra  
 		-----------------------------------------------------
-		groupid			int(11)			NO		PRI	 	auto_inc
+		groupid			int(11)			NO		PRI	 	auto_inc  
 		groupname		varchar(45)		NO		UNI  
 		manager			varchar(100) 	NO  
 		createdate		date			NO	 
@@ -64,14 +64,14 @@ Database:
 	
 > 	(* info include group discription and basic infomations)
 
-  Table Name: message
-	Table Info:
-		Field	Type			Null	Key
+  Table Name: message  
+	Table Info:  
+		Field		Type			Null	Key
 		------------------------------------------
-		id		int(11)			NO		PRI	 		
-		fromid	int(11)			NO	
-		toid 	int(11)			NO	
-		msg		varchar(1024) 	NO
+		id			int(11)			NO		PRI	 		
+		fromid		int(11)			NO	
+		toid 		int(11)			NO	
+		msg			varchar(1024) 	NO  
 
 		
 		Type	
