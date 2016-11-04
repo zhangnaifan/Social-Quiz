@@ -64,15 +64,17 @@ Database:
 	
 > 	(* info include group discription and basic infomations)
 
-  Table Name: message  
+
+	Table Name: message  
 	Table Info:  
-		Field		Type			Null	Key  
-		------------------------------------------
-		id			int(11)			NO		PRI	 		
-		fromid		int(11)			NO	
-		toid 		int(11)			NO	
-		msg			varchar(1024) 	NO  
-  
+		Field			Type			Null	Key		Extra  
+		-----------------------------------------------------
+		id				int(11)			NO		PRI	 	auto_inc  
+		fromid			varchar(45)		NO		UNI  
+		toid			varchar(100) 	NO  
+		msg				date			NO	 
+		
+
 		
 		Type	
 		---------------------  
