@@ -66,13 +66,13 @@ Database:
 
   Table Name: message  
 	Table Info:  
-		Field		Type			Null	Key
+		Field		Type			Null	Key  
 		------------------------------------------
 		id			int(11)			NO		PRI	 		
 		fromid		int(11)			NO	
 		toid 		int(11)			NO	
 		msg			varchar(1024) 	NO  
-
+  
 		
 		Type	
 		---------------------  
