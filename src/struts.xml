@@ -78,6 +78,10 @@
         </action>
         
         <!--  TODO --> 
+        
+        <action name="doQuiz" class="com.service.DoQuiz">
+        	<result>/WEB-INF/rank.jsp</result>
+        </action>
 
                 
         <action name="search" class="com.service.Index">
