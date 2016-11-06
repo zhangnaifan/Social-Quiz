@@ -10,7 +10,7 @@
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!--jQuery-->
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<title>Sign Up For Staples</title>
+	<title>DZY主页</title>
 	<style type="text/css">
 		body
 		{
