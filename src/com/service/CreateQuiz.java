@@ -4,12 +4,14 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Vector;
 
+
 import com.db.Dao;
 import com.model.Question;
 import com.model.Quiz;
 import com.model.User;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
 
 public class CreateQuiz extends ActionSupport {
 	
@@ -68,6 +70,9 @@ public class CreateQuiz extends ActionSupport {
 			dao.addQuestion(q);
 		}
 		dao.addUserPubQuiz(user, quiz.getId());
+
+		//pass quizId
+		ActionContext.getContext().getSession().put("quizId", quiz.getId());
 		return SUCCESS;
 	}
 

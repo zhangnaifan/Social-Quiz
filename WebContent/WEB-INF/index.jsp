@@ -24,7 +24,7 @@
 
 	<%
     if(request.getSession().getAttribute("user") != null) {
-        response.sendRedirect("home.action");
+        response.sendRedirect("home");
     }
 	%>
 	

@@ -28,6 +28,7 @@ public class DoQuiz extends ActionSupport {
 		//update user
 		user.addQuizDone(quizId);
 		ActionContext.getContext().getSession().replace("user", user);
+		ActionContext.getContext().getSession().put("quizId", quizId);
 		return SUCCESS;
 	}
 

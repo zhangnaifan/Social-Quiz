@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Comparator;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -155,7 +156,12 @@ public class Dao
 		  quiz.setQuestions(questions);
 		  String records = rs.getString("records");
 		  
-		  TreeMap<Integer, Integer> rank = new TreeMap<Integer, Integer>();
+		  TreeMap<Integer, Integer> rank = new TreeMap<Integer, Integer>(new Comparator<Integer>(){
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				return o2-o1;
+			}
+		  });
 		  String[] I = records.split("&", -1);
 		  for (int i=1; i<I.length; ++i) {
 			  String[] II = I[i].split("\\|", -1);

@@ -19,7 +19,12 @@
 	//get current viewer's information
 	User user = (User)session.getAttribute("user");
 	//get quiz
-	Quiz quiz = dao.getQuiz(Integer.parseInt(request.getParameter("id")));
+	Quiz quiz;
+	if (request.getParameter("id")!=null){
+		quiz = dao.getQuiz(Integer.parseInt(request.getParameter("id")));
+	} else {
+		quiz = dao.getQuiz((Integer)session.getAttribute("quizId"));
+	}
 	//get quiz's creator's information
 	User owner = dao.getUser(quiz.getOwnerID());
 	//get quiz's questions
@@ -172,12 +177,14 @@
 		<%no=1;
 		if (user.getId() == owner.getId()) {//creator' perspective %>
 			$('.done,.not-done').css('display','none');
-			$('#quiz').prepend('<a class="btn-danger form-control" style="margin-bottom:3%" href="rank.action">See Rank</a>');
+			$('#basis').append('<a style="margin-bottom:3%;margin-top:3%" class="btn-danger form-control" href="rank?id='+ '<%=quiz.getId()%>' +'">See Rank</a>');
+			$('#quizID').val('<%=quiz.getId()%>');
 		<%} else if (!quiz.getRank().containsValue(user.getId())) {//quiz doer's perspective %>
 			$('.owner,.done').css('display','none');
-			$('#quiz').append('<input style="margin-bottom:3%" type="submit" style="margin-bottom:3%" class="form-control btn-success" value="Submit">');
+			$('#quiz').append('<input style="margin-bottom:3%" type="submit" style="margin:3%" class="form-control btn-success" value="Submit">');
 		<%} else {//quiz doner's perspective %>
-			$('#quiz').prepend('<a class="btn-danger form-control" style="margin-bottom:3%" href="rank.action">See Rank</a>');
+			$('#basis').append('<a style="margin-bottom:3%;margin-top:3%" class="btn-danger form-control" href="rank?id='+ '<%=quiz.getId()%>' +'">See Rank</a>');
+			$('#quizID').val('<%=quiz.getId()%>');
 			$('.owner,.not-done').css('display','none');
 		<% 	
 			Vector<Pair<String, Integer>> rec = quiz.getRecord(user.getId()); 

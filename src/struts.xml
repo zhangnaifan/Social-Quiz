@@ -66,7 +66,7 @@
         </action>
         
         <action name="createQuiz" class="com.service.CreateQuiz">
-        	<result>/WEB-INF/home.jsp</result>
+        	<result>/WEB-INF/quiz.jsp</result>
         </action>
         
         <action name="myQuiz" class="com.service.Index">
@@ -77,11 +77,15 @@
         	<result>/WEB-INF/quiz.jsp</result>
         </action>
         
-        <!--  TODO --> 
-        
         <action name="doQuiz" class="com.service.DoQuiz">
+        	<result>/WEB-INF/quiz.jsp</result>
+        </action>
+        
+        <action name="rank" class="com.service.Index">
         	<result>/WEB-INF/rank.jsp</result>
         </action>
+        <!--  TODO --> 
+        
 
                 
         <action name="search" class="com.service.Index">
