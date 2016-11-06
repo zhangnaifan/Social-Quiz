@@ -24,7 +24,7 @@ public class Dao
   { 
     String driver = "com.mysql.jdbc.Driver";
     String username = "root";
-    String password = "113095";
+    String password = "199587";
     String dbUrl = String.format("jdbc:mysql://%s:%s/%s", new Object[] {
       "localhost", "3306", "staples" });    
     
@@ -156,18 +156,17 @@ public class Dao
 		  quiz.setQuestions(questions);
 		  String records = rs.getString("records");
 		  
-		  TreeMap<Integer, Integer> rank = new TreeMap<Integer, Integer>(new Comparator<Integer>(){
-			@Override
-			public int compare(Integer o1, Integer o2) {
-				return o2-o1;
-			}
-		  });
-		  String[] I = records.split("&", -1);
-		  for (int i=1; i<I.length; ++i) {
-			  String[] II = I[i].split("\\|", -1);
-			  rank.put(Integer.parseInt(II[1]), Integer.parseInt(II[2]));
+		  TreeMap<Integer, Integer> rank = new TreeMap<Integer, Integer>();
+		  if (records!=null){
+			  String[] I = records.split("&", -1);
+			  for (int i=1; i<I.length; ++i) {
+				  String[] II = I[i].split("\\|", -1);
+				  rank.put(Integer.parseInt(II[1]), Integer.parseInt(II[2]));
+			  }
+			  quiz.setRank(rank);
+		  } else {
+			  quiz.setRank(new TreeMap<Integer,Integer>());
 		  }
-		  quiz.setRank(rank);
 	  }
 	  return quiz;
   }

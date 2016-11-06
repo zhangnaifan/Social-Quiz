@@ -28,7 +28,6 @@
 			<result name="HOME">/WEB-INF/home.jsp</result>
         </global-results>
 
-
 		<!--  
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="ERROR"/>
@@ -36,7 +35,6 @@
             <exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/>
         </global-exception-mappings>
         -->
-
         
         <action name="index" class="com.service.Index" method="index">
         	<result>/WEB-INF/index.jsp</result>
@@ -91,11 +89,11 @@
 
                 
         <action name="search" class="com.service.Index">
-        	<result>/WEB-INF/createQuestion.jsp</result>
+        	<result>/WEB-INF/PersonalHomepage.jsp</result>
         </action>
         
         <action name="toCreateGroup" class="com.service.Index">
-        	<result>/WEB-INF/PersonalHomepage.jsp</result>
+        	<result>/WEB-INF/createGroup.jsp</result>
         </action>
         
         <action name="createGroup" class="com.service.CreateGroup">

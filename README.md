@@ -1,9 +1,3 @@
-Author: augus    
-Update 2016/10/31    
-Done: create quiz, view published quizzes.    
-NOTICE: data structure and DB both changed.    
-TODO: Do quizzes; Friends; Groups.    
-
 # Project Status
 by augus at 2016.10.7
 

@@ -2,8 +2,8 @@ package com.service;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.TreeMap;
 import java.util.Vector;
-
 
 import com.db.Dao;
 import com.model.Question;
@@ -57,6 +57,7 @@ public class CreateQuiz extends ActionSupport {
 			questions.add(ques);
 		}
 		quiz.setQuestions(questionID);
+		quiz.setRank(new TreeMap<Integer,Integer>());
 		
 		//update user's published quizzes
 		user.addQuiz(quiz.getId());

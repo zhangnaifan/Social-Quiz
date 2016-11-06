@@ -240,6 +240,7 @@
 		$('.user-score').addClass('panel-title').css('color','red');
 		$('.glyphicon-star').css('color','orange');
 	});
+
 	function setSelVal(thisSel) {
 		if ($(thisSel).is(':checked')) {
 			$(thisSel).next().val('T');
