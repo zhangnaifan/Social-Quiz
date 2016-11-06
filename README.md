@@ -31,18 +31,18 @@ Database:
 	Name: staples  
 	Table Name: user  
 	Table Info:  
-		Field			Type		Null	Key  
-		---------------------------------------  
-		id				int(11)		NO		PRI
-		username		varchar(45)	NO		UNI
-		password		varchar(45)	NO	
-		nickname		varchar(45)	NO	
-		membersince		date		NO	
-		accountlevel	int(11)		NO	
-		email			varchar(45)	YES	 
-		phonenum		varchar(45)	YES	 
-		gender			varchar(45)	YES	 
-		birthday		date		YES	 
+		Field			Type			Null	Key  
+		-------------------------------------------  
+		id				int(11)			NO		PRI
+		username		varchar(45)		NO		UNI
+		password		varchar(45)		NO	
+		nickname		varchar(45)		NO	
+		membersince		date			NO	
+		accountlevel	int(11)			NO	
+		email			varchar(45)		YES	 
+		phonenum		varchar(45)		YES	 
+		gender			varchar(45)		YES	 
+		birthday		date			YES	 
 		
 >	(* friends, groups, quizzes are not considered yet)  
 	
@@ -70,9 +70,9 @@ Database:
 		Field			Type			Null	Key		Extra  
 		-----------------------------------------------------
 		id				int(11)			NO		PRI	 	auto_inc  
-		fromid			varchar(45)		NO		UNI  
-		toid			varchar(100) 	NO  
-		msg				date			NO	 
+		fromid			int(45)			NO		UNI  
+		toid			int(100) 		NO  
+		msg				varchar(1020)	NO	 
 		
 
 		

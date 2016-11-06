@@ -56,10 +56,11 @@ public class registerGroup implements Action {
 			System.out.println("group already has user");
 			return "fail";
 		} else {
-			dao.addRegisterGroupMsg(user.getId(), grp.getGroupId());
+			for (int i = 0; i < grp.getManagerIds().size(); i++) {
+				dao.addRegisterGroupMsg(user.getId(), grp.getManagerIds().get(i), (int)grp.getGroupId());
+			}
 		}
 		dao.close();
 		return "success";
 	}
-
 }

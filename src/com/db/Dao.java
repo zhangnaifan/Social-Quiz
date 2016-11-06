@@ -234,7 +234,45 @@ public class Dao {
 			ret.add(Integer.valueOf(str[i]));
 		return ret;
 	}
-	public void addRegisterGroupMsg(int id, long groupId) throws SQLException {
-		this.execute("insert into message "+Message.formRegisterGroup(id, groupId));
+	public void addRegisterGroupMsg(int id, int toId, int groupId) throws SQLException {
+		this.execute("insert into message "+Message.formRegisterGroup(id, toId, groupId));
 	}
+
+	public ArrayList<Message> getMessages(int id) throws SQLException {
+		ResultSet rs = this.executeQuery("select * from message where toid="+String.valueOf(id));
+		ArrayList<Message> ret = new ArrayList<Message>(); 
+		while(rs.next()) {
+			ret.add(new Message(rs.getLong("id"), rs.getInt("type"), rs.getLong("fromid"), rs.getLong("toid"), rs.getString("msg")));
+		}
+		for (int i = 0; i < ret.size(); i++)
+			ret.get(i).setFromUser(this.getUser((int)ret.get(i).getFromid()));
+		return ret;
+	}
+
+	public void deleteMsg(int msgId) throws SQLException {
+		this.execute("delete from message where id="+String.valueOf(msgId));
+	}
+
+	public Message getMessageById(int msgId) throws SQLException {
+		ResultSet rs = this.executeQuery("select * from message where id="+String.valueOf(msgId));
+		if (rs.next()) {
+			return new Message(rs.getLong("id"), rs.getInt("type"), rs.getLong("fromid"), rs.getLong("toid"), rs.getString("msg"));
+		}
+		return null;
+	}
+	
+	public void processMsg(int msgId) throws SQLException {
+		Message msg = getMessageById(msgId);
+		int groupId = group.getGroupId(msg.getMsg());
+		group grp = this.getGrpById(groupId);
+		
+		System.out.println("user: "+msg.getFromid()+"  group: "+grp.getGroupId());
+		
+		if (!grp.hasUser((int)msg.getFromid())) {
+			grp.getMemberIds().add((int)msg.getFromid());
+			grp.updateStr();
+			this.executeUpdate(String.format("update group_db set member='%s' where groupid=%d",grp.getGroupMember(),grp.getGroupId()));
+		}
+	}
+
 }

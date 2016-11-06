@@ -107,8 +107,16 @@
 			<result name="success">/WEB-INF/registerGroupResult.jsp</result>
 			<result name="fail">/WEB-INF/error.jsp</result>
 		</action>
-		
 		<!-- Messages(Invited quizzes, friends, groups, chatters) -->
-
+		
+		
+		<action name="viewMessage" class="com.service.ViewMessage">
+			<result name="success">/WEB-INF/viewMessage.jsp</result>
+			<result name="fail">/WEB-INF/error.jsp</result>
+		</action>
+		<action name="processRegisterGroup" class="com.service.ProcessRegisterGroup">
+			<result>/WEB-INF/toViewMessage.jsp</result>
+		</action>
+		
 	</package>
 </struts>

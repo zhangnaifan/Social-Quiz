@@ -123,4 +123,15 @@ public class group {
 		return false;
 	}
 
+	public static int getGroupId(String msg) {
+		return Integer.valueOf(msg.split("###")[0]);
+	}
+	
+	public void updateStr() {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < this.getMemberIds().size(); i++){
+			sb.append(String.valueOf(this.getMemberIds().get(i))+" ");
+		}
+		this.setGroupMember(sb.toString());
+	}
 }
