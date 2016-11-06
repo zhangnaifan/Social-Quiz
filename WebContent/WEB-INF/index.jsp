@@ -39,7 +39,6 @@
 			background-size:cover; 
 		    font-size: 16px;
 		    font-weight: 300;
-		   
 		    line-height: 30px;
 		    text-align: center;
 		}
@@ -148,10 +147,10 @@
 					<div class="form-bottom">
 						<form action="logIn" method="post" class="login-form" role="form" style="width:100%;">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="User Name" name="user.username">
+								<input type="text" class="form-control" placeholder="User Name" name="username">
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control" placeholder="Password" name="user.password">
+								<input type="password" class="form-control" placeholder="Password" name="password">
 							</div>
 							<button class="btn btn-lg btn-success btn-block" type="submit">Log in</button>
 						</form>

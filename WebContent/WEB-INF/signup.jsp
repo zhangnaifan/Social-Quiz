@@ -51,7 +51,7 @@
 					
 					<div class="form-group">
 						<p>User Name</p>
-						<input type="text" class="form-control" placeholder="Used for logging in" name="user.username">
+						<input type="text" class="form-control" placeholder="Used for logging in" name="username">
 					</div>
 					<div class="form-group">
 						<p>Nick Name</p>
@@ -59,7 +59,7 @@
 					</div>
 					<div class="form-group">
 						<p>Password</p>
-						<input type="text" class="form-control" placeholder="Password" name="user.password">
+						<input type="password" class="form-control" placeholder="Password" name="password">
 					</div>
 					<div class="form-group">
 						<p>Gender</p>
@@ -69,7 +69,7 @@
 					</div>
 					<div class="form-group">
 						<p>Birthday</p>
-						<input type="date" class="form-control" name="user.user.birthday" value="1990/06/01" pattern="^\d{4}-\d{1,2}-\d{1,2}">
+						<input type="date" class="form-control" name="user.birthday" value="1990/06/01" pattern="^\d{4}-\d{1,2}-\d{1,2}">
 					</div>
 					<div class="form-group">
 						<p>E-mail</p>

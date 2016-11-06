@@ -83,11 +83,11 @@
 
                 
         <action name="search" class="com.service.Index">
-        	<result>/WEB-INF/search.jsp</result>
+        	<result>/WEB-INF/createQuestion.jsp</result>
         </action>
         
         <action name="toCreateGroup" class="com.service.Index">
-        	<result>/WEB-INF/createGroup.jsp</result>
+        	<result>/WEB-INF/PersonalHomepage.jsp</result>
         </action>
         
         <action name="createGroup" class="com.service.CreateGroup">
