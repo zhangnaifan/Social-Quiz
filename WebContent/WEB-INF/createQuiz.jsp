@@ -120,7 +120,10 @@
 				    <div class="panel-body">\
 				        <div class="input-group">\
 							<input type="text" class="content form-control">\
-							<span class="input-group-addon"><input type="checkbox" class="TF"></span>\
+							<span class="input-group-addon">\
+								<input type="checkbox" onclick="setVal(this)">\
+								<input type="text" style="display:none" value="F" class="answer">\
+							</span>\
 							<span class="input-group-addon">\
 		                        <select class="score">\
 		                        	<option value="0">0</option>\
@@ -175,6 +178,14 @@
 			thisOpt.remove();
 		}
 
+		function setVal(thisItem) {
+			if ($(thisItem).is(':checked')) {
+				$(thisItem).next().val('T');
+			} else {
+				$(thisItem).next().val('F');
+			}
+		}
+		
 		function quizToString() {
 			/*
 				'&' --> '|' --> '$' --> '~'
@@ -218,7 +229,7 @@
 							+ no++ + II
 							+ $(this).find('.tag').val() + II
 							+ $(this).find('.content').val() + II
-							+ $(this).find('.TF').val() + IV
+							+ $(this).find('.answer').val() + IV
 							+ $(this).find('.score').val();
 				}
 			});

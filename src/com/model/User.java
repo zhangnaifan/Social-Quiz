@@ -29,6 +29,8 @@ public class User {
 	//functions
 	private Vector<Integer> publishedQuiz = new Vector<Integer>();
 	
+	private Vector<Integer> quizDone = new Vector<Integer>();
+	
 	private Vector<Integer> todoQuiz = new Vector<Integer>();
 	
 	private Vector<Integer> friends = new Vector<Integer>();
@@ -37,6 +39,10 @@ public class User {
 	
 	public void addQuiz(int id) {
 		publishedQuiz.add(id);
+	}
+	
+	public void addQuizDone(int quizId) {
+		quizDone.add(quizId);
 	}
 	
 	public String getEmail() {
