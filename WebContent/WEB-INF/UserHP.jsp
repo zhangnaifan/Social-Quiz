@@ -37,6 +37,8 @@
 			font-size:14px;
 			margin-top: 50px;
 		}
+		
+		
 		.dropbtn {
 		    background-color: black;
 		    color: white;
@@ -90,7 +92,7 @@
 		#main .container{
 		    width:1300px;
 		    float:left;
-		    padding-left: 50px;
+		    padding-left: 15%;
 		}
 		#main .container dl{
 		    width:300px;
@@ -195,7 +197,7 @@
 	  				<span class="icon-bar"></span>
 	  				<span class="icon-bar"></span>
 	  			</button>
-	      		<a class="navbar-brand" href="#">Questionnaire</a>
+	      		<a class="navbar-brand" href="#" style="font-size: 20px;">Questionnaire</a>
 	      		<form class="navbar-form navbar-right" role="search">
 				<div class="form-group">
 					<input type="text" class="grom-control" placeholder="Search">
@@ -205,7 +207,7 @@
 	    	</div>
 	    	<div class="collapse navbar-collapse">
 	    		<div class="dropdown">
-	    			<button class="dropbtn">我的问卷</button>
+	    			<button class="dropbtn">ta的问卷</button>
 	    			<div class="dropdown-content">
 	    				<a href="#">已创建的问卷</a>
 						<a href="#">待回答的问卷</a>
@@ -220,14 +222,7 @@
 	    			</div>
 	    		</div>
 	    		<div class="dropdown">
-	    			<button class="dropbtn">我的小组</button>
-	    			<div class="dropdown-content">
-	    				<a href="#">小组1</a>
-						<a href="#">小组2</a>
-	    			</div>
-	    		</div>
-	    		<div class="dropdown">
-	    			<button class="dropbtn">我的好友</button>
+	    			<button class="dropbtn">ta的好友</button>
 	    			<div class="dropdown-content">
 	    				<a href="#">好友1</a>
 						<a href="#">好友2</a>
@@ -251,12 +246,12 @@
 			</ul>
 		</div>
 	</nav>
-	<div class="container">
+	<div class="container" style="margin-left: 15%;">
 		<div class="row">
 			<div class="col-6-xs">
 				<div id="introduce">
 					<img src="image/cat.jpg">
-					<a style="font-size: 30px;">${user.nickName }</a>
+					<a style="font-size: 30px;">DZY</a>
 				</div>
 			</div>
 		</div>
@@ -265,25 +260,13 @@
 		<div class="container">
 			<div>
 				<dl class="data">
-					<h5><a href="#">关于我</a></h5>
-					<dd>来自HIT，天道酬勤，按实际还不成熟爆粗口加白醋以撒成绩看不出口技刷卡好烦 </dd>
+					<h5><a href="#">关于ta</a></h5>
+					<dd>共和国可好看计划部，天道酬勤，按实际还不成熟爆粗口加白醋以撒成绩看不出口技刷卡好烦 </dd>
 				</dl>
 				<dl class="quiz" style="width: 500px;">
 					<h5><a href="#">待回答的问卷</a></h5>
 					<dd>
 						<div id="myQuiz" style="cursor:pointer;"></div>
-					</dd>
-				</dl>
-				<dl style="width:200px;">
-					<h5><a href="#">好友列表</a></h5>
-					<dd>
-						<ul class="fff">
-							<li><a href=toUserHP>DZY-HP</a></li>
-							<li><a href="quiz?id=1">DZY</a></li>
-			                <li><a href="quiz?id=2">000</a></li>
-			                <li><a href="quiz?id=3">text</a></li>
-			                <li><a href="quiz?id=4">who</a></li>
-						</ul>
 					</dd>
 				</dl>
 			</div>
