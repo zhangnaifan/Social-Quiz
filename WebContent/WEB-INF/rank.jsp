@@ -7,12 +7,17 @@
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
   	<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
   	<script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  	<%@ page language="java" import="com.db.Dao, com.model.*, com.opensymphony.xwork2.ActionContext,java.util.*" pageEncoding="UTF-8"%>
+  	<%@ page language="java" import="javafx.util.Pair, com.db.Dao, com.model.*, com.opensymphony.xwork2.ActionContext,java.util.*" pageEncoding="UTF-8"%>
 <%-- java --%>
 <%
 	Dao dao = new Dao();
 	Quiz quiz = dao.getQuiz(Integer.parseInt(request.getParameter("id")));
-	TreeMap<Integer,Integer> rank = quiz.getRank();
+	ArrayList<Pair<Integer, Integer>> rank = quiz.getRank();
+	Collections.sort(rank, new Comparator<Pair<Integer, Integer>>(){
+		public int compare(Pair<Integer, Integer>i ,Pair<Integer, Integer>j){
+			return j.getKey()-i.getKey();
+		}
+	});
 	int count=1;
 %>
 
@@ -35,7 +40,7 @@
 						<th>User</th>
 						<th>Score</th>
 					</tr>
-					<%for (Map.Entry<Integer, Integer> entry : rank.entrySet()) { %>
+					<%for (Pair<Integer, Integer> entry : rank) { %>
 						<tr>
 							<td><%=count %></td>
 							<td><%=dao.getUser(entry.getValue()).getNickName() %></td>

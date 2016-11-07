@@ -2,8 +2,8 @@ package com.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.TreeMap;
 import java.util.Vector;
 
 import com.db.Dao;
@@ -24,7 +24,7 @@ public class Quiz {
 	//records
 	
 	//memory items
-	private TreeMap<Integer, Integer> rank;
+	private ArrayList<Pair<Integer, Integer>> rank;
 	
 	public Quiz() {}
 	
@@ -115,12 +115,11 @@ public class Quiz {
 		this.description = description;
 	}
 
-	public TreeMap<Integer, Integer> getRank() {
+	public ArrayList<Pair<Integer, Integer>> getRank() {
 		return rank;
 	}
 
-	public void setRank(TreeMap<Integer, Integer> rank) {
+	public void setRank(ArrayList<Pair<Integer, Integer>> rank) {
 		this.rank = rank;
 	}
-
 }

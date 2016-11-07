@@ -5,13 +5,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Comparator;
-import java.util.TreeMap;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.model.Question;
 import com.model.Quiz;
 import com.model.User;
+
+import javafx.util.Pair;
 
 
 public class Dao
@@ -72,7 +73,7 @@ public class Dao
 	for (int id : quiz.getQuestions()) {
 		questions.append(" " + id);
 	}
-	execute("INSERT INTO quiz(id,type,ownerID,createDate,questions,title,description)VALUES("
+	execute("INSERT INTO quiz(id,type,ownerID,createDate,questions,title,description,records)VALUES("
 			+ quiz.getId()
 			+ ",'" + quiz.getType()
 			+ "'," + quiz.getOwnerID()
@@ -80,7 +81,7 @@ public class Dao
 			+ "','" + questions.substring(0, questions.length()==0?0:questions.length()) 
 			+ "','" + quiz.getTitle()
 			+ "','" + quiz.getDescription()
-			+ "');");
+			+ "','');");
   }
   
   public void addQuestion(Question ques) throws SQLException {
@@ -156,16 +157,11 @@ public class Dao
 		  quiz.setQuestions(questions);
 		  String records = rs.getString("records");
 		  
-		  TreeMap<Integer, Integer> rank = new TreeMap<Integer, Integer>(new Comparator<Integer>(){
-			@Override
-			public int compare(Integer o1, Integer o2) {
-				return o2-o1;
-			}
-		  });
+		  ArrayList<Pair<Integer, Integer>> rank = new ArrayList<Pair<Integer, Integer>>();
 		  String[] I = records.split("&", -1);
 		  for (int i=1; i<I.length; ++i) {
 			  String[] II = I[i].split("\\|", -1);
-			  rank.put(Integer.parseInt(II[1]), Integer.parseInt(II[2]));
+			  rank.add(new Pair<Integer, Integer>(Integer.parseInt(II[1]), Integer.parseInt(II[2])));
 		  }
 		  quiz.setRank(rank);
 	  }
