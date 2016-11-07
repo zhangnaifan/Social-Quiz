@@ -5,11 +5,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.model.Question;
 import com.model.Quiz;
 import com.model.User;
+
+import javafx.util.Pair;
+
 
 public class Dao
 {
@@ -69,7 +73,7 @@ public class Dao
 	for (int id : quiz.getQuestions()) {
 		questions.append(" " + id);
 	}
-	execute("INSERT INTO quiz(id,type,ownerID,createDate,questions,title,description)VALUES("
+	execute("INSERT INTO quiz(id,type,ownerID,createDate,questions,title,description,records)VALUES("
 			+ quiz.getId()
 			+ ",'" + quiz.getType()
 			+ "'," + quiz.getOwnerID()
@@ -77,7 +81,7 @@ public class Dao
 			+ "','" + questions.substring(0, questions.length()==0?0:questions.length()) 
 			+ "','" + quiz.getTitle()
 			+ "','" + quiz.getDescription()
-			+ "');");
+			+ "','');");
   }
   
   public void addQuestion(Question ques) throws SQLException {
@@ -95,13 +99,43 @@ public class Dao
 	  StringBuffer newQuiz = new StringBuffer();
 	  if (rs.next()) {
 		  String exsited = rs.getString(1);
-		  if (exsited != "NULL")
+		  if (exsited != "NULL" && exsited != "null")
 			  newQuiz.append(exsited);
 	  }
 	  newQuiz.append(" " + quizId);
 	  executeUpdate("UPDATE user SET pubQuiz='"
 			  		+ newQuiz.toString() 
 			  		+ "' WHERE id=" + user.getId()
+			  		+ ";");
+  }
+  
+  public void addQuizRecord(int quizId, String rec) throws SQLException {
+	  ResultSet rs = executeQuery("SELECT records from quiz WHERE id=" + quizId + ";");
+	  StringBuffer newRec = new StringBuffer();
+	  if (rs.next()) {
+		  String exsited = rs.getString(1);
+		  if (exsited != "NULL" && exsited != "null")
+			  newRec.append(exsited);
+	  }
+	  newRec.append("&" + rec);
+	  executeUpdate("UPDATE quiz SET records='"
+			  		+ newRec.toString() 
+			  		+ "' WHERE id=" + quizId
+			  		+ ";");
+  }
+  
+  public void addUserQuizDone(int userId, int quizId) throws SQLException {
+	  ResultSet rs = executeQuery("SELECT quizDone from user WHERE id=" + userId + ";");
+	  StringBuffer newRec = new StringBuffer();
+	  if (rs.next()) {
+		  String exsited = rs.getString(1);
+		  if (exsited != "NULL" && exsited != "null")
+			  newRec.append(exsited);
+	  }
+	  newRec.append("&" + quizId);
+	  executeUpdate("UPDATE user SET quizDone='"
+			  		+ newRec.toString() 
+			  		+ "' WHERE id=" + userId
 			  		+ ";");
   }
   
@@ -121,6 +155,15 @@ public class Dao
 			  questions.add(Integer.parseInt(ids[i]));
 		  }
 		  quiz.setQuestions(questions);
+		  String records = rs.getString("records");
+		  
+		  ArrayList<Pair<Integer, Integer>> rank = new ArrayList<Pair<Integer, Integer>>();
+		  String[] I = records.split("&", -1);
+		  for (int i=1; i<I.length; ++i) {
+			  String[] II = I[i].split("\\|", -1);
+			  rank.add(new Pair<Integer, Integer>(Integer.parseInt(II[1]), Integer.parseInt(II[2])));
+		  }
+		  quiz.setRank(rank);
 	  }
 	  return quiz;
   }
@@ -154,12 +197,14 @@ public class Dao
 		  user.setPhoneNum("phonenum");
 		  user.setUsername(rs.getString("username"));
 		  user.setPassword(rs.getString("password"));
-		  Vector<Integer> pubQuiz = new Vector<Integer>();
 		  String[] quizStr = rs.getString("pubQuiz").split(" ",-1);
 		  for (int i=1; i<quizStr.length; ++i) {
-			  pubQuiz.add(Integer.parseInt(quizStr[i]));
+			  user.addQuiz(Integer.parseInt(quizStr[i]));
 		  }
-		  user.setPublishedQuiz(pubQuiz);
+		  String[] quizzesDone = rs.getString("quizDone").split("&", -1);
+		  for (int i=1 ; i<quizzesDone.length; ++i) {
+			  user.addQuizDone(Integer.parseInt(quizzesDone[i]));
+		  }
  	  }
 	  return user;
   }

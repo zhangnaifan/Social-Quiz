@@ -1,5 +1,9 @@
 package com.model;
 
+import java.util.Vector;
+
+import javafx.util.Pair;
+
 public class Question {
 	private int id;
 	private char type;
@@ -17,6 +21,18 @@ public class Question {
 		this.ownerID = ownerID;
 		this.content = content;
 		this.answer = answer;
+	}
+	
+	public Pair<Vector<String>, Vector<Integer>> getMC() {
+		Vector<Integer> scores = new Vector<Integer>();
+		Vector<String> options = new Vector<String>();
+		String[] optStr = answer.split("~", -1);
+		for (int i=1; i<optStr.length; ++i) {
+			String[] inside = optStr[i].split("\\^", -1); 
+			options.add(inside[1]);
+			scores.add(Integer.parseInt(inside[2]));
+		}
+		return new Pair<Vector<String>, Vector<Integer>>(options, scores);
 	}
 	
 	public int getId() {
