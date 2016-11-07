@@ -26,7 +26,6 @@ for (int id : user.getPublishedQuiz()) {
 <!-- js -->
 <script type="text/javascript">
 $(document).ready(function(){
-$('h1').text('<%=quizzes.size()%>');
 <%	for (int i=0; i<quizzes.size(); ++i) {%>
 	$('#myQuiz').append(
 	'<div class="quiz panel panel-success">\
@@ -54,7 +53,6 @@ $('h1').text('<%=quizzes.size()%>');
 
 </head>
 <body>
-<h1></h1>
 <div class="container">
 <div class="row">
 <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">

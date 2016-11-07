@@ -32,11 +32,11 @@
 			<table>
 				<tr>
 					<td>Gender:</td>
-					<td><input name="user.gender" type="radio" value="M" />Male<input name="user.gender" type="radio" value="F"/>Female</td>
+					<td><input name="user.gender" type="radio" checked="checked" value="M" />Male<input name="user.gender" type="radio" value="F"/>Female</td>
 				</tr>
 				<tr>
 					<td>Date of Birth:</td>
-					<td><input name="user.birthday" type="date" value="1990/06/01" pattern="^\d{4}-\d{1,2}-\d{1,2}"/></td>
+					<td><input name="user.birthday" type="date" value="1990-06-01" pattern="^\d{4}-\d{1,2}-\d{1,2}"/></td>
 				</tr>
 			</table>
 		</fieldset>
