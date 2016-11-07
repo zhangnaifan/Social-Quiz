@@ -8,9 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import com.model.Message;
 import com.model.Question;
 import com.model.Quiz;
 import com.model.User;
+import com.model.group;
 
 import javafx.util.Pair;
 
@@ -25,7 +27,7 @@ public class Dao
   { 
     String driver = "com.mysql.jdbc.Driver";
     String username = "root";
-    String password = "113095";
+    String password = "root";
     String dbUrl = String.format("jdbc:mysql://%s:%s/%s", new Object[] {
       "localhost", "3306", "staples" });    
     
@@ -237,4 +239,109 @@ public class Dao
  	  }
 	  return user;
   }
+  public int insertGroup(group grp) throws SQLException {
+		// TODO Auto-generated method stub
+		String tmp = String
+				.format("insert into group_db values(null,'%s','%s',NOW(),'%s','%s','%s');",
+						grp.getGroupName(), grp.getGroupManager(),
+						grp.getInfo(), grp.getGroupMember(), grp.getTagStr());
+		;
+		this.execute(tmp);
+		ResultSet rs = this.executeQuery("select last_insert_id()");
+		System.out.println("233");
+		rs.next();
+		return rs.getInt("last_insert_id()");
+	}
+
+	public group getGrpById(Integer groupId) throws SQLException {
+
+		ResultSet rs = this.executeQuery(String.format(
+				"select * from group_db where groupid=%d", groupId));
+		if (rs.next()) {
+			group grp = new group();
+			grp.setGroupId(new Integer(groupId));
+			grp.setGroupName(rs.getString("groupname"));
+			grp.setManagerIds(toList(rs.getString("managerid")));
+			grp.setMemberIds(toList(rs.getString("member")));
+			grp.setCreateDate(rs.getDate("createdate"));
+			grp.setInfo(rs.getString("info"));
+			grp.setTotMembers(grp.getMemberIds().size());
+			return grp;
+		}
+		return null;
+	}
+
+	public static ArrayList<Integer> toList(String string) {
+		// TODO Auto-generated method stub
+		String[] str = string.split(" ");
+		ArrayList<Integer> ret = new ArrayList<Integer>();
+		for (int i = 0; i < str.length; i++)
+			ret.add(Integer.valueOf(str[i]));
+		return ret;
+	}
+
+	public void addRegisterGroupMsg(int id, int toId, int groupId)
+			throws SQLException {
+		this.execute("insert into message "
+				+ Message.formRegisterGroup(id, toId, groupId));
+	}
+
+	public ArrayList<Message> getMessages(int id) throws SQLException {
+		ResultSet rs = this.executeQuery("select * from message where toid="
+				+ String.valueOf(id));
+		ArrayList<Message> ret = new ArrayList<Message>();
+		while (rs.next()) {
+			ret.add(new Message(rs.getLong("id"), rs.getInt("type"), rs
+					.getLong("fromid"), rs.getLong("toid"), rs.getString("msg")));
+		}
+		for (int i = 0; i < ret.size(); i++)
+			ret.get(i).setFromUser(this.getUser((int) ret.get(i).getFromid()));
+		return ret;
+	}
+
+	public void deleteMsg(int msgId) throws SQLException {
+		this.execute("delete from message where id=" + String.valueOf(msgId));
+	}
+
+	public Message getMessageById(int msgId) throws SQLException {
+		ResultSet rs = this.executeQuery("select * from message where id="
+				+ String.valueOf(msgId));
+		if (rs.next()) {
+			return new Message(rs.getLong("id"), rs.getInt("type"),
+					rs.getLong("fromid"), rs.getLong("toid"),
+					rs.getString("msg"));
+		}
+		return null;
+	}
+
+	public void processMsg(int msgId) throws SQLException {
+		Message msg = getMessageById(msgId);
+		int groupId = msg.getToGroupId();
+		group grp = this.getGrpById(groupId);
+
+		System.out.println("user: " + msg.getFromid() + "  group: "
+				+ grp.getGroupId());
+
+		if (!grp.hasUser((int) msg.getFromid())) {
+			grp.getMemberIds().add((int) msg.getFromid());
+			grp.updateStr();
+			this.executeUpdate(String.format(
+					"update group_db set member='%s' where groupid=%d",
+					grp.getGroupMember(), grp.getGroupId()));
+		}
+	}
+
+	public ArrayList<group> getAllGroups() throws SQLException {
+		// TODO Auto-generated method stub
+		ArrayList<group> ret = new ArrayList<group>();
+		ResultSet rs = this.executeQuery("select * from group_db");
+		while (rs.next()) {
+			ret.add(new group(rs.getInt("groupid"), rs.getString("groupname"),
+					rs.getString("member"), rs.getString("managerid"), rs
+							.getString("info"), rs.getString("tag"), rs
+							.getDate("createdate")));
+		}
+
+		return ret;
+	}
 }
