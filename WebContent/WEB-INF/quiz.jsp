@@ -179,7 +179,7 @@
 			$('.done,.not-done').css('display','none');
 			$('#basis').append('<a style="margin-bottom:3%;margin-top:3%" class="btn-danger form-control" href="rank?id='+ '<%=quiz.getId()%>' +'">See Rank</a>');
 			$('#quizID').val('<%=quiz.getId()%>');
-		<%} else if (!quiz.getRank().containsValue(user.getId())) {//quiz doer's perspective %>
+		<%} else if (user.getQuizDone().indexOf(quiz.getId())==-1) {//quiz doer's perspective %>
 			$('.owner,.done').css('display','none');
 			$('#quiz').append('<input style="margin-bottom:3%" type="submit" style="margin:3%" class="form-control btn-success" value="Submit">');
 		<%} else {//quiz doner's perspective %>
