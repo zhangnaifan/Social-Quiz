@@ -21,7 +21,8 @@
 	<div class="input">
 		<s:form action="createGroup">
 			<s:textfield name="groupname" label="group name"></s:textfield>
-			<s:textfield name="info" label="information"></s:textfield>
+			<s:textfield name="info" label="Description"></s:textfield>
+<%-- 			<s:textfield name="tag" label="tag"></s:textfield> --%>
 			<s:submit value="create"></s:submit>
 		</s:form>
 

@@ -2,6 +2,7 @@ package com.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 import com.db.Dao;
 import com.model.User;
@@ -18,7 +19,7 @@ public class CreateGroup extends ActionSupport {
 	private User user;
 	private group grp;
 	private int newGroupId;
-	
+
 	public User getUser() {
 		return user;
 	}
@@ -66,18 +67,24 @@ public class CreateGroup extends ActionSupport {
 		ResultSet rs = dao.executeQuery(String.format(
 				"select * from group_db where groupname='%s'", groupname));
 		
-		System.out.println(user.getNickName());
 		if (rs.next()) {
 			// group name exist
 			System.out.println("group name exist");
 			return "fail";
 		}
+		
 		rs.close();
-		grp = new group(groupname, user.getId(), info);		
+		grp = new group(groupname, user.getId(), info);	
 		newGroupId = dao.insertGroup(grp);
 		
-		System.out.println("newGroupId = "+newGroupId);
+		Map<String, Object> session = ActionContext.getContext().getSession();
 		
+		if (session.containsKey("newGroupId")) {
+			session.replace("newGroupId", newGroupId);
+		} else {
+			session.put("newGroupId", newGroupId);
+		}
+		System.out.println("newGroupId = "+newGroupId);
 		dao.close();
 		return "success";
 	}

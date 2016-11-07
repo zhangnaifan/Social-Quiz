@@ -4,15 +4,16 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class group {
-	long groupId;
-	String groupName;
-	ArrayList<Integer> managerIds;
-	ArrayList<Integer> memberIds;
-	String groupManager;
-	String groupMember;
-	Date createDate;
-	String info;
-	long totMembers;
+	private long groupId;
+	private String groupName;
+	private ArrayList<Integer> managerIds;
+	private ArrayList<Integer> memberIds;
+	private String groupManager;
+	private String groupMember;
+	private Date createDate;
+	private String info;
+	private long totMembers;
+	private String tagStr;
 	
 	public group(String groupname, Integer creater, String info) {
 		this.groupId = new Integer(0);
@@ -114,6 +115,14 @@ public class group {
 
 	public void setTotMembers(long totMembers) {
 		this.totMembers = totMembers;
+	}
+
+	public String getTagStr() {
+		return tagStr;
+	}
+
+	public void setTagStr(String tagStr) {
+		this.tagStr = tagStr;
 	}
 
 	public boolean hasUser(int id) {
