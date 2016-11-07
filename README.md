@@ -25,6 +25,7 @@ TODO .jsp pages:
 	1.search.jsp  
 	2.createQuiz.jsp  
 	3.createGroup.jsp  
+	4.error template page  
 	
 Database:  
 
@@ -47,7 +48,7 @@ Database:
 >	(* friends, groups, quizzes are not considered yet)  
 	
 	Get user' information:
-	In any action class, use "Private User user;" and its getters/setters
+	In any action class, use "Private User user;" and its getters/setters  
 	to get the user's information (if logged in). 
 
 
@@ -60,8 +61,8 @@ Database:
 		manager			varchar(100) 	NO  
 		createdate		date			NO	 
 		info 			varchar(1024)	YES  
-		members			varchar(1100) 	NO
-	
+		members			varchar(1100) 	NO  
+		tag 			varchar(100)	NO  
 > 	(* info include group discription and basic infomations)
 
 
@@ -99,4 +100,13 @@ Database:
 
 # Service
 
+
 # Dao
+
+
+
+# TODO groups :
+> ## group  
+> 1.update group infomation  
+> 2.delete group(by creater)	
+> 3.invite usertogroups(by manager)  

@@ -7,6 +7,16 @@ public class Message {
 	private long toid;
 	private String msg;
 	private User fromUser;
+	private int toGroupId;
+	
+	
+	public int getToGroupId() {
+		return toGroupId;
+	}
+
+	public void setToGroupId(int toGroupId) {
+		this.toGroupId = toGroupId;
+	}
 
 	public User getFromUser() {
 		return fromUser;
@@ -30,7 +40,13 @@ public class Message {
 		this.type = type;
 		this.fromid = fromid;
 		this.toid = toid;
-		this.msg = msg;
+		if (type==1) {
+			this.msg = null;
+			this.toGroupId = Integer.valueOf(msg.split("###")[0]);
+		}
+		else {
+			this.msg = msg;
+		}
 	}
 
 	public long getId() {

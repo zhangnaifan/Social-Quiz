@@ -7,54 +7,78 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.showgroup {
-	width: 60%;
-	height: 220px;
-	margin: 50px auto;
-	background-color: #0f0;
-	border-width: 10px;
-	border: solid;
-	border-color: #000;
-	background-color: #0f0;
-	margin: 50px auto;
-}
-
-.memberblock {
-	width: 60%;
-	height: 120px;
-	margin: 50px auto;
-	background-color: #0f0;
-	border-width: 10px;
-	border-color: #000;
-}
-
-body {
-	margin-left: auto;
-	margin-right: auto;
-}
 </style>
 </head>
 <body>
-	<div class="showgroup">
-		<div style="width: 100%; height: 50%">Group name:
-			${grp.groupName }</div>
-		<table border="1px" width="100%" height="40%">
+
+	<h1>The information of the groups ${grp.groupName }</h1>
+
+	<fieldset>
+		<legend> group Info </legend>
+
+		<table border="1">
 			<tr>
-				<td>Group Info:${grp.info }</td>
-				<td>Group create at: ${grp.createDate }</td>
-				<td>Group members:${grp.totMembers }</td>
+				<td>Group name</td>
+				<td>${grp.groupName }</td>
 			</tr>
-
+			<tr>
+				<td>Created date</td>
+				<td>${grp.createDate }</td>
+			</tr>
+			<tr>
+				<td>Total members</td>
+				<td>${grp.totMembers }</td>
+			</tr>
 		</table>
-		<a href="registerGroup?groupId=${grp.groupId }">register</a>
-	</div>
-	<s:iterator value="members" var="li">
-		<div class="memberblock" onmouseover="this.style.cursor='pointer'"
-			onclick="document.location='#';">
-			<s:property value="#li.nickName"></s:property>
-			<s:property value="#li.email"></s:property>
-		</div>
-	</s:iterator>
 
+	</fieldset>
+
+	<fieldset>
+		<legend>Group Members</legend>
+		<table border="1">
+			<tr>
+				<th>User Name</th>
+				<th>Nick Name</th>
+				<th>User Id</th>
+								<th>User info Link</th>
+			</tr>
+			<s:iterator value="members" var="li">
+				<tr>
+					<td><s:property value="#li.username"></s:property></td>
+					<td><s:property value="#li.nickName"></s:property></td>
+					<td><s:property value="#li.id"></s:property></td>
+					<td><a href="#<s:property value='#li.id'></s:property>">Link</a></td>
+				</tr>
+			</s:iterator>
+		</table>
+	</fieldset>
+
+	<fieldset>
+		<legend>Group Managers</legend>
+		<table border="1">
+			<tr>
+				<th>User Name</th>
+				<th>Nick Name</th>
+				<th>User Id</th>
+				<th>User info Link</th>
+			</tr>
+			<s:iterator value="managers" var="li">
+				<tr>
+					<td><s:property value="#li.username"></s:property></td>
+					<td><s:property value="#li.nickName"></s:property></td>
+					<td><s:property value="#li.id"></s:property></td>
+					<td><a href="#">Link</a></td>
+				</tr>
+			</s:iterator>
+		</table>
+	</fieldset>
+
+	<fieldset>
+		<legend>Register for this group</legend>
+		<form action="registerGroup">
+			<input type="hidden" name="groupId" value="${grp.groupId }" readonly="readonly">
+			<input type="submit" value="Register for this Group"/>
+		</form>
+	</fieldset>
 </body>
 </html>

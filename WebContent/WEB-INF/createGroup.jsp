@@ -4,28 +4,26 @@
 <head>
 <title>Create Group</title>
 <style type="text/css">
-
+.input{
+	width : 100%;
+	border-color: #000;
+	border-width: 2px;
+	border-style: solid;
+}
 </style>
 </head>
 <body>
-
-	<h1>
-		<em>TODO</em>
-	</h1>
-	<ol>
-		<li>New Group Information</li>
-		<li>Invite Friends/Users</li>
-	</ol>
-
-
-	<div class="input">
+	<em>
+		tag is not available!
+	</em>
+	<fieldset style="margin-top: 100px">
+		<legend>Create A Group!</legend>
 		<s:form action="createGroup">
 			<s:textfield name="groupname" label="group name"></s:textfield>
 			<s:textfield name="info" label="Description"></s:textfield>
-<%-- 			<s:textfield name="tag" label="tag"></s:textfield> --%>
-			<s:submit value="create"></s:submit>
+			<s:textfield name="tag" label="tag"></s:textfield>
+			<s:submit value="create" align="left"></s:submit>
 		</s:form>
-
-	</div>
+	</fieldset>
 </body>
 </html>

@@ -9,6 +9,7 @@ import com.model.User;
 import com.model.group;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.util.logging.Logger;
 
 public class CreateGroup extends ActionSupport {
 
@@ -19,6 +20,15 @@ public class CreateGroup extends ActionSupport {
 	private User user;
 	private group grp;
 	private int newGroupId;
+	private String tag;
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 
 	public User getUser() {
 		return user;
@@ -61,30 +71,33 @@ public class CreateGroup extends ActionSupport {
 	}
 
 	public String execute() throws ClassNotFoundException, SQLException {
-		Dao dao = new Dao();
-		user = (User) ActionContext.getContext().getSession().get("user");
-
-		ResultSet rs = dao.executeQuery(String.format(
-				"select * from group_db where groupname='%s'", groupname));
-		
-		if (rs.next()) {
-			// group name exist
-			System.out.println("group name exist");
+		// name not null or empty
+		if (groupname == null || groupname.length() < 1) {
+			System.err.println("create group error : empty name");
 			return "fail";
 		}
-		
-		rs.close();
-		grp = new group(groupname, user.getId(), info);	
+
+		Dao dao = new Dao();
+		user = (User) ActionContext.getContext().getSession().get("user");
+		ResultSet rs = dao.executeQuery(String.format(
+				"select * from group_db where groupname='%s'", groupname));
+		if (rs.next()) {
+			// group name exist
+			System.err.println("group name exist");
+			rs.close();
+			return "fail";
+		}
+		grp = new group(groupname, user.getId(), info, tag);
 		newGroupId = dao.insertGroup(grp);
-		
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		
 		if (session.containsKey("newGroupId")) {
 			session.replace("newGroupId", newGroupId);
 		} else {
 			session.put("newGroupId", newGroupId);
 		}
-		System.out.println("newGroupId = "+newGroupId);
+		System.out.println(String.format(
+				"create group with Groupid=%d, groupName='%s'", newGroupId,
+				groupname));
 		dao.close();
 		return "success";
 	}

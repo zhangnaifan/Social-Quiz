@@ -202,7 +202,11 @@ public class Dao {
 
 	public int insertGroup(group grp) throws SQLException {
 		// TODO Auto-generated method stub
-		String tmp = String.format("insert into group_db values(null,'%s','%s',NOW(),'%s','%s');", grp.getGroupName(),grp.getGroupManager(),grp.getInfo(),grp.getGroupMember());
+		String tmp = String
+				.format("insert into group_db values(null,'%s','%s',NOW(),'%s','%s','%s');",
+						grp.getGroupName(), grp.getGroupManager(),
+						grp.getInfo(), grp.getGroupMember(), grp.getTagStr());
+		;
 		this.execute(tmp);
 		ResultSet rs = this.executeQuery("select last_insert_id()");
 		System.out.println("233");
@@ -211,8 +215,9 @@ public class Dao {
 	}
 
 	public group getGrpById(Integer groupId) throws SQLException {
-		
-		ResultSet rs = this.executeQuery(String.format("select * from group_db where groupid=%d", groupId));
+
+		ResultSet rs = this.executeQuery(String.format(
+				"select * from group_db where groupid=%d", groupId));
 		if (rs.next()) {
 			group grp = new group();
 			grp.setGroupId(new Integer(groupId));
@@ -226,7 +231,8 @@ public class Dao {
 		}
 		return null;
 	}
-	private ArrayList<Integer> toList(String string) {
+
+	public static ArrayList<Integer> toList(String string) {
 		// TODO Auto-generated method stub
 		String[] str = string.split(" ");
 		ArrayList<Integer> ret = new ArrayList<Integer>();
@@ -234,45 +240,70 @@ public class Dao {
 			ret.add(Integer.valueOf(str[i]));
 		return ret;
 	}
-	public void addRegisterGroupMsg(int id, int toId, int groupId) throws SQLException {
-		this.execute("insert into message "+Message.formRegisterGroup(id, toId, groupId));
+
+	public void addRegisterGroupMsg(int id, int toId, int groupId)
+			throws SQLException {
+		this.execute("insert into message "
+				+ Message.formRegisterGroup(id, toId, groupId));
 	}
 
 	public ArrayList<Message> getMessages(int id) throws SQLException {
-		ResultSet rs = this.executeQuery("select * from message where toid="+String.valueOf(id));
-		ArrayList<Message> ret = new ArrayList<Message>(); 
-		while(rs.next()) {
-			ret.add(new Message(rs.getLong("id"), rs.getInt("type"), rs.getLong("fromid"), rs.getLong("toid"), rs.getString("msg")));
+		ResultSet rs = this.executeQuery("select * from message where toid="
+				+ String.valueOf(id));
+		ArrayList<Message> ret = new ArrayList<Message>();
+		while (rs.next()) {
+			ret.add(new Message(rs.getLong("id"), rs.getInt("type"), rs
+					.getLong("fromid"), rs.getLong("toid"), rs.getString("msg")));
 		}
 		for (int i = 0; i < ret.size(); i++)
-			ret.get(i).setFromUser(this.getUser((int)ret.get(i).getFromid()));
+			ret.get(i).setFromUser(this.getUser((int) ret.get(i).getFromid()));
 		return ret;
 	}
 
 	public void deleteMsg(int msgId) throws SQLException {
-		this.execute("delete from message where id="+String.valueOf(msgId));
+		this.execute("delete from message where id=" + String.valueOf(msgId));
 	}
 
 	public Message getMessageById(int msgId) throws SQLException {
-		ResultSet rs = this.executeQuery("select * from message where id="+String.valueOf(msgId));
+		ResultSet rs = this.executeQuery("select * from message where id="
+				+ String.valueOf(msgId));
 		if (rs.next()) {
-			return new Message(rs.getLong("id"), rs.getInt("type"), rs.getLong("fromid"), rs.getLong("toid"), rs.getString("msg"));
+			return new Message(rs.getLong("id"), rs.getInt("type"),
+					rs.getLong("fromid"), rs.getLong("toid"),
+					rs.getString("msg"));
 		}
 		return null;
 	}
-	
+
 	public void processMsg(int msgId) throws SQLException {
 		Message msg = getMessageById(msgId);
-		int groupId = group.getGroupId(msg.getMsg());
+		int groupId = msg.getToGroupId();
 		group grp = this.getGrpById(groupId);
-		
-		System.out.println("user: "+msg.getFromid()+"  group: "+grp.getGroupId());
-		
-		if (!grp.hasUser((int)msg.getFromid())) {
-			grp.getMemberIds().add((int)msg.getFromid());
+
+		System.out.println("user: " + msg.getFromid() + "  group: "
+				+ grp.getGroupId());
+
+		if (!grp.hasUser((int) msg.getFromid())) {
+			grp.getMemberIds().add((int) msg.getFromid());
 			grp.updateStr();
-			this.executeUpdate(String.format("update group_db set member='%s' where groupid=%d",grp.getGroupMember(),grp.getGroupId()));
+			this.executeUpdate(String.format(
+					"update group_db set member='%s' where groupid=%d",
+					grp.getGroupMember(), grp.getGroupId()));
 		}
+	}
+
+	public ArrayList<group> getAllGroups() throws SQLException {
+		// TODO Auto-generated method stub
+		ArrayList<group> ret = new ArrayList<group>();
+		ResultSet rs = this.executeQuery("select * from group_db");
+		while (rs.next()) {
+			ret.add(new group(rs.getInt("groupid"), rs.getString("groupname"),
+					rs.getString("member"), rs.getString("managerid"), rs
+							.getString("info"), rs.getString("tag"), rs
+							.getDate("createdate")));
+		}
+
+		return ret;
 	}
 
 }

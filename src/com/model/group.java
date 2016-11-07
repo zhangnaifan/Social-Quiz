@@ -3,6 +3,8 @@ package com.model;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import com.db.Dao;
+
 public class group {
 	private long groupId;
 	private String groupName;
@@ -15,7 +17,7 @@ public class group {
 	private long totMembers;
 	private String tagStr;
 	
-	public group(String groupname, Integer creater, String info) {
+	public group(String groupname, Integer creater, String info, String tag) {
 		this.groupId = new Integer(0);
 		this.groupName = groupname;
 		this.managerIds = new ArrayList<Integer>();
@@ -26,6 +28,19 @@ public class group {
 		this.groupMember = String.valueOf(creater)+" ";
 		this.info = info;
 		this.totMembers = new Integer(1);
+		this.tagStr = tag;
+	}
+	public group(long groupId, String groupname, String members, String managers, String inf, String tag, Date createDate) {
+		this.groupId = groupId;
+		this.groupName = groupname;
+		this.groupMember = members;
+		this.groupManager = managers;
+		this.info = inf;
+		this.tagStr = tag;
+		this.createDate = createDate;
+		this.memberIds = Dao.toList(this.groupMember);
+		this.managerIds = Dao.toList(this.groupManager);
+		this.totMembers = this.memberIds.size();
 	}
 	/*
 	public group(long groupid, String groupname, ArrayList<Integer> managerIds,
@@ -132,9 +147,6 @@ public class group {
 		return false;
 	}
 
-	public static int getGroupId(String msg) {
-		return Integer.valueOf(msg.split("###")[0]);
-	}
 	
 	public void updateStr() {
 		StringBuilder sb = new StringBuilder();
@@ -143,4 +155,5 @@ public class group {
 		}
 		this.setGroupMember(sb.toString());
 	}
+
 }

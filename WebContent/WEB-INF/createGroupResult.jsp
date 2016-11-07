@@ -9,14 +9,14 @@
 </head>
 <body>
 	<p>${newGroupId }</p>
-	
 	<%
-		int newGroupId = (Integer)request.getSession().getAttribute("newGroupId");
+		int newGroupId = (Integer) request.getSession().getAttribute(
+				"newGroupId");
 	%>
 	<%
-	   String site = String.format("groupInfo?groupId=%d", newGroupId);
-	   response.setStatus(response.SC_MOVED_TEMPORARILY);
-	   response.setHeader("Location", site); 
+		String site = String.format("groupInfo?groupId=%d", newGroupId);
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", site);
 	%>
 </body>
 </html>
