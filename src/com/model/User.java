@@ -157,6 +157,12 @@ public class User {
 	public void setGroups(Vector<Integer> groups) {
 		this.groups = groups;
 	}
-	
-	
+
+	public Vector<Integer> getQuizDone() {
+		return quizDone;
+	}
+
+	public void setQuizDone(Vector<Integer> quizDone) {
+		this.quizDone = quizDone;
+	}
 }

@@ -230,6 +230,10 @@ public class Dao
 			  pubQuiz.add(Integer.parseInt(quizStr[i]));
 		  }
 		  user.setPublishedQuiz(pubQuiz);
+		  String[] quizzesDone = rs.getString("quizDone").split("&", -1);
+		  for (int i=1 ; i<quizzesDone.length; ++i) {
+			  user.addQuizDone(Integer.parseInt(quizzesDone[i]));
+		  }
  	  }
 	  return user;
   }
