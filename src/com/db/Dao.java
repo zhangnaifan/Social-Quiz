@@ -27,7 +27,7 @@ public class Dao
   { 
     String driver = "com.mysql.jdbc.Driver";
     String username = "root";
-    String password = "113095";
+    String password = "root";
     String dbUrl = String.format("jdbc:mysql://%s:%s/%s", new Object[] {
       "localhost", "3306", "staples" });    
     
