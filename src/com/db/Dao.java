@@ -5,13 +5,16 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Comparator;
-import java.util.TreeMap;
+import java.util.ArrayList;
 import java.util.Vector;
 
+import com.model.Message;
 import com.model.Question;
 import com.model.Quiz;
 import com.model.User;
+import com.model.group;
+
+import javafx.util.Pair;
 
 
 public class Dao
@@ -72,7 +75,7 @@ public class Dao
 	for (int id : quiz.getQuestions()) {
 		questions.append(" " + id);
 	}
-	execute("INSERT INTO quiz(id,type,ownerID,createDate,questions,title,description)VALUES("
+	execute("INSERT INTO quiz(id,type,ownerID,createDate,questions,title,description,records)VALUES("
 			+ quiz.getId()
 			+ ",'" + quiz.getType()
 			+ "'," + quiz.getOwnerID()
@@ -80,7 +83,7 @@ public class Dao
 			+ "','" + questions.substring(0, questions.length()==0?0:questions.length()) 
 			+ "','" + quiz.getTitle()
 			+ "','" + quiz.getDescription()
-			+ "');");
+			+ "','');");
   }
   
   public void addQuestion(Question ques) throws SQLException {
@@ -156,16 +159,11 @@ public class Dao
 		  quiz.setQuestions(questions);
 		  String records = rs.getString("records");
 		  
-		  TreeMap<Integer, Integer> rank = new TreeMap<Integer, Integer>();
-		  if (records!=null){
-			  String[] I = records.split("&", -1);
-			  for (int i=1; i<I.length; ++i) {
-				  String[] II = I[i].split("\\|", -1);
-				  rank.put(Integer.parseInt(II[1]), Integer.parseInt(II[2]));
-			  }
-			  quiz.setRank(rank);
-		  } else {
-			  quiz.setRank(new TreeMap<Integer,Integer>());
+		  ArrayList<Pair<Integer, Integer>> rank = new ArrayList<Pair<Integer, Integer>>();
+		  String[] I = records.split("&", -1);
+		  for (int i=1; i<I.length; ++i) {
+			  String[] II = I[i].split("\\|", -1);
+			  rank.add(new Pair<Integer, Integer>(Integer.parseInt(II[1]), Integer.parseInt(II[2])));
 		  }
 	  }
 	  return quiz;
@@ -233,7 +231,116 @@ public class Dao
 			  pubQuiz.add(Integer.parseInt(quizStr[i]));
 		  }
 		  user.setPublishedQuiz(pubQuiz);
+		  String[] quizzesDone = rs.getString("quizDone").split("&", -1);
+		  for (int i=1 ; i<quizzesDone.length; ++i) {
+			  user.addQuizDone(Integer.parseInt(quizzesDone[i]));
+		  }
  	  }
 	  return user;
   }
+  public int insertGroup(group grp) throws SQLException {
+		// TODO Auto-generated method stub
+		String tmp = String
+				.format("insert into group_db values(null,'%s','%s',NOW(),'%s','%s','%s');",
+						grp.getGroupName(), grp.getGroupManager(),
+						grp.getInfo(), grp.getGroupMember(), grp.getTagStr());
+		;
+		this.execute(tmp);
+		ResultSet rs = this.executeQuery("select last_insert_id()");
+		System.out.println("233");
+		rs.next();
+		return rs.getInt("last_insert_id()");
+	}
+
+	public group getGrpById(Integer groupId) throws SQLException {
+
+		ResultSet rs = this.executeQuery(String.format(
+				"select * from group_db where groupid=%d", groupId));
+		if (rs.next()) {
+			group grp = new group();
+			grp.setGroupId(new Integer(groupId));
+			grp.setGroupName(rs.getString("groupname"));
+			grp.setManagerIds(toList(rs.getString("managerid")));
+			grp.setMemberIds(toList(rs.getString("member")));
+			grp.setCreateDate(rs.getDate("createdate"));
+			grp.setInfo(rs.getString("info"));
+			grp.setTotMembers(grp.getMemberIds().size());
+			return grp;
+		}
+		return null;
+	}
+
+	public static ArrayList<Integer> toList(String string) {
+		// TODO Auto-generated method stub
+		String[] str = string.split(" ");
+		ArrayList<Integer> ret = new ArrayList<Integer>();
+		for (int i = 0; i < str.length; i++)
+			ret.add(Integer.valueOf(str[i]));
+		return ret;
+	}
+
+	public void addRegisterGroupMsg(int id, int toId, int groupId)
+			throws SQLException {
+		this.execute("insert into message "
+				+ Message.formRegisterGroup(id, toId, groupId));
+	}
+
+	public ArrayList<Message> getMessages(int id) throws SQLException {
+		ResultSet rs = this.executeQuery("select * from message where toid="
+				+ String.valueOf(id));
+		ArrayList<Message> ret = new ArrayList<Message>();
+		while (rs.next()) {
+			ret.add(new Message(rs.getLong("id"), rs.getInt("type"), rs
+					.getLong("fromid"), rs.getLong("toid"), rs.getString("msg")));
+		}
+		for (int i = 0; i < ret.size(); i++)
+			ret.get(i).setFromUser(this.getUser((int) ret.get(i).getFromid()));
+		return ret;
+	}
+
+	public void deleteMsg(int msgId) throws SQLException {
+		this.execute("delete from message where id=" + String.valueOf(msgId));
+	}
+
+	public Message getMessageById(int msgId) throws SQLException {
+		ResultSet rs = this.executeQuery("select * from message where id="
+				+ String.valueOf(msgId));
+		if (rs.next()) {
+			return new Message(rs.getLong("id"), rs.getInt("type"),
+					rs.getLong("fromid"), rs.getLong("toid"),
+					rs.getString("msg"));
+		}
+		return null;
+	}
+
+	public void processMsg(int msgId) throws SQLException {
+		Message msg = getMessageById(msgId);
+		int groupId = msg.getToGroupId();
+		group grp = this.getGrpById(groupId);
+
+		System.out.println("user: " + msg.getFromid() + "  group: "
+				+ grp.getGroupId());
+
+		if (!grp.hasUser((int) msg.getFromid())) {
+			grp.getMemberIds().add((int) msg.getFromid());
+			grp.updateStr();
+			this.executeUpdate(String.format(
+					"update group_db set member='%s' where groupid=%d",
+					grp.getGroupMember(), grp.getGroupId()));
+		}
+	}
+
+	public ArrayList<group> getAllGroups() throws SQLException {
+		// TODO Auto-generated method stub
+		ArrayList<group> ret = new ArrayList<group>();
+		ResultSet rs = this.executeQuery("select * from group_db");
+		while (rs.next()) {
+			ret.add(new group(rs.getInt("groupid"), rs.getString("groupname"),
+					rs.getString("member"), rs.getString("managerid"), rs
+							.getString("info"), rs.getString("tag"), rs
+							.getDate("createdate")));
+		}
+
+		return ret;
+	}
 }

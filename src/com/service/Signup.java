@@ -43,7 +43,11 @@ public class Signup extends ActionSupport {
 		
 		//store into user
 		dao.execute("INSERT INTO user(id,username,password,nickname,membersince,accountlevel,"
+<<<<<<< HEAD
 				+ "email,phonenum,gender,birthday,pubQuiz,quizDone) VALUES("
+=======
+				+ "email,phonenum,gender,birthday,pubQuiz,quizDone ) VALUES("
+>>>>>>> master
 				+ user.getId()
 				+ ", '"
 				+ user.getUsername()
