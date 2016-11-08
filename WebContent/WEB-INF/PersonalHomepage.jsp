@@ -90,7 +90,7 @@
 		#main .container{
 		    width:1300px;
 		    float:left;
-		    padding-left: 50px;
+		    padding-left: 15%;
 		}
 		#main .container dl{
 		    width:300px;
