@@ -57,7 +57,7 @@ public class CreateQuiz extends ActionSupport {
 			questions.add(ques);
 		}
 		quiz.setQuestions(questionID);
-		quiz.setRank(new TreeMap<Integer,Integer>());
+		
 		
 		//update user's published quizzes
 		user.addQuiz(quiz.getId());

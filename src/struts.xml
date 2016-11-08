@@ -87,7 +87,7 @@
         	<result>/WEB-INF/rank.jsp</result>
         </action>
         <action name="toUserHP" class="com.service.Index">
-        	<result>/WEB-INF/UserHP.jsp</result>
+        	<result name="success">/WEB-INF/UserHP.jsp</result>
         </action>
         <!--  TODO --> 
         
