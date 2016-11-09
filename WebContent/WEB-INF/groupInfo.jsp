@@ -81,38 +81,13 @@
 			display:block;
 			margin-left: auto;
 			margin-right: auto;
-			margin-top: 10%;
+			margin-top: 5%;
 		}
 		h2 {
 			margin-top:20px;
 			margin-bottom:20px;
 		}
-		/* #customers
-		{
-			font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-			width:100%;
-			border-collapse:collapse;
-		}
-		#customers td, #customers th 
-		{
-			font-size:1em;
-			border:1px solid black;
-			padding:3px 7px 2px 7px;
-		}
-		#customers th 
-		{
-			font-size:1.1em;
-			text-align:left;
-			padding-top:5px;
-			padding-bottom:4px;
-			background-color:#585858;
-			color:#ffffff;
-		}
-		#customers tr.alt td 
-		{
-			color:#000000;
-			background-color:#EAF2D3;
-		} */
+		
 	</style>
 </head>
 <body>
@@ -184,8 +159,9 @@
  	<div class="container">
 		<div class="row">
 			<div class="col-xl-6 col-md-4 col-center-block">
-					<h2>${grp.groupName }</h2>
+				<form action="registerGroup">
 					<table class="table table-hover">
+						<caption style="color:black; font-size:40px;">${grp.groupName }</caption>
 						<thead>
 							<tr>
 								<th>群简介</th>
@@ -207,7 +183,7 @@
 						</tbody>
 					</table>	
 					<table class="table table-hover">
-						<caption>群管理员</caption>
+						<caption style="color:black;">群管理员</caption>
 						<thead>
 							<tr>
 								<th>User Name</th>
@@ -228,7 +204,7 @@
 						</tbody>
 					</table>
 					<table class="table table-hover">
-						<caption>群成员</caption>
+						<caption style="color:black;">群成员</caption>
 						<thead>
 							<tr>
 								<th>User Name</th>
@@ -248,6 +224,9 @@
 							</s:iterator>
 						</tbody>
 					</table>
+					<input type="hidden" name="groupId" value="${grp.groupId }" readonly="readonly">
+					<button class="btn btn-lg btn-default btn-block" type="submit">Register for this Group</button>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -297,13 +276,13 @@
 		</table>
 	</fieldset>
  --%>
-	<fieldset>
+	<%-- <fieldset>
 		<legend>Register for this group</legend>
 		<form action="registerGroup">
 			<input type="hidden" name="groupId" value="${grp.groupId }" readonly="readonly">
 			<input type="submit" value="Register for this Group"/>
 		</form>
-	</fieldset>
+	</fieldset> --%>
 	
 </body>
 </html>
