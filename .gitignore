@@ -13,3 +13,9 @@ hs_err_pid*
 /build/*
 /build/
 /build
+
+/.settings/*
+/.settings/
+/.settings
+
+/.classpath
