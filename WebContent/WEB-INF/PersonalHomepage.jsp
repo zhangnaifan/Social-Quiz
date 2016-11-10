@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
@@ -10,13 +10,11 @@
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!--jQuery-->
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<title>My messages</title>
+	<title>个人主页</title>
 	<style type="text/css">
-		.input{
-			width : 100%;
-			border-color: #000;
-			border-width: 2px;
-			border-style: solid;
+		body
+		{
+			background-color:white;
 		}
 		.navbar .container-fluid{
   			position: relative;
@@ -76,25 +74,116 @@
 		.dropdown:hover .dropbtn {
 		    background-color: black;
 		}
-		.col-center-block {
-			float:none;
-			display:block;
-			margin-left: auto;
-			margin-right: auto;
-			margin-top: 8%;
-		}
-		.box {
-			-moz-box-sizing:border-box; /* Firefox */
-			width:40%;
-			float:left;
-		}
 		img{ 
 			width:100px; 
 			height:100px; 
 			border-radius:50px; 
 			display:inline;
 		}
+		。clear{
+			clear:both;
+		}
+		#main{
+			padding:10px 10px;
+			margin:auto auto;
+		}
+		#main .container{
+		    width:1300px;
+		    float:left;
+		    padding-left: 15%;
+		}
+		#main .container dl{
+		    width:300px;
+		    float:left;
+		}
+		#main .container dl h5{
+		    border-bottom:1px solid #000;
+		    margin-bottom:15px;
+		    font-size:25px;
+		}
+		#main .container dl h5 a{
+		    margin:0 auto;
+		    text-decoration:none;
+		}
+		#main .container dl dt{
+		    float:left;
+		    width:150px;
+		}
+		#main .container dl.data{
+		    margin-right:100px;
+		}
+		#main .container dl.data dd{
+		    font-size:16px;
+		    margin-left:25px;
+		    float:left;
+		    width:240px;
+		    text-indent:2em;/*首行缩进*/
+		}
+		#main .container dl.quiz{
+		    margin-right:60px;
+		}
+		#main .container  dl.quiz dd{
+			width:500px;
+		    height:22px;
+		    background:none;
+		}
+		#main .container  dl.friendlist dd{
+			font-size:16px;
+		    margin-left:25px;
+			width:200px;
+		    height:22px;
+		    background:none;
+		}
+		ul.fff {
+			list-style-type:circle;
+		}
+		ul.fff a{
+			text-decoration:none;
+			font-size: 20px;
+		}
+		
+		
 	</style>
+	
+	<%-- java --%>
+	<%@ page language="java" import="com.db.Dao, com.model.*, java.util.*" pageEncoding="UTF-8"%>
+	<%
+	User user = (User)request.getSession().getAttribute("user");
+	Vector<Quiz> quizzes = new Vector<Quiz>();
+	Dao dao = new Dao();
+	for (int id : user.getPublishedQuiz()) {
+		quizzes.add(dao.getQuiz(id));
+	}
+	%>
+	
+	
+	<!-- js -->
+	<script type="text/javascript">
+	$(document).ready(function(){
+	<%	for (int i=0; i<quizzes.size(); ++i) {%>
+		$('#myQuiz').append(
+		'<div class="quiz panel panel-success">\
+			<div class="panel-heading">\
+				<a><span class="panel-title no"></span>\
+				<span class="panel-title title"></span></a>\
+				<span class="label label-success type" style="margin-left: 3%"></span>\
+				<span class="panel-title times" style="float: right;"></span>\
+			</div>\
+			<div class="panel-body">\
+				<p class="description" style="color:gray"></p>\
+			</div>\
+		</div>');
+		$('.no:last').text('<%=i+1%>');
+		$('.title:last').text('<%=quizzes.elementAt(i).getTitle()%>');
+		$('.type:last').text('<%=quizzes.elementAt(i).getType()%>');
+		$('.description:last').text('<%=quizzes.elementAt(i).getDescription()%>');
+		$('a:last').attr('href','quiz.action?id='+'<%=quizzes.elementAt(i).getId()%>');
+		<%}
+	%>
+		
+	});
+	
+	</script>
 </head>
 <body>
 	<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px;">
@@ -164,52 +253,45 @@
 	</nav>
 	<div class="container">
 		<div class="row">
-			<div class="col-xl-6 col-md-4 col-center-block">
-				<div class="box">
+			<div class="col-6-xs">
+				<div id="introduce">
 					<img src="image/cat.jpg">
-				</div>
-				<div class="box">
-					<h2>${user.username } </h2>
-					<p class="lead" style="padding-left: 15%;">${user.nickName }</p>
+					<a style="font-size: 30px;">${user.nickName }</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-xl-6 col-md-4 col-center-block" style="margin-top:3%;">
-				<table class="table table-hover">
-						<caption style="color:black;font-size:26px;padding-bottom: 10%;">My messages</caption>
-						<thead>
-							<tr>
-								<th>From(user name)</th>
-								<th>Send to(user id)</th>
-								<th>Message</th>
-								<th>Type</th>
-								<th>operation</th>
-							</tr>
-						</thead>
-						<tbody>
-							<s:iterator value="msgs" var="li">
-								<tr>
-									<td><s:property value="#li.fromUser.username" /></td>
-									<td><s:property value="#li.toid" /></td>
-									<td><s:property value="#li.msg" /></td>
-									<td><s:property value="#li.type" /></td>
-									<td><a
-										href='processRegisterGroup?msgId=<s:property value="#li.id"/>&accept=true'>
-											accept </a> <a
-										href='processRegisterGroup?msgId=<s:property value="#li.id"/>&accept=false'>
-											refuse </a></td>
-								</tr>
-							</s:iterator>
-						</tbody>
-				</table>
-				
+	<div id="main" class="clear">
+		<div class="container">
+			<div>
+				<dl class="data">
+					<h5><a href="#">关于我</a></h5>
+					<dd>来自HIT，天道酬勤，按实际还不成熟爆粗口加白醋以撒成绩看不出口技刷卡好烦 </dd>
+				</dl>
+				<dl class="quiz" style="width: 500px;">
+					<h5><a href="#">待回答的问卷</a></h5>
+					<dd>
+						<div id="myQuiz" style="cursor:pointer;"></div>
+					</dd>
+				</dl>
+				<dl style="width:200px;">
+					<h5><a href="#">好友列表</a></h5>
+					<dd>
+						<ul class="fff">
+							<li><a href=toUserHP>DZY-HP</a></li>
+							<li><a href="quiz?id=1">DZY</a></li>
+			                <li><a href="quiz?id=2">000</a></li>
+			                <li><a href="quiz?id=3">text</a></li>
+			                <li><a href="quiz?id=4">who</a></li>
+						</ul>
+					</dd>
+				</dl>
 			</div>
 		</div>
+		
 	</div>
 	
-
+	
+	
 </body>
 </html>

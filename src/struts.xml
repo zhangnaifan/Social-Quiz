@@ -86,16 +86,19 @@
         <action name="rank" class="com.service.Index">
         	<result>/WEB-INF/rank.jsp</result>
         </action>
+        <action name="toUserHP" class="com.service.Index">
+        	<result name="success">/WEB-INF/UserHP.jsp</result>
+        </action>
         <!--  TODO --> 
         
 
                 
         <action name="search" class="com.service.Index">
-        	<result>/WEB-INF/search.jsp</result>
+        	<result>/WEB-INF/PersonalHomepage.jsp</result>
         </action>
         
         <action name="toCreateGroup" class="com.service.Index">
-        	<result>/WEB-INF/createGroup.jsp</result>
+        	<result>/WEB-INF/UserHP.jsp</result>
         </action>
         
         <action name="createGroup" class="com.service.CreateGroup">

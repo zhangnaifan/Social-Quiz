@@ -27,7 +27,7 @@ public class Dao
   { 
     String driver = "com.mysql.jdbc.Driver";
     String username = "root";
-    String password = "root";
+    String password = "199587";
     String dbUrl = String.format("jdbc:mysql://%s:%s/%s", new Object[] {
       "localhost", "3306", "staples" });    
     
@@ -165,7 +165,6 @@ public class Dao
 			  String[] II = I[i].split("\\|", -1);
 			  rank.add(new Pair<Integer, Integer>(Integer.parseInt(II[1]), Integer.parseInt(II[2])));
 		  }
-		  quiz.setRank(rank);
 	  }
 	  return quiz;
   }
