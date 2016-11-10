@@ -61,7 +61,6 @@ Database:
 		birthday		date			YES	 
 		
 >	(* friends, groups, quizzes are not considered yet)  
->>>>>>> master
 	
 	Get user' information:
 	In any action class, use "Private User user;" and its getters/setters  
@@ -98,7 +97,6 @@ Database:
 		1		groupRegister  
 
 	
-<<<<<<< HEAD
 Database:
 	Name: staples
 	Table Name: user
@@ -122,7 +120,6 @@ Get user' information:
 	to get the user's information (if logged in).
 =======
 
->>>>>>> master
 
 ******************************************************
 ******************************************************
