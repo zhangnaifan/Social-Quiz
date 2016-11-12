@@ -13,6 +13,11 @@
 	Dao dao = new Dao();
 	Quiz quiz = dao.getQuiz(Integer.parseInt(request.getParameter("id")));
 	ArrayList<Pair<Integer, Integer>> rank = quiz.getRank();
+	Collections.sort(rank, new Comparator<Pair<Integer,Integer>>(){
+		public int compare(Pair<Integer,Integer> i, Pair<Integer,Integer> j){
+			return j.getKey() - i.getKey();
+		}
+	});
 	int count=1;
 %>
 
