@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<package name="default" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="login" class="com.interceptor.LoginInterceptor"></interceptor>
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="login">
+					<param name="excludeMethods">index,login,signup</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="loginStack"></default-interceptor-ref>
+
+		<default-action-ref name="index" />
+
+		<default-class-ref class="com.service.Index"></default-class-ref>
+
+		<global-results>
+			<result name="INDEX">/WEB-INF/index.jsp</result>
+			<result name="ERROR">/WEB-INF/error.jsp</result>
+			<result name="HOME">/WEB-INF/home.jsp</result>
+
+        </global-results>
+
+		<!--  
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="ERROR"/>
+            <exception-mapping exception="java.sql.SQLException" result="ERROR"/>
+            <exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/>
+        </global-exception-mappings>
+        -->
+        
+        <action name="index" class="com.service.Index" method="index">
+        	<result>/WEB-INF/index.jsp</result>
+        </action>
+        
+        <action name="home" class="com.service.Index">
+        	<result>/WEB-INF/home.jsp</result>
+        </action>
+        
+        <action name="logIn" class="com.service.Login" method="login">
+        	<result>/WEB-INF/home.jsp</result>
+        </action>
+        
+        <action name="toSignUp" class="com.service.Index" method="index">
+        	<result>/WEB-INF/signup.jsp</result>
+        </action>
+        
+        <action name="signUp" class="com.service.Signup" method="signup">
+        	<result>/WEB-INF/home.jsp</result>
+        	<result name="SIGNUP">/WEB-INF/signup.jsp</result>
+        </action>
+        
+        <action name="logOut" class="com.service.Logout">
+        	<result>/WEB-INF/index.jsp</result>
+        </action>
+        
+        <action name="toCreateQuiz" class="com.service.Index">
+        	<result>/WEB-INF/createQuiz.jsp</result>
+        </action>
+        
+        <action name="createQuiz" class="com.service.CreateQuiz">
+        	<result>/WEB-INF/quiz.jsp</result>
+        </action>
+        
+        <action name="myQuiz" class="com.service.Index">
+        	<result>/WEB-INF/myQuiz.jsp</result>
+        </action>
+        
+        <action name="quiz" class="com.service.Index">
+        	<result>/WEB-INF/quiz.jsp</result>
+        </action>
+        
+        <action name="doQuiz" class="com.service.DoQuiz">
+        	<result>/WEB-INF/quiz.jsp</result>
+        </action>
+        
+        <action name="rank" class="com.service.Index">
+        	<result>/WEB-INF/rank.jsp</result>
+        </action>
+        <action name="toUserHP" class="com.service.Index">
+        	<result name="success">/WEB-INF/UserHP.jsp</result>
+        </action>
+        <!--  TODO --> 
+        
+
+                
+        <action name="search" class="com.service.Index">
+        	<result>/WEB-INF/PersonalHomepage.jsp</result>
+        </action>
+        
+        <action name="toCreateGroup" class="com.service.Index">
+        	<result>/WEB-INF/UserHP.jsp</result>
+        </action>
+        
+        <action name="createGroup" class="com.service.CreateGroup">
+        	<result>/WEB-INF/home.jsp</result>
+        </action>
+        
+        <!-- FUTURE ACTIONS -->
+        
+        <!-- addFriend, addGroup -->
+        
+        <!-- about groups -->
+		<action name="viewAllGroups" class="com.service.ViewAllGroups">
+			<result name="success">/WEB-INF/viewAllGroups.jsp</result>
+			<result name="fail">/WEB-INF/error.jsp</result>
+		</action>
+		<action name="groupInfo" class="com.service.group.GroupInfo">
+			<result name="success">/WEB-INF/groupInfo.jsp</result>
+			<result name="fail">/WEB-INF/error.jsp</result>
+		</action>
+
+		<action name="toCreateGroup" class="com.service.Index">
+			<result>/WEB-INF/createGroup.jsp</result>
+		</action>
+
+		<action name="createGroup" class="com.service.CreateGroup">
+			<result name="success">/WEB-INF/createGroupResult.jsp</result>
+			<result name="fail">/WEB-INF/error.jsp</result>
+		</action>
+		
+		<action name="registerGroup" class="com.service.registerGroup">
+			<result name="success">/WEB-INF/registerGroupResult.jsp</result>
+			<result name="fail">/WEB-INF/error.jsp</result>
+		</action>
+		
+		
+        <!-- Messages(Invited quizzes, friends, groups, chatters) -->
+        <action name="viewMessage" class="com.service.ViewMessage">
+			<result name="success">/WEB-INF/viewMessage.jsp</result>
+			<result name="fail">/WEB-INF/error.jsp</result>
+		</action>
+		<action name="processRegisterGroup" class="com.service.ProcessRegisterGroup">
+			<result>/WEB-INF/toViewMessage.jsp</result>
+		</action>
+    </package>
+</struts>
