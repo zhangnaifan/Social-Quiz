@@ -7,12 +7,14 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<!--bootstrap-->
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link href="css/navbar.css" rel="stylesheet" type="text/css" />
 	<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 	<script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	
 	<script>
 		var quesCount = 0;
 		$(document).ready(function(){
+			$('nav').load('HTML/nav.html');
 			$('#myModal').modal({show:true});
 			$('#quesBtn').addClass('btn-group-vertical')
 						 .css('position', 'fixed')
@@ -243,40 +245,43 @@
 	</script>
 </head>
 <body>
+
+	
 <!-- Modal -->
+	<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px;"></nav>
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
+	  <div class="modal-dialog" style="z-index: 10000 !important;">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Quiz Basis</h4>
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+	        <h4 class="modal-title" id="myModalLabel">测试概述</h4>
 	      </div>
 	      <div class="modal-body">
 	        <form action="" method="post">
-	        	<label for="title">Title</label><input type="text" id="title" class="form-control">
-	        	<label for="description">Description</label><input type="text" id="description" class="form-control">
-	        	<label for="tag">Type</label><input type="text" id="type" class="form-control">
+	        	<label for="title">题目</label><input type="text" id="title" class="form-control">
+	        	<label for="description">描述</label><input type="text" id="description" class="form-control">
+	        	<label for="type">类型</label><input type="text" id="type" class="form-control">
 	        </form>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" data-dismiss="modal">Save and Close</button>
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">保存并关闭</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
-	<div class="container">
+	<div class="container" style="margin-top:4%;">
 		<div class="row">
 			<div class="col-xs-2 col-md-2">
 				<div id="quesBtn">
-					<button>Multiple Choice</button><button>Short Answer</button><button>True or False</button>
+					<button>多选题</button><button>简答题</button><button>判断题</button>
 				</div>
 			</div>
 			<div class="col-xs-7 col-xs-offset-1 col-md-7 col-md-offset-1">
 				<form id='quiz' class="form-group" action="createQuiz" method="post" onsubmit="return quizToString()">
 					<div id="para" style="display:none"></div>
 					<div class="form-inline" style="margin-bottom: 5%">
-						<input type="button" class="btn-primary form-control" data-toggle="modal" data-target="#myModal" value="Change Quiz Basis" style="width:49%">
-						<input type="submit" value="Submit" class="btn-warning form-control" style="width: 49%" />	
+						<input type="button" class="btn-primary form-control" data-toggle="modal" data-target="#myModal" value="更改测试概述" style="width:49%">
+						<input type="submit" value="提交" class="btn-warning form-control" style="width: 49%" />	
 					</div>
 				</form>
 			</div>
