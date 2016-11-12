@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<title>Sign Up For Staples</title>
+	<title>注册</title>
 	<style type="text/css">
 		.navbar .container-fluid{
   			position: relative;
@@ -37,7 +37,7 @@
 	  		<div>
 	      		<a class="navbar-brand" href="#">Questionnaire</a>
 	      		<ul class="nav navbar-nav navbar-right" >
-		      		<li><a style='color:white' href=index >Have an account?Log in</a></li>
+		      		<li><a style='color:white' href=index >已有账号？登录</a></li>
 		  		</ul>
 	    	</div>
 		    
@@ -47,39 +47,39 @@
 		<div class="row">
 			<div class="col-xl-6 col-md-4 col-center-block">
 				<form action="signUp" method="post">
-					<h2>Create an account</h2>
+					<h2>创建账号</h2>
 					
 					<div class="form-group">
-						<p>User Name</p>
+						<p>用户名</p>
 						<input type="text" class="form-control" placeholder="Used for logging in" name="user.username">
 					</div>
 					<div class="form-group">
-						<p>Nick Name</p>
+						<p>昵称</p>
 						<input type="text" class="form-control" placeholder="To be shown in websites" name="user.nickName">
 					</div>
 					<div class="form-group">
-						<p>Password</p>
+						<p>密码</p>
 						<input type="password" class="form-control" placeholder="Password" name="user.password">
 					</div>
 					<div class="form-group">
-						<p>Gender</p>
+						<p>性别</p>
 						<div class="form-control">
 							<input name="user.gender" type="radio" value="M" />Male <input name="user.gender" type="radio" value="F"/>Female
 						</div>
 					</div>
 					<div class="form-group">
-						<p>Birthday</p>
+						<p>出生日期</p>
 						<input type="date" class="form-control" name="user.birthday" value="1990-06-01" pattern="^\d{4}-\d{1,2}-\d{1,2}">
 					</div>
 					<div class="form-group">
-						<p>E-mail</p>
+						<p>邮箱</p>
 						<input class="form-control" placeholder="your e-mail address" name="user.email" type="email"/>
 					</div>
 					<div class="form-group">
-						<p>Mobile</p>
+						<p>手机</p>
 						<input class="form-control" placeholder="your e-mail address" name="user.phoneNum" type="text"/>
 					</div>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>  
+					<button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>  
 				</form>
 			</div>
 		</div>
