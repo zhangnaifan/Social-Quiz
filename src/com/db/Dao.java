@@ -165,6 +165,7 @@ public class Dao
 			  String[] II = I[i].split("\\|", -1);
 			  rank.add(new Pair<Integer, Integer>(Integer.parseInt(II[1]), Integer.parseInt(II[2])));
 		  }
+		  quiz.setRank(rank);
 	  }
 	  return quiz;
   }
