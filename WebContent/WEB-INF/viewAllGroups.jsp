@@ -67,7 +67,36 @@
 </head>
 <body>
 	<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px;"></nav>
- 	<div class="container">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-6 col-md-6 col-center-block">
+				<form action="registerGroup">
+					<table class="table table-hover">
+						<caption style="color:black;font-size:28px;margin-bottom:3%;"><strong>我的群</strong></caption>
+						<thead>
+							<tr>
+								<th>群名称</th>
+								<th>群号码</th>
+								<th>群成员</th>
+								<th>查看详细信息</th>
+							</tr>
+						</thead>
+						<tbody>
+							<s:iterator value="groups" var="li">
+								<tr class="alt">
+									<td><s:property value='#li.groupName'></s:property></td>
+									<td><s:property value='#li.groupId'></s:property></td>
+									<td><s:property value='#li.totMembers'></s:property></td>
+									<td><a href="groupInfo?groupId=<s:property value='#li.groupId'></s:property>"> 更多 </a></td>
+								</tr>
+							</s:iterator>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+ 	<%-- <div class="container">
 		<div class="row">
 			<div class="col-xl-6 col-md-8 col-center-block">
 					<h2>我的群</h2>
@@ -92,7 +121,7 @@
 			</div>
 		</div>
 	</div>
-	
+	 --%>
 </body>
 </html>
 
