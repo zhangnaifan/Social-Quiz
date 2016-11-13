@@ -7,6 +7,9 @@
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- JS -->
+	<script>msg = '${msg}';</script>
+	<script src="JS/alert.js"></script>
 	<style type="text/css">
 		.login-form{
 	 		 padding:0px 25px;

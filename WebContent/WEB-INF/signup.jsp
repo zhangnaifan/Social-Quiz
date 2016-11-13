@@ -29,7 +29,9 @@
 			margin-bottom:20px;
 		}
 	</style>
-
+	<!-- JS -->
+	<script>msg = '${msg}';</script>
+	<script src="JS/alert.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default" role="navigation">
@@ -84,7 +86,6 @@
 			</div>
 		</div>
 	</div>
-<h1>${msg }</h1>
 
 </body>
 </html>

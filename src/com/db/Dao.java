@@ -66,8 +66,58 @@ public class Dao
 	return -1;
   }
   
-  public void addUser(User user) {
-	  //TODO from Signup.java
+  public void addUser(User user) throws SQLException {
+	  execute("INSERT INTO user(username,password,nickname,membersince,accountlevel,"
+				+ "email,phonenum,gender,birthday,pubQuiz,quizDone,intro,followings ) VALUES('"
+				+ user.getUsername()
+				+ "', '"
+				+ user.getPassword()
+				+ "', '"
+				+ user.getNickName()
+				+ "', '"
+				+ user.getMemberSince()
+				+ "', "
+				+ user.getAccountLevel()
+				+ ", '"
+				+ user.getEmail()
+				+ "', '"
+				+ user.getPhoneNum()
+				+ "', '"
+				+ user.getGender()
+				+ "', '"
+				+ user.getBirthday()
+				+ "','','','','');");
+  }
+
+  public void updateUser(User user) throws SQLException {
+	  execute("UPDATE user SET username='"
+				+ user.getUsername()
+				+ "', password='"
+				+ user.getPassword()
+				+ "', nickname='"
+				+ user.getNickName()
+				+ "', email='"
+				+ user.getEmail()
+				+ "', phonenum='"
+				+ user.getPhoneNum()
+				+ "', gender='"
+				+ user.getGender()
+				+ "', birthday='"
+				+ user.getBirthday()
+				+ "', intro='"
+				+ user.getIntro()
+				+ "' WHERE id ="
+				+ user.getId()
+				+ ";");
+	  System.out.println(user.getId());
+  }
+  
+  public void updateUserFollowing(int userId, String news) throws SQLException {
+	  executeUpdate("UPDATE user SET followings='"
+			  			+news
+			  			+"' WHERE id="
+			  			+userId
+			  			+";");
   }
   
   public void addQuiz(Quiz quiz) throws SQLException {
@@ -141,6 +191,21 @@ public class Dao
 			  		+ ";");
   }
   
+  public void addUserFollowing(int userId, int friendId) throws SQLException {
+	  ResultSet rs = executeQuery("SELECT followings FROM user WHERE id=" + userId + ";");
+	  StringBuffer newRec = new StringBuffer();
+	  if (rs.next()) {
+		  String exsited = rs.getString(1);
+		  if (exsited != "NULL" && exsited != "null")
+			  newRec.append(exsited);
+	  }
+	  newRec.append("&" + friendId);
+	  executeUpdate("UPDATE user SET followings='"
+			  		+ newRec.toString() 
+			  		+ "' WHERE id=" + userId
+			  		+ ";");	  
+  }
+  
   public Quiz getQuiz(int quizId) throws SQLException {
 	  Quiz quiz = new Quiz();
 	  ResultSet rs = executeQuery("SELECT * FROM quiz WHERE id=" + quizId + ";");
@@ -166,6 +231,20 @@ public class Dao
 			  rank.add(new Pair<Integer, Integer>(Integer.parseInt(II[1]), Integer.parseInt(II[2])));
 		  }
 		  quiz.setRank(rank);
+	  }
+	  return quiz;
+  }
+  
+  public Quiz getQuizBasis(int quizId) throws SQLException {
+	  Quiz quiz = new Quiz();
+	  ResultSet rs = executeQuery("SELECT * FROM quiz WHERE id=" + quizId + ";");
+	  if (rs.next()) {
+		  quiz.setId(rs.getInt("id"));
+		  quiz.setType(rs.getString("type"));
+		  quiz.setOwnerID(rs.getInt("ownerID"));
+		  quiz.setCreateDate(rs.getDate("createDate"));
+		  quiz.setTitle(rs.getString("title"));
+		  quiz.setDescription(rs.getString("description"));
 	  }
 	  return quiz;
   }
@@ -196,7 +275,7 @@ public class Dao
 		  user.setId(rs.getInt("id"));
 		  user.setMemberSince(rs.getDate("membersince"));
 		  user.setNickName(rs.getString("nickname"));
-		  user.setPhoneNum("phonenum");
+		  user.setPhoneNum(rs.getString("phonenum"));
 		  user.setUsername(rs.getString("username"));
 		  user.setPassword(rs.getString("password"));
 		  String[] quizStr = rs.getString("pubQuiz").split(" ",-1);
@@ -206,6 +285,11 @@ public class Dao
 		  String[] quizzesDone = rs.getString("quizDone").split("&", -1);
 		  for (int i=1 ; i<quizzesDone.length; ++i) {
 			  user.addQuizDone(Integer.parseInt(quizzesDone[i]));
+		  }
+		  user.setIntro(rs.getString("intro"));
+		  String[] followings = rs.getString("followings").split("&",-1);
+		  for (int i=1 ; i<followings.length; ++i) {
+			  user.addFollowing(Integer.parseInt(followings[i]));
 		  }
  	  }
 	  return user;
@@ -236,9 +320,31 @@ public class Dao
 		  for (int i=1 ; i<quizzesDone.length; ++i) {
 			  user.addQuizDone(Integer.parseInt(quizzesDone[i]));
 		  }
+		  user.setIntro(rs.getString("intro"));
+		  String[] followings = rs.getString("followings").split("&",-1);
+		  for (int i=1 ; i<followings.length; ++i) {
+			  user.addFollowing(Integer.parseInt(followings[i]));
+		  }
  	  }
 	  return user;
   }
+  
+  public User getUserBasis(int userId) throws SQLException {
+	  User user = null;
+	  ResultSet rs = executeQuery("SELECT nickname, membersince, intro, email FROM user WHERE id="
+			  						+ userId
+			  						+ ";");
+	  if (rs.next()) {
+		  user = new User();
+		  user.setNickName(rs.getString("nickname"));
+		  user.setMemberSince(rs.getDate("membersince"));
+		  user.setIntro(rs.getString("intro"));
+		  user.setEmail(rs.getString("email"));
+		  user.setId(userId);
+	  }
+	  return user;
+  }
+  
   public int insertGroup(group grp) throws SQLException {
 		// TODO Auto-generated method stub
 		String tmp = String

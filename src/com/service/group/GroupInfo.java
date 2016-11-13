@@ -59,10 +59,10 @@ public class GroupInfo implements Action {
 		members = new ArrayList<User>();
 		managers = new ArrayList<User>();
 		for (int i = 0; i < grp.getMemberIds().size(); i++) {
-			members.add(dao.getUser(grp.getMemberIds().get(i)));
+			members.add(dao.getUserBasis(grp.getMemberIds().get(i)));
 		}
 		for (int i = 0; i < grp.getManagerIds().size(); i++) {
-			managers.add(dao.getUser(grp.getManagerIds().get(i)));
+			managers.add(dao.getUserBasis(grp.getManagerIds().get(i)));
 		}
 		return "success";
 	}

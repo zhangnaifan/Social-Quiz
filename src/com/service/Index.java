@@ -9,4 +9,5 @@ public class Index extends ActionSupport {
 	public String index(){
 		return SUCCESS;
 	}
+	
 }

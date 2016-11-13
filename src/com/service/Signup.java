@@ -33,37 +33,14 @@ public class Signup extends ActionSupport {
 			return "SIGNUP";
 		}
 		
-		//get userID
-		rs = dao.executeQuery("SELECT COUNT(*) FROM user;");
-		if (rs.next()){
-			user.setId(rs.getInt(1)+1);
-		}else{
-			throw new SQLException();
-		}
-		
 		//store into user
-		dao.execute("INSERT INTO user(id,username,password,nickname,membersince,accountlevel,"
-				+ "email,phonenum,gender,birthday,pubQuiz,quizDone ) VALUES("
-				+ user.getId()
-				+ ", '"
-				+ user.getUsername()
-				+ "', '"
-				+ user.getPassword()
-				+ "', '"
-				+ user.getNickName()
-				+ "', '"
-				+ user.getMemberSince()
-				+ "', "
-				+ user.getAccountLevel()
-				+ ", '"
-				+ user.getEmail()
-				+ "', '"
-				+ user.getPhoneNum()
-				+ "', '"
-				+ user.getGender()
-				+ "', '"
-				+ user.getBirthday()
-				+ "','','');");
+		dao.addUser(user);
+		
+		//get id
+		rs = dao.executeQuery("SELECT id FROM user WHERE username='"+user.getUsername()+"';");
+		if (rs.next()) {
+			user.setId(rs.getInt("id"));
+		}
 		
 		//put user's information into session
 		ActionContext actionContext = ActionContext.getContext();   //È¡µ½strutsÈÝÆ÷

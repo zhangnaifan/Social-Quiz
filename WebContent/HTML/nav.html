@@ -7,13 +7,13 @@
 	  				<span class="icon-bar"></span>
 	  				<span class="icon-bar"></span>
 	  			</button>
-	      		<a class="navbar-brand" href="#">Questionnaire</a>
-	      		<form class="navbar-form navbar-right" role="search">
-				<div class="form-group">
-					<input type="text" class="grom-control" placeholder="Search">
-				</div>
-				<button type="submit" class="btn btn-default">搜索</button>
-			</form>
+	      		<a class="navbar-brand" href="home">Questionnaire</a>
+	      		<form action="search" class="navbar-form navbar-right" role="search">
+					<div class="form-group">
+						<input name="keyword" type="text" class="form-control" placeholder="搜索">
+					</div>
+					<button type="submit" class="btn btn-default">搜索</button>
+				</form>
 	    	</div>
 	    	<div class="collapse navbar-collapse">
 	    		<div class="dropdown">
@@ -21,14 +21,14 @@
 	    			<div class="dropdown-content">
 	    				<a href=myQuiz>已创建的测试</a>
 						<a href="#">待回答的测试</a>
-					    <a href="#">已回答的测试</a>
+					    <a href=quizDone>已回答的测试</a>
 	    			</div>
 	    		</div>
 				<a href=viewAllGroups>
 					<button class="dropbtn">我的群</button>
 				</a>
-	    		<a href="#">
-					<button class="dropbtn">我的好友</button>
+	    		<a href=myFollowing>
+					<button class="dropbtn">我的关注</button>
 				</a>
 	    	</div>
 	    	
@@ -48,7 +48,7 @@
 				<span class="glyphicon glyphicon-user"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#">我的资料</a></li>
+				<li><a href=toInfo>我的资料</a></li>
 				<li><a href=viewMessage>我的消息</a></li>
 				<li class="divider"></li>
 				<li><a href=logOut>退出</a></li>
