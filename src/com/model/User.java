@@ -35,8 +35,14 @@ public class User {
 	private Vector<Integer> todoQuiz = new Vector<Integer>();
 	
 	private Vector<Integer> followings = new Vector<Integer>();
+	
+	private Vector<Integer> followers = new Vector<Integer>();
 
 	private Vector<Integer> groups = new Vector<Integer>();
+	
+	public void addFollower(int id) {
+		followers.addElement(id);
+	}
 	
 	public void addFollowing(int id) {
 		followings.addElement(id);
@@ -177,5 +183,13 @@ public class User {
 
 	public void setFollowings(Vector<Integer> followings) {
 		this.followings = followings;
+	}
+
+	public Vector<Integer> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(Vector<Integer> followers) {
+		this.followers = followers;
 	}
 }

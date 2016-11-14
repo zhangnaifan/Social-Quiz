@@ -68,7 +68,7 @@ public class Dao
   
   public void addUser(User user) throws SQLException {
 	  execute("INSERT INTO user(username,password,nickname,membersince,accountlevel,"
-				+ "email,phonenum,gender,birthday,pubQuiz,quizDone,intro,followings ) VALUES('"
+				+ "email,phonenum,gender,birthday,pubQuiz,quizDone,intro,followings,followers ) VALUES('"
 				+ user.getUsername()
 				+ "', '"
 				+ user.getPassword()
@@ -86,7 +86,7 @@ public class Dao
 				+ user.getGender()
 				+ "', '"
 				+ user.getBirthday()
-				+ "','','','','');");
+				+ "','','','','','');");
   }
 
   public void updateUser(User user) throws SQLException {
@@ -114,6 +114,14 @@ public class Dao
   
   public void updateUserFollowing(int userId, String news) throws SQLException {
 	  executeUpdate("UPDATE user SET followings='"
+			  			+news
+			  			+"' WHERE id="
+			  			+userId
+			  			+";");
+  }
+  
+  public void updateUserFollowers(int userId, String news) throws SQLException {
+	  executeUpdate("UPDATE user SET followers='"
 			  			+news
 			  			+"' WHERE id="
 			  			+userId
@@ -206,6 +214,21 @@ public class Dao
 			  		+ ";");	  
   }
   
+  public void addUserFollower(int userId, int followerId) throws SQLException {
+	  ResultSet rs = executeQuery("SELECT followers FROM user WHERE id=" + userId + ";");
+	  StringBuffer newRec = new StringBuffer();
+	  if (rs.next()) {
+		  String exsited = rs.getString(1);
+		  if (exsited != "NULL" && exsited != "null")
+			  newRec.append(exsited);
+	  }
+	  newRec.append("&" + followerId);
+	  executeUpdate("UPDATE user SET followers='"
+			  		+ newRec.toString() 
+			  		+ "' WHERE id=" + userId
+			  		+ ";");	  
+  }
+  
   public Quiz getQuiz(int quizId) throws SQLException {
 	  Quiz quiz = new Quiz();
 	  ResultSet rs = executeQuery("SELECT * FROM quiz WHERE id=" + quizId + ";");
@@ -291,6 +314,10 @@ public class Dao
 		  for (int i=1 ; i<followings.length; ++i) {
 			  user.addFollowing(Integer.parseInt(followings[i]));
 		  }
+		  String[] followers = rs.getString("followers").split("&",-1);
+		  for (int i=1 ; i<followers.length; ++i) {
+			  user.addFollower(Integer.parseInt(followers[i]));
+		  }
  	  }
 	  return user;
   }
@@ -324,6 +351,10 @@ public class Dao
 		  String[] followings = rs.getString("followings").split("&",-1);
 		  for (int i=1 ; i<followings.length; ++i) {
 			  user.addFollowing(Integer.parseInt(followings[i]));
+		  }
+		  String[] followers = rs.getString("followers").split("&",-1);
+		  for (int i=1 ; i<followers.length; ++i) {
+			  user.addFollower(Integer.parseInt(followers[i]));
 		  }
  	  }
 	  return user;
