@@ -1,5 +1,9 @@
 package com.model;
 
+import java.sql.SQLException;
+
+import com.db.Dao;
+
 public class Message {
 	private long id;
 	private int type;
@@ -83,5 +87,32 @@ public class Message {
 
 	public static String formRegisterGroup(int id2, int toId, int groupId) {
 		return String.format("values(null, %d, %d, '%d###%s', 1)", id2, toId, groupId, "");
+	}
+
+	public void adjust() {
+		if (this != null) {
+			if (this.type == 1) {
+			this.msg = String.valueOf(this.toGroupId)+"###"+this.msg;
+			}
+		}
+	}
+
+	public String tosql() {
+		// TODO Auto-generated method stub
+		return String.format("insert into message values(null,%d,%d,'%s',%d)", fromid,toid,msg,type);
+	}
+	
+	public static Message formInviteMessage(int _fromid, int _toid, int _quizId) throws ClassNotFoundException, SQLException {
+		Message ret = new Message();
+		ret.fromid = _fromid;
+		ret.toid = _toid;
+		ret.type = 4;
+		Dao dao = new Dao();
+		dao.close();
+		ret.msg = String.format("%d", _quizId);
+		return ret;
+	}
+	public Message() { 
+		this.id = 0;
 	}
 }

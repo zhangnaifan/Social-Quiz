@@ -28,108 +28,105 @@
 			<result name="ERROR">/WEB-INF/error.jsp</result>
 			<result name="HOME">/WEB-INF/home.jsp</result>
 
-        </global-results>
+		</global-results>
 
-		<!--  
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="ERROR"/>
-            <exception-mapping exception="java.sql.SQLException" result="ERROR"/>
-            <exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/>
-        </global-exception-mappings>
-        -->
-        
-        <!-- basis -->
-        
-        <action name="index" class="com.service.Index" method="index">
-        	<result>/WEB-INF/index.jsp</result>
-        </action>
-        
-        <action name="home" class="com.service.Index">
-        	<result>/WEB-INF/home.jsp</result>
-        </action>
-        
-        <action name="logIn" class="com.service.Login" method="login">
-        	<result>/WEB-INF/home.jsp</result>
-        </action>
-        
-        <action name="toSignUp" class="com.service.Index" method="index">
-        	<result>/WEB-INF/signup.jsp</result>
-        </action>
-        
-        <action name="signUp" class="com.service.Signup" method="signup">
-        	<result>/WEB-INF/home.jsp</result>
-        	<result name="SIGNUP">/WEB-INF/signup.jsp</result>
-        </action>
-        
-        <action name="logOut" class="com.service.Logout">
-        	<result>/WEB-INF/index.jsp</result>
-        </action>
-        
-        <action name="search" class="com.service.Search">
-        	<result>/WEB-INF/search.jsp</result>
-        </action>
-        
-        <!-- quiz -->
-        
-        <action name="toCreateQuiz" class="com.service.Index">
-        	<result>/WEB-INF/quiz/createQuiz.jsp</result>
-        </action>
-        
-        <action name="createQuiz" class="com.service.CreateQuiz">
-        	<result>/WEB-INF/quiz/quiz.jsp</result>
-        </action>
-        
-        <action name="myQuiz" class="com.service.Index">
-        	<result>/WEB-INF/quiz/myQuiz.jsp</result>
-        </action>
-        
-        <action name="quiz" class="com.service.Index">
-        	<result>/WEB-INF/quiz/quiz.jsp</result>
-        </action>
-        
-        <action name="doQuiz" class="com.service.DoQuiz">
-        	<result>/WEB-INF/quiz/quiz.jsp</result>
-        </action>
-        
-        <action name="rank" class="com.service.Index">
-        	<result>/WEB-INF/quiz/rank.jsp</result>
-        </action>
-        
-        <action name="quizDone" class="com.service.Index">
-        	<result>/WEB-INF/quiz/quizDone.jsp</result>
-        </action>
-        
-        <!-- user -->
-        
-        <action name="user" class="com.service.Index">
-        	<result name="success">/WEB-INF/user/user.jsp</result>
-        </action>
-        
-        <action name="toInfo" class="com.service.Index">
-        	<result name="success">/WEB-INF/user/info.jsp</result>
-        </action>  
-        
-        <action name="info" class="com.service.Info">
-        	<result>/WEB-INF/home.jsp</result>
-        </action>
-        
-        <action name="follow" class="com.service.Follow">
-        	<result name="inputName"></result>
-        </action>
-        
-        <action name="unfollow" class="com.service.Unfollow">
-        	<result name="inputName"></result>
-        </action>      
-        
-        <action name="myFollowing" class="com.service.Index">
-        	<result>/WEB-INF/user/myFollowing.jsp</result>
-        </action> 
-        
-        <!-- FUTURE ACTIONS -->
-        
-        <!-- addFriend, addGroup -->
-        
-        <!-- about groups -->
+		<!-- <global-exception-mappings> <exception-mapping exception="java.lang.Exception" 
+			result="ERROR"/> <exception-mapping exception="java.sql.SQLException" result="ERROR"/> 
+			<exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/> 
+			</global-exception-mappings> -->
+
+		<!-- basis -->
+
+		<action name="index" class="com.service.Index" method="index">
+			<result>/WEB-INF/index.jsp</result>
+		</action>
+
+		<action name="home" class="com.service.Index">
+			<result>/WEB-INF/home.jsp</result>
+		</action>
+
+		<action name="logIn" class="com.service.Login" method="login">
+			<result>/WEB-INF/home.jsp</result>
+		</action>
+
+		<action name="toSignUp" class="com.service.Index" method="index">
+			<result>/WEB-INF/signup.jsp</result>
+		</action>
+
+		<action name="signUp" class="com.service.Signup" method="signup">
+			<result>/WEB-INF/home.jsp</result>
+			<result name="SIGNUP">/WEB-INF/signup.jsp</result>
+		</action>
+
+		<action name="logOut" class="com.service.Logout">
+			<result>/WEB-INF/index.jsp</result>
+		</action>
+
+		<action name="search" class="com.service.Search">
+			<result>/WEB-INF/search.jsp</result>
+		</action>
+
+		<!-- quiz -->
+
+		<action name="toCreateQuiz" class="com.service.Index">
+			<result>/WEB-INF/quiz/createQuiz.jsp</result>
+		</action>
+
+		<action name="createQuiz" class="com.service.CreateQuiz">
+			<result>/WEB-INF/quiz/quiz.jsp</result>
+		</action>
+
+		<action name="myQuiz" class="com.service.Index">
+			<result>/WEB-INF/quiz/myQuiz.jsp</result>
+		</action>
+
+		<action name="quiz" class="com.service.Index">
+			<result>/WEB-INF/quiz/quiz.jsp</result>
+		</action>
+
+		<action name="doQuiz" class="com.service.DoQuiz">
+			<result>/WEB-INF/quiz/quiz.jsp</result>
+		</action>
+
+		<action name="rank" class="com.service.Index">
+			<result>/WEB-INF/quiz/rank.jsp</result>
+		</action>
+
+		<action name="quizDone" class="com.service.Index">
+			<result>/WEB-INF/quiz/quizDone.jsp</result>
+		</action>
+
+		<!-- user -->
+
+		<action name="user" class="com.service.Index">
+			<result name="success">/WEB-INF/user/user.jsp</result>
+		</action>
+
+		<action name="toInfo" class="com.service.Index">
+			<result name="success">/WEB-INF/user/info.jsp</result>
+		</action>
+
+		<action name="info" class="com.service.Info">
+			<result>/WEB-INF/home.jsp</result>
+		</action>
+
+		<action name="follow" class="com.service.Follow">
+			<result name="inputName"></result>
+		</action>
+
+		<action name="unfollow" class="com.service.Unfollow">
+			<result name="inputName"></result>
+		</action>
+
+		<action name="myFollowing" class="com.service.Index">
+			<result>/WEB-INF/user/myFollowing.jsp</result>
+		</action>
+
+		<!-- FUTURE ACTIONS -->
+
+		<!-- addFriend, addGroup -->
+
+		<!-- about groups -->
 		<action name="viewAllGroups" class="com.service.ViewAllGroups">
 			<result name="success">/WEB-INF/group/viewAllGroups.jsp</result>
 			<result name="fail">/WEB-INF/error.jsp</result>
@@ -147,20 +144,30 @@
 			<result name="success">/WEB-INF/group/createGroupResult.jsp</result>
 			<result name="fail">/WEB-INF/error.jsp</result>
 		</action>
-		
+
 		<action name="registerGroup" class="com.service.registerGroup">
 			<result name="success">/WEB-INF/group/viewAllGroups.jsp</result>
 			<result name="fail">/WEB-INF/group/groupInfo.jsp</result>
 		</action>
-		
-		
-        <!-- Messages(Invited quizzes, friends, groups, chatters) -->
-        <action name="viewMessage" class="com.service.ViewMessage">
+
+
+		<!-- Messages(Invited quizzes, friends, groups, chatters) -->
+		<action name="viewMessage" class="com.service.ViewMessage">
 			<result name="success">/WEB-INF/viewMessage.jsp</result>
 			<result name="fail">/WEB-INF/error.jsp</result>
 		</action>
 		<action name="processRegisterGroup" class="com.service.ProcessRegisterGroup">
 			<result>/WEB-INF/toViewMessage.jsp</result>
 		</action>
-    </package>
+		<action name="writeMessage" class="com.service.WriteMessage">
+			<result name="success">/WEB-INF/writeMessage.jsp</result>
+			<result name="fail">/WEB-INF/error.jsp</result>
+		</action>
+		<action name="sendMessage" class="com.service.SendMessage">
+			<result name="success">/WEB-INF/index.jsp</result>
+			<!-- <result name="success">/WEB-INF/sendMessageResult.jsp</result> -->
+			<result name="fail">/WEB-INF/error.jsp</result>
+		</action>
+		
+	</package>
 </struts>
