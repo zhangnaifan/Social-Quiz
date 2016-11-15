@@ -156,12 +156,12 @@ public class Dao
   public void addUserPubQuiz(User user, int quizId) throws SQLException{
 	  ResultSet rs = executeQuery("SELECT pubQuiz from user WHERE id=" + user.getId() + ";");
 	  StringBuffer newQuiz = new StringBuffer();
+	  newQuiz.append(" " + quizId);
 	  if (rs.next()) {
 		  String exsited = rs.getString(1);
 		  if (exsited != "NULL" && exsited != "null")
 			  newQuiz.append(exsited);
 	  }
-	  newQuiz.append(" " + quizId);
 	  executeUpdate("UPDATE user SET pubQuiz='"
 			  		+ newQuiz.toString() 
 			  		+ "' WHERE id=" + user.getId()
@@ -171,12 +171,12 @@ public class Dao
   public void addQuizRecord(int quizId, String rec) throws SQLException {
 	  ResultSet rs = executeQuery("SELECT records from quiz WHERE id=" + quizId + ";");
 	  StringBuffer newRec = new StringBuffer();
+	  newRec.append("&" + rec);
 	  if (rs.next()) {
 		  String exsited = rs.getString(1);
 		  if (exsited != "NULL" && exsited != "null")
 			  newRec.append(exsited);
 	  }
-	  newRec.append("&" + rec);
 	  executeUpdate("UPDATE quiz SET records='"
 			  		+ newRec.toString() 
 			  		+ "' WHERE id=" + quizId
@@ -186,12 +186,12 @@ public class Dao
   public void addUserQuizDone(int userId, int quizId) throws SQLException {
 	  ResultSet rs = executeQuery("SELECT quizDone from user WHERE id=" + userId + ";");
 	  StringBuffer newRec = new StringBuffer();
+	  newRec.append("&" + quizId);
 	  if (rs.next()) {
 		  String exsited = rs.getString(1);
 		  if (exsited != "NULL" && exsited != "null")
 			  newRec.append(exsited);
 	  }
-	  newRec.append("&" + quizId);
 	  executeUpdate("UPDATE user SET quizDone='"
 			  		+ newRec.toString() 
 			  		+ "' WHERE id=" + userId
@@ -201,12 +201,12 @@ public class Dao
   public void addUserFollowing(int userId, int friendId) throws SQLException {
 	  ResultSet rs = executeQuery("SELECT followings FROM user WHERE id=" + userId + ";");
 	  StringBuffer newRec = new StringBuffer();
+	  newRec.append("&" + friendId);
 	  if (rs.next()) {
 		  String exsited = rs.getString(1);
 		  if (exsited != "NULL" && exsited != "null")
 			  newRec.append(exsited);
 	  }
-	  newRec.append("&" + friendId);
 	  executeUpdate("UPDATE user SET followings='"
 			  		+ newRec.toString() 
 			  		+ "' WHERE id=" + userId
@@ -216,12 +216,12 @@ public class Dao
   public void addUserFollower(int userId, int followerId) throws SQLException {
 	  ResultSet rs = executeQuery("SELECT followers FROM user WHERE id=" + userId + ";");
 	  StringBuffer newRec = new StringBuffer();
+	  newRec.append("&" + followerId);
 	  if (rs.next()) {
 		  String exsited = rs.getString(1);
 		  if (exsited != "NULL" && exsited != "null")
 			  newRec.append(exsited);
 	  }
-	  newRec.append("&" + followerId);
 	  executeUpdate("UPDATE user SET followers='"
 			  		+ newRec.toString() 
 			  		+ "' WHERE id=" + userId
@@ -231,12 +231,12 @@ public class Dao
   public void addUserGroup(int userId, int groupId) throws SQLException {
 	  ResultSet rs = executeQuery("SELECT groups FROM user WHERE id=" + userId + ";");
 	  StringBuffer newRec = new StringBuffer();
+	  newRec.append("&" + groupId);
 	  if (rs.next()) {
 		  String exsited = rs.getString(1);
 		  if (exsited != "NULL" && exsited != "null")
 			  newRec.append(exsited);
 	  }
-	  newRec.append("&" + groupId);
 	  executeUpdate("UPDATE user SET groups='"
 			  		+ newRec.toString() 
 			  		+ "' WHERE id=" + userId
@@ -487,6 +487,12 @@ public class Dao
 			this.executeUpdate(String.format(
 					"update group_db set member='%s' where groupid=%d",
 					grp.getGroupMember(), grp.getGroupId()));
+			
+
+			//update user and database
+			User fromUser = getUser((int)msg.getFromid());
+			fromUser.addGroup(groupId);
+			addUserGroup(fromUser.getId(), groupId);
 		}
 	}
 
