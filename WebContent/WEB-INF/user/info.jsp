@@ -27,7 +27,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xl-6 col-md-6 col-md-offset-3">
-				<form action="info" method="post">
+				<form action="info" method="post" id="info">
 					<h2>更新用户信息</h2><hr/>
 					
 					<div class="form-group" style="margin-top: 3%">
@@ -61,12 +61,24 @@
 						<p>手机</p>
 						<input value="${ user.phoneNum}" name="phoneNum" type="text"/>
 					</div>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">保存</button>  
 				</form>
+				<button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#confirm">保存</button>  
 			</div>
 		</div>
 	</div>
-<h1>${msg }</h1>
 
+	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" style="z-index: 10000 !important;">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+	        <h4 class="modal-title" id="myModalLabel">保存成功！</h4>
+	      </div>
+	      <div class="modal-footer btn-group">
+	        <button class="btn btn-primary" onclick="$('#info').submit()">好的，去主页看看</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
 </html>

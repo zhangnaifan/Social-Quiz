@@ -97,6 +97,12 @@ public class CreateGroup extends ActionSupport {
 		System.out.println(String.format(
 				"create group with Groupid=%d, groupName='%s'", newGroupId,
 				groupname));
+		
+		//update user and database
+		user.addGroup(newGroupId);
+		ActionContext.getContext().getSession().replace("user", user);
+		dao.addUserGroup(user.getId(), newGroupId);
+		
 		dao.close();
 		return "success";
 	}

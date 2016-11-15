@@ -74,7 +74,7 @@ $(document).ready(function(){
 	$('#myQuiz').append(
 	'<div class="quiz panel panel-success">\
 		<div class="panel-heading">\
-			<a><span class="panel-title no"></span>\
+			<a><span class="panel-title no"></span><span>. </span>\
 			<span class="panel-title title"></span></a>\
 			<span class="label label-success type" style="margin-left: 3%"></span>\
 			<span class="panel-title times" style="float: right;"></span>\
@@ -136,7 +136,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<div class="col-md-6 col-xs-8">
-				<h5><a href="#">待回答的问卷</a></h5>
+				<h5><a>最新动态</a></h5>
 				<hr>
 				<div id="myQuiz" style="cursor:pointer;"></div>
 				

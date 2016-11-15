@@ -149,6 +149,10 @@
 			<result name="success">/WEB-INF/group/viewAllGroups.jsp</result>
 			<result name="fail">/WEB-INF/group/groupInfo.jsp</result>
 		</action>
+		
+		<action name="myGroups" class="com.service.Index">
+			<result>/WEB-INF/group/myGroups.jsp</result>
+		</action>
 
 
 		<!-- Messages(Invited quizzes, friends, groups, chatters) -->

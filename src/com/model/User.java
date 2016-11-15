@@ -14,7 +14,7 @@ public class User {
 	private String nickName;
 	private String gender;
 	private Date birthday;
-	private String intro;
+	private String intro = "";
 
 	// account info
 	private int id;
@@ -39,6 +39,14 @@ public class User {
 	private Vector<Integer> followers = new Vector<Integer>();
 
 	private Vector<Integer> groups = new Vector<Integer>();
+	
+	public boolean isInGroup(int id) {
+		return groups.indexOf(id)!=-1;
+	}
+	
+	public void addGroup(int id) {
+		groups.add(id);
+	}
 	
 	public void addFollower(int id) {
 		followers.addElement(id);

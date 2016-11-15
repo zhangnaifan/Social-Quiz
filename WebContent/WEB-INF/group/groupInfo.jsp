@@ -36,18 +36,54 @@
 		
 	</style>
 	
+<%@ page language="java" import="com.db.Dao, com.model.*, java.util.*" pageEncoding="UTF-8"%>
+<%
+	User user = (User)session.getAttribute("user");
+	Vector<Quiz> quizzes = new Vector<Quiz>();
+	Dao dao = new Dao();
+	group grp = dao.getGrpById(Integer.parseInt(request.getParameter("groupId")));
+	for (int userId : grp.getMemberIds()) {
+		for (int id : dao.getUser(userId).getPublishedQuiz()) {
+			quizzes.add(dao.getQuiz(id));
+		}
+	}
+%>
+	
+	
 	<!-- js -->
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('nav').load('HTML/nav.html');
+	<%	for (int i=0; i<quizzes.size(); ++i) {%>
+		$('#quiz').append(
+		'<div class="quiz panel panel-success">\
+			<div class="panel-heading">\
+				<a><span class="panel-title no"></span><span>. </span>\
+				<span class="panel-title title"></span></a>\
+				<span class="label label-success type" style="margin-left: 3%"></span>\
+				<span class="panel-title createDate" style="float: right"></span>\
+			</div>\
+			<div class="panel-body">\
+				<p class="description" style="color:gray"></p>\
+			</div>\
+		</div>');
+		$('.no:last').text('<%=i+1%>');
+		$('.title:last').text('<%=quizzes.elementAt(i).getTitle()%>');
+		$('.type:last').text('<%=quizzes.elementAt(i).getType()%>');
+		$('.createDate:last').text('<%=quizzes.elementAt(i).getType()%>');
+		$('.description:last').text('<%=quizzes.elementAt(i).getCreateDate()%>');
+		$('a:last').attr('href','quiz?id='+'<%=quizzes.elementAt(i).getId()%>');
+		<%}
+	%>
+		
 	});
 	</script>
 </head>
 <body>
-	<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px;"></nav>
+	<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 3%;"></nav>
  	<div class="container">
 		<div class="row">
-			<div class="col-xl-6 col-md-6 col-center-block">
+			<div class="col-xs-offset-1 col-md-offset-1 col-xs-3 col-md-3">
 				<form action="registerGroup">
 					<table class="table table-hover">
 						<caption style="color:black; font-size:40px;">${grp.groupName }</caption>
@@ -110,8 +146,13 @@
 						</tbody>
 					</table>
 					<input type="hidden" name="groupId" value="${grp.groupId }" readonly="readonly">
-					<button class="btn btn-lg btn-default btn-block" type="submit">加入该群</button>
+					<%if (!user.isInGroup((int)grp.getGroupId())) {%>
+						<button class="btn btn-lg btn-default btn-block" type="submit">加入该群</button>
+					<%} %>
 				</form>
+			</div>
+			<div id="quiz" class="col-xs-offset-1 col-md-offset-1 col-xs-6 col-md-6">
+				<h1>测试清单</h1><hr/>
 			</div>
 		</div>
 	</div>

@@ -45,7 +45,7 @@ $(document).ready(function(){
 	$('.title:last').text('<%=quizzes.elementAt(i).getTitle()%>');
 	$('.type:last').text('<%=quizzes.elementAt(i).getType()%>');
 	$('.description:last').text('<%=quizzes.elementAt(i).getDescription()%>');
-	$('a:last').attr('href','quiz.action?id='+'<%=quizzes.elementAt(i).getId()%>');
+	$('a:last').attr('href','quiz?id='+'<%=quizzes.elementAt(i).getId()%>');
 	<%}
 %>
 	

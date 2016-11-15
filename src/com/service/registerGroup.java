@@ -57,6 +57,11 @@ public class registerGroup implements Action {
 			setMsg("ÄúÒÑ×¢²á¸ÃÈº£¡");
 			return "fail";
 		} else {
+			//update user and database
+			user.addGroup(groupId);
+			ActionContext.getContext().getSession().replace("user", user);
+			dao.addUserGroup(user.getId(), groupId);
+			
 			for (int i = 0; i < grp.getManagerIds().size(); i++) {
 				dao.addRegisterGroupMsg(user.getId(), grp.getManagerIds().get(i), (int)grp.getGroupId());
 			}

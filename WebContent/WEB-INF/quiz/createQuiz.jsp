@@ -17,6 +17,7 @@
 			$('nav').load('HTML/nav.html');
 			$('#myModal').modal({show:true});
 			$('#quesBtn').addClass('btn-group-vertical')
+						 .css('width','10%')
 						 .css('position', 'fixed')
 						 .css('height', '42%');
 			$('#quesBtn button').attr('type', 'button')
@@ -37,13 +38,13 @@
 			$('#quiz').append(
 				'<div class="panel panel-success  question question-SA">\
 				    <div class="panel-heading form-inline">\
-				        <span class="panel-title no"></span><span class="panel-title">. Short Answer</span>\
-				        <input type="text" style="width:100px; height:28px; margin-left:20px" class="tag form-control" placeholder="tag"/>\
+				        <span class="panel-title no"></span><span class="panel-title">. 简答题</span>\
+				        <input type="text" style="width:100px; height:28px; margin-left:20px" class="tag form-control" placeholder="标签"/>\
 				        <span class="glyphicon glyphicon-remove" onclick="popQues(this)" style="float:right"></span>\
 				    </div>\
 				    <div class="panel-body">\
-				    	<label for="content">Content</label><input id="content" type="text" class="content form-control">\
-				        <label for="answer">Answer</label>\
+				    	<label for="content">问题</label><input id="content" type="text" class="content form-control">\
+				        <label for="answer">答案</label>\
 				        <div id="answer" class="input-group">\
 				        	<input type="text" class="answer form-control">\
 				        	<span class="input-group-addon">\
@@ -60,19 +61,20 @@
 				    </div>\
 				</div>');
 			$('.no:last').text(++quesCount);
+			$('.score:last').tooltip({title:'设置得分'});
 		}
 
 		function addMC() {
 			$('#quiz').append(
 				'<div class="panel panel-info question question-MC">\
 				    <div class="panel-heading form-inline">\
-				        <span class="panel-title no"></span><span class="panel-title ">. Multiple Choice</span>\
-				        <input type="text" style="width:100px; height:28px; margin-left:20px" class="tag form-control" placeholder="tag"/>\
+				        <span class="panel-title no"></span><span class="panel-title ">. 单选题</span>\
+				        <input type="text" style="width:100px; height:28px; margin-left:20px" class="tag form-control" placeholder="标签"/>\
 				        <span class="glyphicon glyphicon-remove" onclick="popQues(this)" style="float:right"></span>\
 				    </div>\
 				    <div class="panel-body">\
-				        <label for="content">Content</label><input id="content" type="text" class="content form-control">\
-				        <label for="options">Options</label>\
+				        <label for="content">问题</label><input id="content" type="text" class="content form-control">\
+				        <label for="options">选项</label>\
 						<ul id="options" class="list-group">\
 							<div class="option input-group">\
 								<span class="input-group-addon mark">A</span>\
@@ -105,23 +107,24 @@
 		                    	<span class="input-group-addon"><span class="glyphicon glyphicon-remove" onclick="popOpt(this)"></span></span>\
 							</div>\
 						</ul>\
-						<button type="button" onclick="addItem(this)" class="btn btn-default">add option</button>\
+						<button type="button" onclick="addItem(this)" class="btn btn-default">增加选项</button>\
 				    </div>\
 				</div>');
 			$('.no:last').text(++quesCount);
+			$('.question-MC:last .score').tooltip({title:'设置得分'});
 		}
 
 		function addTF() {
 			$('#quiz').append(
 				'<div class="panel panel-warning question question-TF">\
 				    <div class="panel-heading form-inline">\
-				        <span class="panel-title no"></span><span class="panel-title ">. True or False</span>\
+				        <span class="panel-title no"></span><span class="panel-title ">. 判断题</span>\
 				        <input type="text" style="width:100px; height:28px; margin-left:20px" class="tag form-control" placeholder="tag"/>\
 				        <span class="glyphicon glyphicon-remove" onclick="popQues(this)" style="float:right"></span>\
 				    </div>\
 				    <div class="panel-body">\
 				        <div class="input-group">\
-							<input type="text" class="content form-control">\
+							<input type="text" class="content form-control" placeholder="题面">\
 							<span class="input-group-addon">\
 								<input type="checkbox" onclick="setVal(this)">\
 								<input type="text" style="display:none" value="F" class="answer">\
@@ -140,6 +143,8 @@
 				    </div>\
 				</div>');
 			$('.no:last').text(++quesCount);
+			$('.score:last').tooltip({title:'设置得分'});
+			$(':checkbox:last').tooltip({title:'打勾表示答案正确，否则错误'});
 		}
 
 		function addItem(thisQues) {
@@ -160,6 +165,7 @@
                     </span>\
                 	<span class="input-group-addon"><span class="glyphicon glyphicon-remove" onclick="popOpt(this)"></span></span>\
 				</div>');
+			$('.score:last').tooltip({title:'设置得分'});
 		}
 
 		function popQues(thisItem) {
@@ -236,10 +242,7 @@
 				}
 			});
 			$('#para').append('<input name="quizStr" type="text" value="' + str + '">');
-			if (confirm('Are you sure to submit?')) {
-				return true;
-			} 
-			return false;
+			$('#quiz').submit();
 		}
 
 	</script>
@@ -257,11 +260,9 @@
 	        <h4 class="modal-title" id="myModalLabel">测试概述</h4>
 	      </div>
 	      <div class="modal-body">
-	        <form action="" method="post">
-	        	<label for="title">题目</label><input type="text" id="title" class="form-control">
-	        	<label for="description">描述</label><input type="text" id="description" class="form-control">
-	        	<label for="type">类型</label><input type="text" id="type" class="form-control">
-	        </form>
+        	<label for="title">题目</label><input type="text" id="title" class="form-control">
+        	<label for="description">描述</label><input type="text" id="description" class="form-control">
+        	<label for="type">类型</label><input type="text" id="type" class="form-control">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" data-dismiss="modal">保存并关闭</button>
@@ -269,20 +270,37 @@
 	    </div>
 	  </div>
 	</div>
+	
+	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" style="z-index: 10000 !important;">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+	        <h4 class="modal-title" id="myModalLabel">确定要提交吗？</h4>
+	      </div>
+	      <div class="modal-footer btn-group">
+	      	<button class="btn btn-primary" data-dismiss="modal">再看看</button>
+	        <button class="btn btn-danger" onclick="quizToString()">提交吧</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
 	<div class="container" style="margin-top:4%;">
 		<div class="row">
 			<div class="col-xs-2 col-md-2">
 				<div id="quesBtn">
-					<button>多选题</button><button>简答题</button><button>判断题</button>
+					<button>单选题</button><button>简答题</button><button>判断题</button>
 				</div>
 			</div>
 			<div class="col-xs-7 col-xs-offset-1 col-md-7 col-md-offset-1">
-				<form id='quiz' class="form-group" action="createQuiz" method="post" onsubmit="return quizToString()">
+				<div class="form-inline" style="margin-bottom: 5%">
+					<button class="btn-primary form-control" data-toggle="modal" data-target="#myModal" style="width:49%">更改测试概述</button>
+					<button data-toggle="modal" data-target="#confirm" class="btn-warning form-control" style="width: 49%">提交</button>	
+				</div>
+				<form id='quiz' class="form-group" action="createQuiz" method="post">
 					<div id="para" style="display:none"></div>
-					<div class="form-inline" style="margin-bottom: 5%">
-						<input type="button" class="btn-primary form-control" data-toggle="modal" data-target="#myModal" value="更改测试概述" style="width:49%">
-						<input type="submit" value="提交" class="btn-warning form-control" style="width: 49%" />	
-					</div>
 				</form>
 			</div>
 		</div>

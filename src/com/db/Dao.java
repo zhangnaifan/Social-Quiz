@@ -27,7 +27,7 @@ public class Dao
   { 
     String driver = "com.mysql.jdbc.Driver";
     String username = "root";
-    String password = "root";
+    String password = "113095";
     String dbUrl = String.format("jdbc:mysql://%s:%s/%s", new Object[] {
       "localhost", "3306", "staples" });    
     
@@ -68,7 +68,7 @@ public class Dao
   
   public void addUser(User user) throws SQLException {
 	  execute("INSERT INTO user(username,password,nickname,membersince,accountlevel,"
-				+ "email,phonenum,gender,birthday,pubQuiz,quizDone,intro,followings,followers ) VALUES('"
+				+ "email,phonenum,gender,birthday,pubQuiz,quizDone,intro,followings,followers,groups ) VALUES('"
 				+ user.getUsername()
 				+ "', '"
 				+ user.getPassword()
@@ -86,7 +86,7 @@ public class Dao
 				+ user.getGender()
 				+ "', '"
 				+ user.getBirthday()
-				+ "','','','','','');");
+				+ "','','','','','','');");
   }
 
   public void updateUser(User user) throws SQLException {
@@ -109,7 +109,6 @@ public class Dao
 				+ "' WHERE id ="
 				+ user.getId()
 				+ ";");
-	  System.out.println(user.getId());
   }
   
   public void updateUserFollowing(int userId, String news) throws SQLException {
@@ -229,6 +228,21 @@ public class Dao
 			  		+ ";");	  
   }
   
+  public void addUserGroup(int userId, int groupId) throws SQLException {
+	  ResultSet rs = executeQuery("SELECT groups FROM user WHERE id=" + userId + ";");
+	  StringBuffer newRec = new StringBuffer();
+	  if (rs.next()) {
+		  String exsited = rs.getString(1);
+		  if (exsited != "NULL" && exsited != "null")
+			  newRec.append(exsited);
+	  }
+	  newRec.append("&" + groupId);
+	  executeUpdate("UPDATE user SET groups='"
+			  		+ newRec.toString() 
+			  		+ "' WHERE id=" + userId
+			  		+ ";");	  
+  }
+  
   public Quiz getQuiz(int quizId) throws SQLException {
 	  Quiz quiz = new Quiz();
 	  ResultSet rs = executeQuery("SELECT * FROM quiz WHERE id=" + quizId + ";");
@@ -318,6 +332,10 @@ public class Dao
 		  for (int i=1 ; i<followers.length; ++i) {
 			  user.addFollower(Integer.parseInt(followers[i]));
 		  }
+		  String[] groups = rs.getString("groups").split("&",-1);
+		  for (int i=1 ; i<groups.length; ++i) {
+			  user.addGroup(Integer.parseInt(groups[i]));
+		  }
  	  }
 	  return user;
   }
@@ -355,6 +373,10 @@ public class Dao
 		  String[] followers = rs.getString("followers").split("&",-1);
 		  for (int i=1 ; i<followers.length; ++i) {
 			  user.addFollower(Integer.parseInt(followers[i]));
+		  }
+		  String[] groups = rs.getString("groups").split("&",-1);
+		  for (int i=1 ; i<groups.length; ++i) {
+			  user.addGroup(Integer.parseInt(groups[i]));
 		  }
  	  }
 	  return user;

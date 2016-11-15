@@ -15,10 +15,10 @@
 <%@ page language="java" import="com.db.Dao, com.model.*, java.util.*" pageEncoding="UTF-8"%>
 <%
 User user = (User)session.getAttribute("user");
-Vector<Quiz> quizzes = new Vector<Quiz>();
+Vector<group> groups = new Vector<group>();
 Dao dao = new Dao();
-for (int id : user.getPublishedQuiz()) {
-	quizzes.add(dao.getQuiz(id));
+for (int id : user.getGroups()) {
+	groups.add(dao.getGrpById(id));
 }
 %>
 
@@ -28,25 +28,29 @@ for (int id : user.getPublishedQuiz()) {
 $(document).ready(function(){
 	$('nav').load('HTML/nav.html');
 	
-<%	for (int i=0; i<quizzes.size(); ++i) {%>
-	$('#myQuiz').append(
-	'<div class="quiz panel panel-success">\
+<%	for (int i=0; i<groups.size(); ++i) {%>
+	$('#myGroups').append(
+	'<div class="group panel panel-info">\
 		<div class="panel-heading">\
 			<a><span class="panel-title no"></span><span>. </span>\
-			<span class="panel-title title"></span></a>\
-			<span class="label label-success type" style="margin-left: 3%"></span>\
-			<span class="panel-title createDate" style="float: right"></span>\
+			<span class="panel-title groupname"></span></a>\
+			(<span class="groupid"></span>)\
+			<span class="panel-title " style="float: right">\
+				成员人数：<span class="tot"></span>&nbsp&nbsp\
+				创建日期：<span class="createDate"></span>\
+			</span>\
 		</div>\
 		<div class="panel-body">\
 			<p class="description" style="color:gray"></p>\
 		</div>\
 	</div>');
 	$('.no:last').text('<%=i+1%>');
-	$('.title:last').text('<%=quizzes.elementAt(i).getTitle()%>');
-	$('.type:last').text('<%=quizzes.elementAt(i).getType()%>');
-	$('.createDate:last').text('<%=quizzes.elementAt(i).getType()%>');
-	$('.description:last').text('<%=quizzes.elementAt(i).getCreateDate()%>');
-	$('a:last').attr('href','quiz?id='+'<%=quizzes.elementAt(i).getId()%>');
+	$('.groupname:last').text('<%=groups.elementAt(i).getGroupName()%>');
+	$('.groupid:last').text('<%=groups.elementAt(i).getGroupId()%>');
+	$('.tot:last').text('<%=groups.elementAt(i).getTotMembers()%>');
+	$('.createDate:last').text('<%=groups.elementAt(i).getCreateDate()%>');
+	$('.description:last').text('<%=groups.elementAt(i).getInfo()%>');
+	$('a:last').attr('href','groupInfo?groupId='+'<%=groups.elementAt(i).getGroupId()%>');
 	<%}
 %>
 	
@@ -60,8 +64,8 @@ $(document).ready(function(){
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
-				<h2 style="margin-bottom:4%;">我的测试</h2>
-				<div id="myQuiz"></div>
+				<h2 style="margin-bottom:4%;">我的群</h2>
+				<div id="myGroups"></div>
 			</div>
 		</div>
 	</div>
