@@ -5,21 +5,30 @@ import java.sql.SQLException;
 import com.db.Dao;
 
 public class Message {
+	
+	/*
+	 * type 1 : register group
+	 * 		2 : 
+	 * 		3 : normal
+	 * 		4 : invite to Quiz
+	 */
+	
+	
 	private long id;
 	private int type;
 	private long fromid;
 	private long toid;
 	private String msg;
 	private User fromUser;
-	private int toGroupId;
+	private int tmpId;
 	
 	
 	public int getToGroupId() {
-		return toGroupId;
+		return tmpId;
 	}
 
 	public void setToGroupId(int toGroupId) {
-		this.toGroupId = toGroupId;
+		this.tmpId = toGroupId;
 	}
 
 	public User getFromUser() {
@@ -45,8 +54,12 @@ public class Message {
 		this.fromid = fromid;
 		this.toid = toid;
 		if (type==1) {
+			this.tmpId = Integer.valueOf(msg.split("###")[0]);
+			this.msg = msg.split("###")[1];
+		}
+		else if (type==4) {
 			this.msg = null;
-			this.toGroupId = Integer.valueOf(msg.split("###")[0]);
+			this.tmpId = Integer.valueOf(msg);
 		}
 		else {
 			this.msg = msg;
@@ -85,14 +98,14 @@ public class Message {
 		this.msg = msg;
 	}
 
-	public static String formRegisterGroup(int id2, int toId, int groupId) {
-		return String.format("values(null, %d, %d, '%d###%s', 1)", id2, toId, groupId, "");
+	public static String formRegisterGroup(int id2, int toId, int groupId, String groupName) {
+		return String.format("values(null, %d, %d, '%d###%s', 1)", id2, toId, groupId, groupName);
 	}
 
 	public void adjust() {
 		if (this != null) {
 			if (this.type == 1) {
-			this.msg = String.valueOf(this.toGroupId)+"###"+this.msg;
+			this.msg = String.valueOf(this.tmpId)+"###"+this.msg;
 			}
 		}
 	}

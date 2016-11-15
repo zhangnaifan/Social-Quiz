@@ -63,7 +63,7 @@ public class registerGroup implements Action {
 			dao.addUserGroup(user.getId(), groupId);
 			
 			for (int i = 0; i < grp.getManagerIds().size(); i++) {
-				dao.addRegisterGroupMsg(user.getId(), grp.getManagerIds().get(i), (int)grp.getGroupId());
+				dao.addRegisterGroupMsg(user.getId(), grp.getManagerIds().get(i), (int)grp.getGroupId(), grp.getGroupName());
 			}
 		}
 		dao.close();

@@ -111,8 +111,10 @@ Database:
 		
 		Type	
 		---------------------  
-		1		groupRegister  
-
+		1		groupRegister   
+		3		normal  
+		4		invite to Quiz
+		
 	
 Database:
 	Name: staples

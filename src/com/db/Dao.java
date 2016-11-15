@@ -27,7 +27,7 @@ public class Dao
   { 
     String driver = "com.mysql.jdbc.Driver";
     String username = "root";
-    String password = "113095";
+    String password = "root";
     String dbUrl = String.format("jdbc:mysql://%s:%s/%s", new Object[] {
       "localhost", "3306", "staples" });    
     
@@ -439,10 +439,10 @@ public class Dao
 		return ret;
 	}
 
-	public void addRegisterGroupMsg(int id, int toId, int groupId)
+	public void addRegisterGroupMsg(int id, int toId, int groupId, String groupName)
 			throws SQLException {
 		this.execute("insert into message "
-				+ Message.formRegisterGroup(id, toId, groupId));
+				+ Message.formRegisterGroup(id, toId, groupId, groupName));
 	}
 
 	public ArrayList<Message> getMessages(int id) throws SQLException {
