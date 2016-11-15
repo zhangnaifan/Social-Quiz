@@ -202,7 +202,9 @@
 	}
 	
 	function popSend() {
-		$('#footer').append('<button id="send-btn" onclick="send()" class="btn btn-primary">发送</button>');
+		if ($('#message #send-btn').is('#send-btn')==false){
+			$('#footer').append('<button id="send-btn" onclick="send()" class="btn btn-primary">发送</button>');
+		}
 		$('#success').remove();
 		$('#message #content').removeAttr('readonly').val('');
 		$('#message').modal({show:true});

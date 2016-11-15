@@ -35,7 +35,9 @@ $(document).ready(function(){
 			<a><span class="panel-title no"></span><span>. </span>\
 			<span class="panel-title title"></span></a>\
 			<span class="label label-success type" style="margin-left: 3%"></span>\
-			<span class="panel-title createDate" style="float: right"></span>\
+			<span class="panel-title" style="float: right;">\
+				创建日期：<span class="createDate"></span>\
+			</span>\
 		</div>\
 		<div class="panel-body">\
 			<p class="description" style="color:gray"></p>\
@@ -44,8 +46,8 @@ $(document).ready(function(){
 	$('.no:last').text('<%=i+1%>');
 	$('.title:last').text('<%=quizzes.elementAt(i).getTitle()%>');
 	$('.type:last').text('<%=quizzes.elementAt(i).getType()%>');
-	$('.createDate:last').text('<%=quizzes.elementAt(i).getType()%>');
-	$('.description:last').text('<%=quizzes.elementAt(i).getCreateDate()%>');
+	$('.createDate:last').text('<%=quizzes.elementAt(i).getCreateDate()%>');
+	$('.description:last').text('<%=quizzes.elementAt(i).getDescription()%>');
 	$('a:last').attr('href','quiz?id='+'<%=quizzes.elementAt(i).getId()%>');
 	<%}
 %>

@@ -14,12 +14,12 @@
 <%-- java --%>
 <%@ page language="java" import="com.db.Dao, com.model.*, java.util.*" pageEncoding="UTF-8"%>
 <%
-User user = (User)request.getSession().getAttribute("user");
-Vector<Quiz> quizzes = new Vector<Quiz>();
-Dao dao = new Dao();
-for (int id : user.getQuizDone()) {
-	quizzes.add(dao.getQuiz(id));
-}
+	User user = (User)request.getSession().getAttribute("user");
+	Vector<Quiz> quizzes = new Vector<Quiz>();
+	Dao dao = new Dao();
+	for (int id : user.getQuizDone()) {
+		quizzes.add(dao.getQuiz(id));
+	}
 %>
 
 
@@ -35,7 +35,9 @@ $(document).ready(function(){
 			<a><span class="panel-title no"></span><span>. </span>\
 			<span class="panel-title title"></span></a>\
 			<span class="label label-success type" style="margin-left: 3%"></span>\
-			<span class="panel-title times" style="float: right;"></span>\
+			<span class="panel-title" style="float: right;">\
+				创建日期：<span class="createDate"></span>\
+			</span>\
 		</div>\
 		<div class="panel-body">\
 			<p class="description" style="color:gray"></p>\
@@ -45,6 +47,7 @@ $(document).ready(function(){
 	$('.title:last').text('<%=quizzes.elementAt(i).getTitle()%>');
 	$('.type:last').text('<%=quizzes.elementAt(i).getType()%>');
 	$('.description:last').text('<%=quizzes.elementAt(i).getDescription()%>');
+	$('.createDate:last').text('<%=quizzes.elementAt(i).getCreateDate()%>');
 	$('a:last').attr('href','quiz?id='+'<%=quizzes.elementAt(i).getId()%>');
 	<%}
 %>

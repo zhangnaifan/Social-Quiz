@@ -95,6 +95,10 @@
 		<action name="quizDone" class="com.service.Index">
 			<result>/WEB-INF/quiz/quizDone.jsp</result>
 		</action>
+		
+		<action name="quizTodo" class="com.service.Index">
+			<result>/WEB-INF/quiz/quizTodo.jsp</result>
+		</action>
 
 		<!-- user -->
 

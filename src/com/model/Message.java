@@ -23,6 +23,14 @@ public class Message {
 	private int tmpId;
 	
 	
+	public int getTmpId() {
+		return tmpId;
+	}
+
+	public void setTmpId(int tmpId) {
+		this.tmpId = tmpId;
+	}
+
 	public int getToGroupId() {
 		return tmpId;
 	}
