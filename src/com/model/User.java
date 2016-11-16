@@ -14,6 +14,7 @@ public class User {
 	private String nickName;
 	private String gender;
 	private Date birthday;
+	private String intro = "";
 
 	// account info
 	private int id;
@@ -33,9 +34,27 @@ public class User {
 	
 	private Vector<Integer> todoQuiz = new Vector<Integer>();
 	
-	private Vector<Integer> friends = new Vector<Integer>();
+	private Vector<Integer> followings = new Vector<Integer>();
+	
+	private Vector<Integer> followers = new Vector<Integer>();
 
 	private Vector<Integer> groups = new Vector<Integer>();
+	
+	public boolean isInGroup(int id) {
+		return groups.indexOf(id)!=-1;
+	}
+	
+	public void addGroup(int id) {
+		groups.add(id);
+	}
+	
+	public void addFollower(int id) {
+		followers.addElement(id);
+	}
+	
+	public void addFollowing(int id) {
+		followings.addElement(id);
+	}
 	
 	public void addQuiz(int id) {
 		publishedQuiz.add(id);
@@ -126,14 +145,6 @@ public class User {
 	}
 
 
-	public Vector<Integer> getFriends() {
-		return friends;
-	}
-
-	public void setFriends(Vector<Integer> friends) {
-		this.friends = friends;
-	}
-
 	public Vector<Integer> getPublishedQuiz() {
 		return publishedQuiz;
 	}
@@ -164,5 +175,29 @@ public class User {
 
 	public void setQuizDone(Vector<Integer> quizDone) {
 		this.quizDone = quizDone;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+
+	public Vector<Integer> getFollowings() {
+		return followings;
+	}
+
+	public void setFollowings(Vector<Integer> followings) {
+		this.followings = followings;
+	}
+
+	public Vector<Integer> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(Vector<Integer> followers) {
+		this.followers = followers;
 	}
 }

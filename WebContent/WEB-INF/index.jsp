@@ -7,6 +7,9 @@
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- JS -->
+	<script>msg = '${msg}';</script>
+	<script src="JS/alert.js"></script>
 	<style type="text/css">
 		.login-form{
 	 		 padding:0px 25px;
@@ -127,9 +130,9 @@
 		<div class="container"  >
 			<div class="row" >
 				<div class="col-sm-8 col-sm-offset-2 text">
-					<h1><strong>Questionnaire</strong> Login Form</h1>
+					<h1><strong>Questionnaire</strong></h1>
 					<div class="description">
-						<p style="color:white">This is an amusing web made by PDF.</p>
+						<p style="color:white">一个社交性的测试网站</p>
 					</div>
 				</div>
 			</div>
@@ -137,8 +140,8 @@
 				<div class="col-sm-6 col-md-offset-3 form-box" >
 					<div class="form-top">
 						<div class="form-top-left">
-							<h3>Login to our site</h3>
-						<p style="color:#555">Enter your username and password to log on:</p>
+							<h3>登录我们的网站</h3>
+						<p style="color:#555">请输入用户名和密码：</p>
 						</div>
 						<div class="form-top-right">
 							<i class="fa fa-key"></i>
@@ -152,11 +155,11 @@
 							<div class="form-group">
 								<input type="password" class="form-control" placeholder="Password" name="password">
 							</div>
-							<button class="btn btn-lg btn-success btn-block" type="submit">Log in</button>
+							<button class="btn btn-lg btn-success btn-block" type="submit">登录</button>
 						</form>
 					
-						<a href="#" style="float:left">Forget your password?</a>
-						<a href=toSignUp style="float:right">Sign up</a>
+						<a href="#" style="float:left">忘记密码?</a>
+						<a href=toSignUp style="float:right">注册</a>
 
 					</div>
 				</div>

@@ -1,0 +1,59 @@
+<meta charset="utf-8">
+	<div class="container-fluid">
+	  		<div class="navbar-header">
+	  			<button type="button" class="navbar-left navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	  				<span class="sr-only">Toggle navigation</span>
+	  				<span class="icon-bar"></span>
+	  				<span class="icon-bar"></span>
+	  				<span class="icon-bar"></span>
+	  			</button>
+	      		<a class="navbar-brand" href="home">Questionnaire</a>
+	      		<form action="search" class="navbar-form navbar-right" role="search">
+					<div class="form-group">
+						<input name="keyword" type="text" class="form-control" placeholder="搜索">
+					</div>
+					<button type="submit" class="btn btn-default">搜索</button>
+				</form>
+	    	</div>
+	    	<div class="collapse navbar-collapse">
+	    		<div class="dropdown">
+	    			<button class="dropbtn">我的测试</button>
+	    			<div class="dropdown-content">
+	    				<a href=myQuiz>已创建的测试</a>
+						<a href=quizTodo>待回答的测试</a>
+					    <a href=quizDone>已回答的测试</a>
+	    			</div>
+	    		</div>
+				<a href=myGroups>
+					<button class="dropbtn">我的群</button>
+				</a>
+				<a href=viewAllGroups>
+					<button class="dropbtn">所有群(暂时)</button>
+				</a>
+	    		<a href=myFollowing>
+					<button class="dropbtn">我的关注</button>
+				</a>
+	    	</div>
+	    	
+		</div>
+		<div class="btn-group" style="margin-right:4%">
+			<button type="button" class="btn btn-default btn-link btn-lg navbar-btn dropdown-toggle" data-toggle="dropdown">
+				<span class="glyphicon glyphicon-plus"></span><span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href=toCreateQuiz>创建测试</a></li>
+				<li class="divider"></li>
+				<li><a href=toCreateGroup>创建群</a></li>
+			</ul>
+		</div>
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-default btn-link btn-lg navbar-btn dropdown-toggle" data-toggle="dropdown">
+				<span class="glyphicon glyphicon-user"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href=toInfo>我的资料</a></li>
+				<li><a href=viewMessage>我的消息</a></li>
+				<li class="divider"></li>
+				<li><a href=logOut>退出</a></li>
+			</ul>
+		</div>

@@ -1,0 +1,60 @@
+@CHARSET "UTF-8";
+.navbar .container-fluid{
+  			position: relative;
+		}
+		.navbar-default {
+			 background: #f5f5f5;
+			 border-color: #e7e7e7;
+		}
+		.navbar-default .navbar-brand {
+			color: #333;
+		}
+		.btn-group {
+			position: absolute;
+		    right: 0;
+		    top: 0;
+		}
+		#introduce *{
+			display:inline-block;
+			vertical-align:middle; /* 居中对齐， */ 
+			font-size:14px;
+			margin-top: 50px;
+		}
+		.dropbtn {
+		    background-color: #f5f5f5;
+		    color: #333;
+		    padding: 16px;
+		    font-size: 16px;
+		    border: none;
+		    cursor: pointer;
+		}
+		
+		.dropdown {
+		    position: relative;
+		    z-index:100; 
+		    display: inline-block;
+		}
+		
+		.dropdown-content {
+		    display: none;
+		    position: absolute;
+		    background-color: #f5f5f5;
+		    min-width: 160px;
+		    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		}
+		
+		.dropdown-content a {
+		    color: black;
+		    padding: 12px 16px;
+		    text-decoration: none;
+		    display: block;
+		}
+		
+		.dropdown-content a:hover {background-color: #f1f1f1}
+		
+		.dropdown:hover .dropdown-content {
+		    display: block;
+		}
+		.dropdown:hover .dropbtn {
+		    background-color: #f9f9f9;
+		}

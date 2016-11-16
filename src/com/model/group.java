@@ -30,7 +30,7 @@ public class group {
 		this.totMembers = new Integer(1);
 		this.tagStr = tag;
 	}
-	public group(long groupId, String groupname, String members, String managers, String inf, String tag, Date createDate) {
+	public group(int groupId, String groupname, String members, String managers, String inf, String tag, Date createDate) {
 		this.groupId = groupId;
 		this.groupName = groupname;
 		this.groupMember = members;

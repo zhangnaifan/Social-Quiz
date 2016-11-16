@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link href="css/navbar.css" rel="stylesheet" type="text/css" />
 
 <%-- java prepare data --%>
 <%@ page language="java" import="com.db.Dao, com.model.*, java.util.*, javafx.util.Pair" pageEncoding="UTF-8"%>
@@ -36,7 +37,7 @@
 
 <!-- javascript generate the web page -->
 <script type="text/javascript">
-	$(document).ready(function(){
+	$(document).ready(function(){		
 		$('#quizId').val('<%=quiz.getId()%>');
 		$('#title').text('<%=quiz.getTitle()%>');
 		$('#owner').text('<%=owner.getNickName()%>');
@@ -177,13 +178,13 @@
 		<%no=1;
 		if (user.getId() == owner.getId()) {//creator' perspective %>
 			$('.done,.not-done').css('display','none');
-			$('#basis').append('<a style="margin-bottom:3%;margin-top:3%" class="btn-danger form-control" href="rank?id='+ '<%=quiz.getId()%>' +'">See Rank</a>');
+			$('#basis').append('<a style="margin-bottom:3%;margin-top:3%;" class="btn-primary form-control" href="rank?id='+ '<%=quiz.getId()%>' +'">查看排行榜</a>');
 			$('#quizID').val('<%=quiz.getId()%>');
 		<%} else if (user.getQuizDone().indexOf(quiz.getId())==-1) {//quiz doer's perspective %>
 			$('.owner,.done').css('display','none');
-			$('#quiz').append('<input style="margin-bottom:3%" type="submit" style="margin:3%" class="form-control btn-success" value="Submit">');
+			$('#frame').append('<button data-toggle="modal" data-target="#confirm" class="form-control btn-primary">提交</button>');
 		<%} else {//quiz doner's perspective %>
-			$('#basis').append('<a style="margin-bottom:3%;margin-top:3%" class="btn-danger form-control" href="rank?id='+ '<%=quiz.getId()%>' +'">See Rank</a>');
+			$('#basis').append('<a style="margin-bottom:3%;margin-top:3%" class="btn-danger form-control" href="rank?id='+ '<%=quiz.getId()%>' +'">查看排行榜</a>');
 			$('#quizID').val('<%=quiz.getId()%>');
 			$('.owner,.not-done').css('display','none');
 		<% 	
@@ -192,7 +193,7 @@
 			for (int k=0; k<rec.size(); ++k) {
 				finalScore += rec.elementAt(k).getValue();
 			} %>
-			$('#quiz').prepend('<h3>Your final score is <span class="score-final">' + '<%=finalScore%>' + '</span></h3>');
+			$('#quiz').prepend('<h3>最终得分是 <span class="score-final">' + '<%=finalScore%>' + '</span></h3>');
 		<%	String answer_user;
 			int score_user;
 			for (int count = 0; count<rec.size(); ++count) {%>
@@ -239,6 +240,8 @@
 		$('.score-final').css('color','red').css('font-size','larger')
 		$('.user-score').addClass('panel-title').css('color','red');
 		$('.glyphicon-star').css('color','orange');
+		$('nav').load('HTML/nav.html');
+
 	});
 
 	function setSelVal(thisSel) {
@@ -250,9 +253,6 @@
 	}
 	
 	function calculate() {
-		if (confirm('Are you sure to submit?')==false) {
-			return false;
-		}
 		var rec = "";
 		var total = 0;
 		$('.question').each(function(){
@@ -292,31 +292,46 @@
 		});
 		$('#record').val(rec + '|' + total + '|' + '<%=user.getId()%>');
 		$('#quizId').val('<%=quiz.getId()%>');
-		return true;
+		$('#quiz').submit();
 	}
 </script>
 
 </head>
 <body>
-<h2></h2>
-<div class="container">
-<div class="row">
-<div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
-<div id="basis" class="page-header">
-	<h1 id="title"></h1>
-	<h3 id="owner" style="color: blue; text-align: right"></h3>
-	<span id="type" class="label label-info" style="font-size: 15px"></span> 
-	<span id="description" style="color:gray; font-size: 20px"></span>
-</div>
-<form id="quiz" onsubmit="return calculate();" action="doQuiz" method="post">
-	<div style="display:none">
-		<input type="text" name="record" id="record">
-		<input type="text" name="quizId" id="quizId">
-	</div>
-</form>
-</div>
-</div>
-</div>
+	<nav class="navbar navbar-default" role="navigation"></nav>
 
+	<div class="container">
+		<div class="row">
+			<div id="frame" class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+				<div id="basis" class="page-header">
+					<h1 id="title"></h1>
+					<h3 id="owner" style="color: blue; text-align: right"></h3>
+					<span id="type" class="label label-info" style="font-size: 15px"></span> 
+					<span id="description" style="color:gray; font-size: 20px"></span>
+				</div>
+				<form id="quiz" action="doQuiz" method="post">
+					<div style="display:none">
+						<input type="text" name="record" id="record">
+						<input type="text" name="quizId" id="quizId">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" style="z-index: 10000 !important;">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+	        <h4 class="modal-title" id="myModalLabel">确定要提交吗？</h4>
+	      </div>
+	      <div class="modal-footer btn-group">
+	      	<button class="btn btn-primary" data-dismiss="modal">再看看</button>
+	        <button class="btn btn-danger" onclick="calculate()">提交吧</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
 </html>

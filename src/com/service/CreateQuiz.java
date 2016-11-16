@@ -2,7 +2,6 @@ package com.service;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.TreeMap;
 import java.util.Vector;
 
 import com.db.Dao;
@@ -74,6 +73,10 @@ public class CreateQuiz extends ActionSupport {
 
 		//pass quizId
 		ActionContext.getContext().getSession().put("quizId", quiz.getId());
+		
+		//send messages to creator's followers
+		SendOutMessage msg = new SendOutMessage();
+		msg.sendout(user, quiz.getId());
 		return SUCCESS;
 	}
 

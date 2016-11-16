@@ -43,21 +43,19 @@ public class registerGroup implements Action {
 		user = (User) ActionContext.getContext().getSession().get("user");
 
 		if (groupId == null) {
-			System.out.println("empty groupId");
 			return "fail";
 		}
 
 		grp = dao.getGrpById(groupId);
 		if (grp == null) {
-			System.out.println("no such group");
+			return "fail";
 		}
 			
 		if (grp.hasUser(user.getId())) {
-			System.out.println("group already has user");
 			return "fail";
 		} else {
 			for (int i = 0; i < grp.getManagerIds().size(); i++) {
-				dao.addRegisterGroupMsg(user.getId(), grp.getManagerIds().get(i), (int)grp.getGroupId());
+				dao.addRegisterGroupMsg(user.getId(), grp.getManagerIds().get(i), (int)grp.getGroupId(), grp.getGroupName());
 			}
 		}
 		dao.close();
