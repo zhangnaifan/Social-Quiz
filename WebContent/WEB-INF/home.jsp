@@ -66,9 +66,22 @@
 	ArrayList<Message> messages = msgFlt.getMessagesOfType(user, 4);
 	Vector<User> users = new Vector<User>();
 	Vector<Quiz> quizzes = new Vector<Quiz>();
-	for (Message msg : messages) {
+	for (int i = messages.size()-1; i >=0; --i) {
+		Message msg = messages.get(i);
 		users.add(dao.getUserBasis((int)msg.getFromid()));
 		quizzes.add(dao.getQuizBasis(msg.getTmpId()));
+	}
+	
+	MessageFilter msgFlt2 = new MessageFilter();
+	ArrayList<Message> messages2 = msgFlt2.getMessagesOfType(user, 5);
+	Vector<User> users2 = new Vector<User>();
+	Vector<Quiz> quizzes2 = new Vector<Quiz>();
+	Vector<group> groups = new Vector<group>();
+	for (int i = messages2.size()-1; i >=0; --i) {
+		Message msg = messages2.get(i);
+		users2.add(dao.getUserBasis((int)msg.getFromid()));
+		groups.add(dao.getGrpById(msg.getTmpId()));
+		quizzes2.add(dao.getQuizBasis(Integer.parseInt(msg.getMsg())));
 	}
 	%>
 	
@@ -114,6 +127,47 @@ $(document).ready(function(){
 	$('.description:last').text('<%=quizzes.elementAt(i).getDescription()%>');
 	$('.inform:last .quizId').attr('href','quiz?id=' + '<%=quizzes.elementAt(i).getId()%>');
 	<%}%>
+	
+	//------------------------
+	<%	for (int i=0; i<quizzes2.size(); ++i) {%>
+	$('#groups-new').append(
+	'<div class="panel panel-primary inform">\
+		<div class="panel-heading">\
+			<div class="panel-title">\
+				<span class="no"></span><span>. </span>\
+				<a class="userId"></a> 在<span class="date"></span> 创建了新的小组共有测试\
+				<span style="float:right">\
+					<a class="quizId" style="color:white">去看看！</a>\
+					<span class="glyphicon glyphicon-remove" onclick="popMsg(this)">\
+						<input class="msgId" type="text" style="display:none">\
+					</span>\
+				</span>\
+			</div>\
+		</div>\
+		<div class="panel-body">\
+			<div class="quiz panel panel-success">\
+				<div class="panel-heading">\
+					<a class="quizId"><span class="panel-title title"></span></a>\
+					<span class="label label-success type" style="margin-left: 3%"></span>\
+				</div>\
+				<div class="panel-body">\
+					<p class="description" style="color:gray"></p>\
+				</div>\
+			</div>\
+		</div>\
+	</div>');
+	$('#groups-new .no:last').text('<%=i+1%>');
+	$('#groups-new .title:last').text('<%=quizzes2.elementAt(i).getTitle()%>');
+	$('#groups-new .type:last').text('<%=quizzes2.elementAt(i).getType()%>');
+	$('#groups-new .userId:last').attr('href','user?id='+'<%=users2.elementAt(i).getId()%>');
+	$('#groups-new .userId:last').text('<%=users2.elementAt(i).getNickName()%>');
+	$('#groups-new .date:last').text('<%=quizzes2.elementAt(i).getCreateDate()%>');
+	$('#groups-new .msgId:last').val('<%=messages2.get(i).getId()%>');
+	$('#groups-new .description:last').text('<%=quizzes2.elementAt(i).getDescription()%>');
+	$('#groups-new .inform:last .quizId').attr('href','groupQuiz?id=' + '<%=quizzes2.elementAt(i).getId()%>');
+	<%}%>
+	
+	//------------------------
 	
 <%	for (int i=0; i<followings.size(); ++i) {%>
 		$('#myFollowings').append(
@@ -172,9 +226,18 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<div class="col-md-6 col-xs-8">
-				<h5><a>最新动态</a></h5>
-				<hr>
-				<div id="myQuiz" style="cursor:pointer;"></div>
+				
+				<ul class="nav nav-tabs" role="tablist">
+				  <li role="presentation" class="active">
+				  	<a style="font-size:22px; color:#337ab7;" href="#myQuiz" role="tab" data-toggle="tab">好友动态</a></li>
+				  <li role="presentation"><a href="#groups-new" style="font-size:22px; color:#337ab7;" role="tab" data-toggle="tab">小组动态</a></li>
+				</ul>
+				
+				<!-- Tab panes -->
+				<div class="tab-content" style="margin-top:4%">
+				  <div role="tabpanel" class="tab-pane active" id="myQuiz"></div>
+				  <div role="tabpanel" class="tab-pane" id="groups-new"></div>
+				</div>
 				
 			</div>
 			<div class="col-md-3 col-xs-2">

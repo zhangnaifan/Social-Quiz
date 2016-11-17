@@ -47,21 +47,21 @@
 	</nav>
 	<div class="container">
 		<div class="row">
-			<div class="col-xl-6 col-md-4 col-center-block">
+			<div class="col-xs-6 col-md-4 col-center-block">
 				<form action="signUp" method="post">
 					<h2>创建账号</h2>
 					
 					<div class="form-group">
 						<p>用户名</p>
-						<input type="text" class="form-control" placeholder="Used for logging in" name="user.username">
+						<input required type="text" class="form-control" placeholder="Used for logging in" name="user.username">
 					</div>
 					<div class="form-group">
 						<p>昵称</p>
-						<input type="text" class="form-control" placeholder="To be shown in websites" name="user.nickName">
+						<input required type="text" class="form-control" placeholder="To be shown in websites" name="user.nickName">
 					</div>
 					<div class="form-group">
 						<p>密码</p>
-						<input type="password" class="form-control" placeholder="Password" name="user.password">
+						<input required type="password" class="form-control" placeholder="Password" name="user.password">
 					</div>
 					<div class="form-group">
 						<p>性别</p>

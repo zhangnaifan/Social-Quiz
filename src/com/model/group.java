@@ -2,6 +2,7 @@ package com.model;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import com.db.Dao;
 
@@ -16,6 +17,8 @@ public class group {
 	private String info;
 	private long totMembers;
 	private String tagStr;
+	
+	private Vector<Integer> pubQuiz = new Vector<Integer>();
 	
 	public group(String groupname, Integer creater, String info, String tag) {
 		this.groupId = new Integer(0);
@@ -58,6 +61,10 @@ public class group {
 
 	public group() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void addQuiz(int quizId) {
+		pubQuiz.add(quizId);
 	}
 
 	public long getGroupId() {
@@ -154,6 +161,12 @@ public class group {
 			sb.append(String.valueOf(this.getMemberIds().get(i))+" ");
 		}
 		this.setGroupMember(sb.toString());
+	}
+	public Vector<Integer> getPubQuiz() {
+		return pubQuiz;
+	}
+	public void setPubQuiz(Vector<Integer> pubQuiz) {
+		this.pubQuiz = pubQuiz;
 	}
 
 }

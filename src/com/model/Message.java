@@ -133,6 +133,18 @@ public class Message {
 		ret.msg = String.format("%d", _quizId);
 		return ret;
 	}
+	
+	public static Message formGroupInviteMessage(int _fromid, int _toid, int _quizId) throws ClassNotFoundException, SQLException {
+		Message ret = new Message();
+		ret.fromid = _fromid;
+		ret.toid = _toid;
+		ret.type = 5;
+		Dao dao = new Dao();
+		dao.close();
+		ret.msg = String.format("%d", _quizId);
+		return ret;
+	}
+	
 	public Message() { 
 		this.id = 0;
 	}

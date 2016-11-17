@@ -70,6 +70,7 @@ $(document).ready(function(){
 	$('.inform:last .quizId').attr('href','quiz?id=' + '<%=quizzes.elementAt(i).getId()%>');
 	<%}%>
 	
+});
 	function popMsg(thisItem) {
 		var msgId = $(thisItem).parents('.inform')
 								.find('.msgId')
@@ -80,11 +81,12 @@ $(document).ready(function(){
 					msgId : msgId,
 					accept : 'false'
 				});
+		$(thisItem).nextAll('.inform').each(function(){
+			var preMark = $(this).find('.no').text();
+			$(this).find('.no').text(String.fromCharCode(preMark.charCodeAt()-1));
+		});
 		$(thisItem).parents('.inform').remove();
 	}
-	
-});
-
 </script>
 
 </head>

@@ -27,7 +27,7 @@
 		quiz = dao.getQuiz((Integer)session.getAttribute("quizId"));
 	}
 	//get quiz's creator's information
-	User owner = dao.getUser(quiz.getOwnerID());
+	group grp = dao.getGrpById(quiz.getOwnerID());
 	//get quiz's questions
 	Vector<Question> questions = new Vector<Question>();
 	for (int i : quiz.getQuestions()) {
@@ -40,7 +40,7 @@
 	$(document).ready(function(){		
 		$('#quizId').val('<%=quiz.getId()%>');
 		$('#title').text('<%=quiz.getTitle()%>');
-		$('#owner').text('<%=owner.getNickName()%>');
+		$('#owner').text('<%=grp.getGroupName()%>');
 		$('#type').text('<%=quiz.getType()%>');
 		$('#description').text('<%=quiz.getDescription()%>');
 	<%! int no = 1;%>
@@ -176,11 +176,7 @@
 		$('.tag').css('margin-left','3%');
 		$('[type="checkbox"]').change(function(){setSelVal(this);});
 		<%no=1;
-		if (user.getId() == owner.getId()) {//creator' perspective %>
-			$('.done,.not-done').css('display','none');
-			$('#basis').append('<a style="margin-bottom:3%;margin-top:3%;" class="btn-primary form-control" href="rank?id='+ '<%=quiz.getId()%>' +'">查看排行榜</a>');
-			$('#quizID').val('<%=quiz.getId()%>');
-		<%} else if (user.getQuizDone().indexOf(quiz.getId())==-1) {//quiz doer's perspective %>
+		if (user.getQuizDone().indexOf(quiz.getId())==-1) {//quiz doer's perspective %>
 			$('.owner,.done').css('display','none');
 			$('#frame').append('<button data-toggle="modal" data-target="#confirm" class="form-control btn-primary">提交</button>');
 		<%} else {//quiz doner's perspective %>
@@ -309,7 +305,7 @@
 					<span id="type" class="label label-info" style="font-size: 15px"></span> 
 					<span id="description" style="color:gray; font-size: 20px"></span>
 				</div>
-				<form id="quiz" action="doQuiz" method="post">
+				<form id="quiz" action="doGroupQuiz" method="post">
 					<div style="display:none">
 						<input type="text" name="record" id="record">
 						<input type="text" name="quizId" id="quizId">
