@@ -1,5 +1,6 @@
 package com.service;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
@@ -17,21 +18,32 @@ public class Search extends ActionSupport {
 	private Vector<User> users = new Vector<User>();
 	private Vector<group> groups = new Vector<group>();
 	private Vector<Quiz> quizzes = new Vector<Quiz>();
-	public String execute() throws ClassNotFoundException, SQLException {
+	public String execute() throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
 		Dao dao = new Dao();
 		Dao dao2 = new Dao();
 		
-		ResultSet rs1 = dao.executeQuery("SELECT id FROM user WHERE nickname='"+keyword+"';");
+		keyword = new String(keyword.getBytes("ISO-8859-1"),"UTF-8");
+		
+		ResultSet rs1 = dao.executeQuery("SELECT id FROM user WHERE nickname LIKE '%"
+				+keyword+"%' OR id ='"
+				+keyword+"';");
 		while (rs1.next()) {
 			users.add(dao2.getUserBasis(rs1.getInt(1)));
 		}
 		
-		ResultSet rs2 = dao.executeQuery("SELECT groupid FROM group_db WHERE groupname='"+keyword+"';");
+		ResultSet rs2 = dao.executeQuery("SELECT groupid FROM group_db WHERE groupname LIKE '%"
+				+keyword
+				+"%' OR groupid ='"
+				+keyword
+				+"' OR tag LIKE '%"+keyword+"%';");
 		while (rs2.next()) {
 			groups.add(dao2.getGrpById(rs2.getInt(1)));
 		}
 		
-		ResultSet rs3 = dao.executeQuery("SELECT id FROM quiz WHERE title='"+keyword+"' OR type='"+ keyword +"';");
+		ResultSet rs3 = dao.executeQuery("SELECT id FROM quiz WHERE title LIKE '%"
+				+keyword+"%' OR type LIKE '%"
+				+ keyword +"%' OR id ='"
+				+keyword+"';");
 		while (rs3.next()) {
 			quizzes.add(dao2.getQuizBasis(rs3.getInt(1)));
 		}

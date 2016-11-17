@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
@@ -33,7 +33,7 @@
 		
 	</style>
 	
-<%@ page language="java" import="com.db.Dao, com.model.*, java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="com.db.Dao, com.model.*, java.util.*"%>
 <%
 	User user = (User)session.getAttribute("user");
 	ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
@@ -161,6 +161,11 @@
 				</form>
 				<%if (!user.isInGroup((int)grp.getGroupId())) {%>
 					<button class="btn btn-lg btn-default btn-block" onclick="doRegister()">加入该群</button>
+				<%} else if (grp.getManagerIds().contains(user.getId())) {%>
+					<form action="toCreateGroupQuiz">
+						<input name="groupId" type="text" style="display:none" value="<%=grp.getGroupId()%>">
+						<button class="btn btn-lg btn-primary btn-block">创建共有测试</button>
+					</form>
 				<%} %>
 			</div>
 			<div id="quiz" class="col-xs-offset-1 col-md-offset-1 col-xs-6 col-md-6">

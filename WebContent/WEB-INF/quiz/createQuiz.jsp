@@ -188,9 +188,9 @@
 
 		function setVal(thisItem) {
 			if ($(thisItem).is(':checked')) {
-				$(thisItem).next().val('T');
+				$(thisItem).parents('.question').find('.answer').val('T');
 			} else {
-				$(thisItem).next().val('F');
+				$(thisItem).parents('.question').find('.answer').val('F');
 			}
 		}
 		

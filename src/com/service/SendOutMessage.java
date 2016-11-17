@@ -47,4 +47,26 @@ public class SendOutMessage {
 		}
 		dao.close();
 	}
+	public void sendoutFromGroup(int fromUserId, int groupId, int QuizId) throws ClassNotFoundException, SQLException {
+		Dao dao = new Dao();
+		
+		HashSetOfInt st = new HashSetOfInt();
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		
+		group grp = dao.getGrpById(groupId);
+		for (int j = 0; j < grp.getMemberIds().size(); j++) {
+			int tmp = grp.getMemberIds().get(j);
+			if (st.contains(tmp)) continue;
+			st.add(tmp);
+			ids.add(tmp);
+		}
+		
+		Message msg;
+		
+		for (int i = 0; i < ids.size(); i++) if(ids.get(i) != fromUserId){
+			msg = Message.formGroupInviteMessage(fromUserId, ids.get(i), QuizId);
+			dao.insertNewMsg(msg);
+		}
+		dao.close();
+	}
 }

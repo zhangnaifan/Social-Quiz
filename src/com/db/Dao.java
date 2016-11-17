@@ -168,6 +168,22 @@ public class Dao
 			  		+ ";");
   }
   
+
+	public void addGroupQuiz(int groupId, int quizId) throws SQLException {
+		ResultSet rs = executeQuery("SELECT pubQuiz from group_db WHERE groupid=" + groupId + ";");
+		  StringBuffer newRec = new StringBuffer();
+		  newRec.append("&" + quizId);
+		  if (rs.next()) {
+			  String exsited = rs.getString(1);
+			  if (exsited != "NULL" && exsited != "null")
+				  newRec.append(exsited);
+		  }
+		  executeUpdate("UPDATE group_db SET pubQuiz='"
+				  		+ newRec.toString() 
+				  		+ "' WHERE groupid=" + groupId
+				  		+ ";");
+	}
+  
   public void addQuizRecord(int quizId, String rec) throws SQLException {
 	  ResultSet rs = executeQuery("SELECT records from quiz WHERE id=" + quizId + ";");
 	  StringBuffer newRec = new StringBuffer();
@@ -426,6 +442,14 @@ public class Dao
 			grp.setCreateDate(rs.getDate("createdate"));
 			grp.setInfo(rs.getString("info"));
 			grp.setTotMembers(grp.getMemberIds().size());
+			
+			String pubQuizStr = rs.getString("pubQuiz");
+			if (!pubQuizStr.equals("")) {
+				String[] I = pubQuizStr.split("&");
+				for (int i=1; i<I.length; ++i) {
+					grp.addQuiz(Integer.parseInt(I[i]));
+				}
+			}
 			return grp;
 		}
 		return null;

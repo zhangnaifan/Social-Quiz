@@ -115,17 +115,44 @@
 		</action>
 
 		<action name="follow" class="com.service.Follow">
-			<result name="inputName"></result>
+			<result></result>
 		</action>
 
 		<action name="unfollow" class="com.service.Unfollow">
-			<result name="inputName"></result>
+			<result></result>
 		</action>
 
 		<action name="myFollowing" class="com.service.Index">
 			<result>/WEB-INF/user/myFollowing.jsp</result>
 		</action>
 
+		
+		<action name="myRank" class="com.service.Index">
+			<result>/WEB-INF/user/myRank.jsp</result>
+		</action>
+		
+		<action name="toCreateGroupQuiz" class="com.service.PassGroupId">
+			<result>/WEB-INF/quiz/createGroupQuiz.jsp</result>
+		</action>
+		
+		<action name="searchQuestions" class="com.service.SearchQuestions">
+			<result type="stream">
+				<param name="inputName">result</param>
+			</result>
+		</action>
+		
+		<action name="createGroupQuiz" class="com.service.CreateGroupQuiz">
+			<result>/WEB-INF/quiz/groupQuiz.jsp</result>
+		</action>
+		
+		<action name="groupQuiz" class="com.service.Index">
+			<result>/WEB-INF/quiz/groupQuiz.jsp</result>
+		</action>
+		
+		<action name="doGroupQuiz" class="com.service.DoQuiz">
+			<result>/WEB-INF/quiz/groupQuiz.jsp</result>
+		</action>
+		
 		<!-- FUTURE ACTIONS -->
 
 		<!-- addFriend, addGroup -->

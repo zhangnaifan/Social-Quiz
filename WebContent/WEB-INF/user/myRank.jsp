@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>测试排名</title>
+	<title>好友排名</title>
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 	<script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -12,8 +12,24 @@
 <%-- java --%>
 <%
 	Dao dao = new Dao();
-	Quiz quiz = dao.getQuiz(Integer.parseInt(request.getParameter("id")));
-	ArrayList<Pair<Integer, Integer>> rank = quiz.getRank();
+	User user = (User) session.getAttribute("user");
+	//<userId, score>
+	HashMap<Integer, Integer> rec = new HashMap<Integer, Integer>();
+	for (int quizId : user.getPublishedQuiz()) {
+		for (Pair<Integer, Integer> entry : dao.getQuiz(quizId).getRank()) {
+			if (rec.containsKey(entry.getValue())) {
+				rec.replace(entry.getValue(), entry.getKey()+rec.get(entry.getValue()));
+			} else {
+				rec.put(entry.getValue(), entry.getKey());
+			}
+		}
+	}
+	
+	ArrayList<Pair<Integer, Integer>> rank = new ArrayList<Pair<Integer, Integer>>();
+	for (Map.Entry<Integer,Integer> entry : rec.entrySet()) {
+		rank.add(new Pair<Integer, Integer>(entry.getValue(), entry.getKey()));
+	}
+	
 	Collections.sort(rank, new Comparator<Pair<Integer,Integer>>(){
 		public int compare(Pair<Integer,Integer> i, Pair<Integer,Integer> j){
 			return j.getKey() - i.getKey();
@@ -36,13 +52,10 @@ $(document).ready(function(){
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<div class="panel-title">
-						<span>
-							<a style="font-size:30px;color:yellow;margin-left:1%" href="quiz?id=<%=quiz.getId()%>"><%=quiz.getTitle() %></a> 
-						</span>的排行榜 
-						<span class="label label-info"> <%=quiz.getType()%></span>
+						<span style="font-size:30px;color:yellow;margin-left:1%"><%=user.getNickName() %> </span>的总排行榜 
 					</div>
 				</div>
-				<div class="panel-body" style="color:gray"><%=quiz.getDescription() %></div>
+				<div class="panel-body" style="color:gray"><%=user.getIntro() %></div>
 				<table class="table">
 					<tr>
 						<th>#</th>
