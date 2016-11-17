@@ -27,7 +27,7 @@ public class Dao
   { 
     String driver = "com.mysql.jdbc.Driver";
     String username = "root";
-    String password = "113095";
+    String password = "199587";
     String dbUrl = String.format("jdbc:mysql://%s:%s/%s", new Object[] {
       "localhost", "3306", "staples" });    
     
@@ -324,10 +324,11 @@ public class Dao
 			  user.addQuizDone(Integer.parseInt(quizzesDone[i]));
 		  }
 		  user.setIntro(rs.getString("intro"));
-		  String[] followings = rs.getString("followings").split("&",-1);
+		 /* String[] followings = rs.getString("followings").split("&",-1);
 		  for (int i=1 ; i<followings.length; ++i) {
 			  user.addFollowing(Integer.parseInt(followings[i]));
 		  }
+		 System.out.print(rs.getString("intro"));
 		  String[] followers = rs.getString("followers").split("&",-1);
 		  for (int i=1 ; i<followers.length; ++i) {
 			  user.addFollower(Integer.parseInt(followers[i]));
@@ -335,7 +336,7 @@ public class Dao
 		  String[] groups = rs.getString("groups").split("&",-1);
 		  for (int i=1 ; i<groups.length; ++i) {
 			  user.addGroup(Integer.parseInt(groups[i]));
-		  }
+		  }*/
  	  }
 	  return user;
   }
