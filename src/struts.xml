@@ -5,6 +5,8 @@
 
 <struts>
 	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources" value="messageResource" />
+ 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<package name="default" extends="struts-default">
 
 		<interceptors>
@@ -204,5 +206,28 @@
 			<result name="fail">/WEB-INF/error.jsp</result>
 		</action>
 		
+		<!-- PasswordBack -->
+		<!-- <action name="toFindPass" class="com.service.Index" method="index">
+			<result>/WEB-INF/passwordback/findpass.jsp</result>
+		</action>
+		<action name="passwordback" class="com.service.mail.PasswordBack">
+			<result name="success">/WEB-INF/passwordback/resetpassword.jsp</result>
+			<result name="fail">/WEB-INF/error.jsp</result>	
+		</action> -->
+		
+		<!--上传-->
+		<action name="fileUpload" class="com.action.FileUploadAction">
+	    	<interceptor-ref name ="defaultStack" /> 
+			<interceptor-ref name ="fileUpload"> 
+			    <param name ="allowedTypes"> image/bmp,image/png,image/gif,image/jpg, image/jpeg </param> 
+			    <param name="maximumSize">404800</param>
+			</interceptor-ref>
+			<result name="success">/info.jsp</result>
+			<!-- <result name="input">/info.jsp</result> -->
+		</action>
+		<!--输出显示-->
+		<action name="outPicture" class="com.action.OutPictureAction">
+			<result name="input">/info.jsp</result>
+		</action>
 	</package>
 </struts>

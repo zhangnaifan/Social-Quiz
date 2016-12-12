@@ -1,5 +1,7 @@
 package com.service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -7,19 +9,20 @@ import com.db.Dao;
 import com.model.User;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.service.MD5;
 
 public class Login extends ActionSupport{
 	private static final long serialVersionUID = -8183503233837289498L;
 	private String msg;
 	private String password;
 	private String username;
-	public String login() throws SQLException, ClassNotFoundException{	
+	public String login() throws SQLException, ClassNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException{	
 		Dao dao = new Dao();
 		User user = dao.getUser(username);
 		if (user == null) {
 			setMsg("User Not Found.");
 			return "INDEX";
-		} else if (!user.getPassword().equals(password)) {
+		} else if (MD5.Checkpassword(password, user.getPassword()) == false) {
 			setMsg("Wrong Password.");
 			return "INDEX";
 		} 

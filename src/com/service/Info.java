@@ -3,6 +3,9 @@
  */
 package com.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 
@@ -25,36 +28,50 @@ public class Info extends ActionSupport {
 	private Date birthday;
 	private String email;
 	private String phoneNum;
+	private File file;
 
-	public String execute() throws ClassNotFoundException, SQLException {
+	public String execute() throws ClassNotFoundException, SQLException, IOException, NoSuchAlgorithmException {
 		Dao dao = new Dao();
 		User user = (User) ActionContext.getContext().getSession().get("user");
-		if (intro != null && intro != "") {
+		if (intro != null && !intro.equals("")) {
 			user.setIntro(intro);
 		}
-		if (nickName != null && nickName != "") {
+		if (nickName != null && !nickName.equals("")) {
 			user.setNickName(nickName);
 		}
-		if (password != null && password != "") {
-			user.setPassword(password);
+		if (password != null && !password.equals("")) {
+			user.setPassword(MD5.MD5password(password));
 		}
-		if (gender != null && gender != "") {
+		if (gender != null && !gender.equals("")) {
 			user.setGender(gender);
 		}
 		if (birthday != null) {
 			user.setBirthday(birthday);
 		}
-		if (email != null && email != "") {
+		if (email != null && !email.equals("")) {
 			user.setEmail(email);
 		}
-		if (phoneNum != null && phoneNum != "") {
+		if (phoneNum != null && !phoneNum.equals("")) {
 			user.setPhoneNum(phoneNum);
 		}
+		if (file != null) {
+			FileUploadService fuservice=new FileUploadService();
+			fuservice.fileUpload(file, user.getId());
+		}
+
 		dao.updateUser(user);
 		ActionContext.getContext().getSession().replace("user", user);
 		return SUCCESS;
 	}
 	
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
 	public String getIntro() {
 		return intro;
 	}

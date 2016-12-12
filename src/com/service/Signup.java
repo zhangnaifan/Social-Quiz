@@ -1,5 +1,7 @@
 package com.service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,12 +20,13 @@ public class Signup extends ActionSupport {
 	
 	private User user;
 	
-	public String signup() throws ClassNotFoundException, SQLException{
+	public String signup() throws ClassNotFoundException, SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
 		
 		user.setAccountLevel(3);
 		user.setMemberSince(new Date(System.currentTimeMillis()));
 		Dao dao = new Dao();
-		
+		user.setPassword(MD5.MD5password(user.getPassword()));
+		System.out.println(user.getPassword());
 		//check if there exists a same username
 		ResultSet rs = dao.executeQuery("SELECT * FROM user WHERE username = '"
 				+ user.getUsername()

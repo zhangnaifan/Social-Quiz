@@ -1,18 +1,23 @@
 package com.db;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import com.model.Message;
-import com.model.Question;
-import com.model.Quiz;
-import com.model.User;
-import com.model.group;
+import org.apache.tomcat.dbcp.dbcp.DbcpException;
+
+import com.model.*;
 
 import javafx.util.Pair;
 
@@ -41,6 +46,17 @@ public class Dao
     if (this.con != null) {
         this.con.close();
     }
+  }
+  
+  public void picture(File file, int id) throws SQLException, IOException {
+	  FileInputStream in = null;
+	  in = new FileInputStream(file);
+	  String sql = "update user set picture = ? where id = " + id;
+	  System.out.println(id);
+	  PreparedStatement ps = this.con.prepareStatement(sql);
+	  System.out.println(in.toString());
+	  ps.setBinaryStream(1, in, in.available());
+	  ps.executeUpdate();
   }
   
   public boolean execute(String sql) throws SQLException
@@ -340,19 +356,7 @@ public class Dao
 			  user.addQuizDone(Integer.parseInt(quizzesDone[i]));
 		  }
 		  user.setIntro(rs.getString("intro"));
-		 /* String[] followings = rs.getString("followings").split("&",-1);
-		  for (int i=1 ; i<followings.length; ++i) {
-			  user.addFollowing(Integer.parseInt(followings[i]));
-		  }
-		 System.out.print(rs.getString("intro"));
-		  String[] followers = rs.getString("followers").split("&",-1);
-		  for (int i=1 ; i<followers.length; ++i) {
-			  user.addFollower(Integer.parseInt(followers[i]));
-		  }
-		  String[] groups = rs.getString("groups").split("&",-1);
-		  for (int i=1 ; i<groups.length; ++i) {
-			  user.addGroup(Integer.parseInt(groups[i]));
-		  }*/
+		
  	  }
 	  return user;
   }
@@ -538,4 +542,74 @@ public class Dao
 	public void insertNewMsg(Message newMsg) throws SQLException {
 		this.execute(newMsg.tosql());
 	}
+	
+	//找回密码，插入信息
+	public int insertInfor(String username, String email,
+			Timestamp date, String signature) throws SQLException, ClassNotFoundException {
+		findpass fp = new findpass();
+		Dao dao = new Dao();
+		String sql = String.format("insert into findpassword(username,emal,outdate,signature) value('%s','%s','%s','%s')", username,email,date.toString(),signature);
+		/*PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, username);
+		pstmt.setString(2, email);
+		pstmt.setTimestamp(3, date);
+		pstmt.setString(4, signature);
+		
+		int res = pstmt.executeUpdate();
+		pstmt.close();
+		con.close();*/
+		
+		dao.execute(sql);
+		return 1;
+	}
+	//找回密码，查询是否可以修改密码
+	public boolean isChangePass(String username, String validkey) throws Exception {
+	
+		findpass fp = new findpass();
+		Dao dao = new Dao();
+		ResultSet res = executeQuery("select * from findpassword where username =" + username + ";");
+		if(res.last()) {
+			String signature = res.getString("signature");
+			if(!validkey.equals(signature)) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} 
+		else {
+			long current = System.currentTimeMillis();
+			long time = res.getTimestamp(1).getTime();
+			if(current > time) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+	}
+	
+	public void updatePasswors(String username, String password) throws SQLException {
+		  executeUpdate("UPDATE user SET followers='"
+				  			+password
+				  			+"' WHERE username='"
+				  			+username
+				  			+"';");
+	  }
+	public boolean judgeUserEmail(String username, String email) throws SQLException, ClassNotFoundException {
+		User user = new User();
+		Dao dao = new Dao();
+		rs = executeQuery("SELECT email FROM user WHERE username='" + username + "';");
+		if(rs.next()) {
+			user.setEmail(rs.getString("email"));
+		}
+		if(email.equals(user.getEmail())) {
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
+
 }

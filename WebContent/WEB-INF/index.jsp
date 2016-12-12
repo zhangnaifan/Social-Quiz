@@ -158,7 +158,7 @@
 							<button class="btn btn-lg btn-success btn-block" type="submit">登录</button>
 						</form>
 					
-						<a href="#" style="float:left">忘记密码?</a>
+						<a href="findpass.jsp" style="float:left">忘记密码?</a>
 						<a href=toSignUp style="float:right">注册</a>
 
 					</div>

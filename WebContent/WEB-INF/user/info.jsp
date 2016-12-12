@@ -27,20 +27,28 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xl-6 col-md-6 col-md-offset-3">
-				<form action="info" method="post" id="info">
+				<form action="info" method="post" id="info" enctype="multipart/form-data">
 					<h2>更新用户信息</h2><hr/>
 					
 					<div class="form-group" style="margin-top: 3%">
-						<p>简介</p>
-						<input type="text" value="${user.intro} " name="intro">
-					</div>
-					<div class="form-group">
 						<p>昵称</p>
 						<input type="text" value="${user.nickName}" name="nickName">
 					</div>
 					<div class="form-group">
 						<p>密码</p>
-						<input type="password" value="${user.password}" name="password">
+						<input type="password" name="password" value="" >
+					</div>
+					<div class="form-group">
+						
+							<img src='outPicture.action?id=${ user.id }' style="width:150px; height:150px; border-radius:190px; display:inline;"> 
+									
+							<input type="file" name="file" class = "form-control">
+							
+						
+					</div>
+					<div class="form-group">
+						<p>简介</p>
+						<input type="text" value="${user.intro} " name="intro">
 					</div>
 					<div class="form-group">
 						<p>性别</p>

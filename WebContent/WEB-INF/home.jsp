@@ -201,7 +201,7 @@ $(document).ready(function(){
 		<div class="row">
 			<div class="col-6-xs">
 				<div id="introduce">
-					<img src="image/cat.jpg">
+					<img src="outPicture.action?id=${ user.id }">
 					<a href="user?id=${user.id }" style="font-size: 30px;">${user.nickName }</a>
 				</div>
 			</div>

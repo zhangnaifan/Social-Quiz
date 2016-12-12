@@ -234,7 +234,7 @@
 		<div class="row">
 			<div class="col-6-xs">
 				<div id="introduce">
-					<img src="image/cat.jpg">
+					<img src='outPicture.action?id=<%=user.getId() %>'> 
 					<a style="font-size: 30px;"><%=owner.getNickName() %></a>
 				</div>
 			</div>
