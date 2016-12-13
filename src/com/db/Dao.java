@@ -351,8 +351,19 @@ public class Dao
 		  for (int i=1 ; i<quizzesDone.length; ++i) {
 			  user.addQuizDone(Integer.parseInt(quizzesDone[i]));
 		  }
+		  String[] groups = rs.getString("groups").split("&", -1);
+		  for (int i=1 ; i<groups.length; ++i) {
+			  user.addGroup(Integer.parseInt(groups[i]));
+		  }
 		  user.setIntro(rs.getString("intro"));
-		
+		  String[] followings = rs.getString("followings").split("&",-1);
+		  for (int i=1 ; i<followings.length; ++i) {
+			  user.addFollowing(Integer.parseInt(followings[i]));
+		  }
+		  String[] followers = rs.getString("followers").split("&",-1);
+		  for (int i=1 ; i<followers.length; ++i) {
+			  user.addFollower(Integer.parseInt(followers[i]));
+		  }
  	  }
 	  return user;
   }
