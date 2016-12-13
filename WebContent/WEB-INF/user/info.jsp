@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="col-xl-6 col-md-6 col-md-offset-3">
 				<form action="info" method="post" id="info">
-					<h2>更新用户信息</h2><hr/>
+					<h2>完善我的信息</h2><hr/>
 					
 					<div class="form-group" style="margin-top: 3%">
 						<p>简介</p>

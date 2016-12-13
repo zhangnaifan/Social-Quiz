@@ -49,6 +49,11 @@
 			return j.getCreateDate().after(i.getCreateDate())?1:-1;
 		}
 	});
+	
+	ArrayList<Quiz> quizzes2 = new ArrayList<Quiz>();
+	for (int groupQuizId : grp.getPubQuiz()) {
+		quizzes2.add(dao.getQuizBasis(groupQuizId));
+	}
 %>
 	
 	
@@ -71,14 +76,38 @@
 				<p class="description" style="color:gray"></p>\
 			</div>\
 		</div>');
-		$('.no:last').text('<%=i+1%>');
-		$('.title:last').text('<%=quizzes.get(i).getTitle()%>');
-		$('.type:last').text('<%=quizzes.get(i).getType()%>');
-		$('.createDate:last').text('<%=quizzes.get(i).getCreateDate()%>');
-		$('.description:last').text('<%=quizzes.get(i).getDescription()%>');
-		$('a:last').attr('href','quiz?id='+'<%=quizzes.get(i).getId()%>');
+		$('#quiz .no:last').text('<%=i+1%>');
+		$('#quiz .title:last').text('<%=quizzes.get(i).getTitle()%>');
+		$('#quiz .type:last').text('<%=quizzes.get(i).getType()%>');
+		$('#quiz .createDate:last').text('<%=quizzes.get(i).getCreateDate()%>');
+		$('#quiz .description:last').text('<%=quizzes.get(i).getDescription()%>');
+		$('#quiz a:last').attr('href','quiz?id='+'<%=quizzes.get(i).getId()%>');
 		<%}
 	%>
+	
+	<%	for (int i=0; i<quizzes2.size(); ++i) {%>
+	$('#group-quiz').append(
+	'<div class="quiz panel panel-success">\
+		<div class="panel-heading">\
+			<a><span class="panel-title no"></span><span>. </span>\
+			<span class="panel-title title"></span></a>\
+			<span class="label label-success type" style="margin-left: 3%"></span>\
+			<span class="panel-title" style="float:right">\
+				创建日期：<span class="createDate">\
+			</span>\
+		</div>\
+		<div class="panel-body">\
+			<p class="description" style="color:gray"></p>\
+		</div>\
+	</div>');
+	$('#group-quiz .no:last').text('<%=i+1%>');
+	$('#group-quiz .title:last').text('<%=quizzes2.get(i).getTitle()%>');
+	$('#group-quiz .type:last').text('<%=quizzes2.get(i).getType()%>');
+	$('#group-quiz .createDate:last').text('<%=quizzes2.get(i).getCreateDate()%>');
+	$('#group-quiz .description:last').text('<%=quizzes2.get(i).getDescription()%>');
+	$('#group-quiz a:last').attr('href','quiz?id='+'<%=quizzes2.get(i).getId()%>');
+	<%}
+%>
 		
 	});
 	
@@ -93,13 +122,20 @@
 </head>
 <body>
 	<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 3%;"></nav>
+	
  	<div class="container">
 		<div class="row">
-			<div class="col-xs-offset-1 col-md-offset-1 col-xs-3 col-md-3">
+			<div class="col-xs-4 col-md-4">
 				<form action="registerGroup">
 					<table class="table table-hover">
 						<caption style="color:black; font-size:40px;">${grp.groupName }</caption>
 						<thead>
+							<tr><th>
+							<!-- share -->
+							<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+								<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"Staples——你的专属社交问答平台\nRaise your questions, answer your interests","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+							<!-- share -->
+							</th></tr>
 							<tr>
 								<th>群简介</th>
 							</tr>
@@ -108,6 +144,7 @@
 							<tr>
 								<td>名称</td>
 								<td>${grp.groupName }</td>
+								
 							</tr>
 							<tr>
 								<td>创建日期</td>
@@ -168,8 +205,20 @@
 					</form>
 				<%} %>
 			</div>
-			<div id="quiz" class="col-xs-offset-1 col-md-offset-1 col-xs-6 col-md-6">
-				<h1>测试清单</h1><hr/>
+			<div class="col-xs-offset-1 col-md-offset-1 col-xs-6 col-md-6">
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active">
+				  		<a style="font-size:22px; color:#337ab7;" href="#quiz" role="tab" data-toggle="tab">成员测试</a>
+				  	</li>
+				 
+				   <li role="presentation" ><a href="#group-quiz" style="font-size:22px; color:#337ab7;" role="tab" data-toggle="tab">共有测试</a></li>
+				</ul>
+				
+				<!-- Tab panes -->
+				<div class="tab-content" style="margin-top:4%">
+				  <div role="tabpanel" class="tab-pane active" id="quiz"></div>
+				  <div role="tabpanel" class="tab-pane" id="group-quiz"></div>
+				</div>
 			</div>
 		</div>
 	</div>

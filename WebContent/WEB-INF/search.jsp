@@ -60,23 +60,25 @@ $(document).ready(function(){
 	<%}%>
 	<%for (int i=0; i<quizzes.size(); ++i) {%>
 	$('#quiz').append(
-	'<div class="quiz panel panel-success">\
-		<div class="panel-heading">\
-			<a><span class="panel-title no"></span><span>. </span>\
-			<span class="panel-title title"></span></a>\
-			<span class="label label-success type" style="margin-left: 3%"></span>\
-			<span class="panel-title createDate" style="float: right"></span>\
-		</div>\
-		<div class="panel-body">\
-			<p class="description" style="color:gray"></p>\
-		</div>\
-	</div>');
-	$('.no:last').text('<%=i+1%>');
-	$('.title:last').text('<%=quizzes.elementAt(i).getTitle()%>');
-	$('.type:last').text('<%=quizzes.elementAt(i).getType()%>');
-	$('.createDate:last').text('<%=quizzes.elementAt(i).getType()%>');
-	$('.description:last').text('<%=quizzes.elementAt(i).getDescription()%>');
-	$('a:last').attr('href','quiz?id='+'<%=quizzes.elementAt(i).getId()%>');
+			'<div class="quiz panel panel-success">\
+			<div class="panel-heading">\
+				<a><span class="panel-title no"></span><span>. </span>\
+				<span class="panel-title title"></span></a>\
+				<span class="label label-success type" style="margin-left: 3%"></span>\
+				<span class="panel-title" style="float: right;">\
+					创建日期：<span class="createDate"></span>\
+				</span>\
+			</div>\
+			<div class="panel-body">\
+				<p class="description" style="color:gray"></p>\
+			</div>\
+		</div>');
+		$('.no:last').text('<%=i+1%>');
+		$('.title:last').text('<%=quizzes.elementAt(i).getTitle()%>');
+		$('.type:last').text('<%=quizzes.elementAt(i).getType()%>');
+		$('.createDate:last').text('<%=quizzes.elementAt(i).getCreateDate()%>');
+		$('.description:last').text('<%=quizzes.elementAt(i).getDescription()%>');
+		$('a:last').attr('href','quiz?id='+'<%=quizzes.elementAt(i).getId()%>');
 	<%}
 	if (!quizzes.isEmpty()){%>
 		$('#quiz').append('<hr>');

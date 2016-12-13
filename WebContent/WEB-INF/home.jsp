@@ -189,6 +189,10 @@ $(document).ready(function(){
 					msgId : msgId,
 					accept : 'false'
 				});
+		$(thisItem).parents('.inform').nextAll('.inform').each(function(){
+			var preMark = $(this).find('.no').text();
+			$(this).find('.no').text(String.fromCharCode(preMark.charCodeAt()-1));
+		});
 		$(thisItem).parents('.inform').remove();
 	}
 	

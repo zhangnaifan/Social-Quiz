@@ -14,7 +14,7 @@
 <%-- java --%>
 <%@ page language="java" import="com.db.Dao, com.model.*, java.util.*" pageEncoding="UTF-8"%>
 <%
-	User user = (User)request.getSession().getAttribute("user");
+	User user = (User)session.getAttribute("user");
 	Vector<Quiz> quizzes = new Vector<Quiz>();
 	Dao dao = new Dao();
 	for (int id : user.getQuizDone()) {

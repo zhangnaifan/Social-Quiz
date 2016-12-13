@@ -417,7 +417,7 @@ public class Dao
   public int insertGroup(group grp) throws SQLException {
 		// TODO Auto-generated method stub
 		String tmp = String
-				.format("insert into group_db values(null,'%s','%s',NOW(),'%s','%s','%s');",
+				.format("insert into group_db values(null,'%s','%s',NOW(),'%s','%s','%s','');",
 						grp.getGroupName(), grp.getGroupManager(),
 						grp.getInfo(), grp.getGroupMember(), grp.getTagStr());
 		;

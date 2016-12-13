@@ -86,22 +86,25 @@
 		$('nav').load('HTML/nav.html');
 	<%	for (int i=0; i<quizzes.size(); ++i) {%>
 		$('#myQuiz').append(
-		'<div class="quiz panel panel-success">\
+			'<div class="quiz panel panel-success">\
 			<div class="panel-heading">\
 				<a><span class="panel-title no"></span><span>. </span>\
 				<span class="panel-title title"></span></a>\
 				<span class="label label-success type" style="margin-left: 3%"></span>\
-				<span class="panel-title times" style="float: right;"></span>\
+				<span class="panel-title" style="float: right;">\
+					创建日期：<span class="createDate"></span>\
+				</span>\
 			</div>\
 			<div class="panel-body">\
 				<p class="description" style="color:gray"></p>\
 			</div>\
 		</div>');
-		$('.no:last').text('<%=i+1%>');
-		$('.title:last').text('<%=quizzes.elementAt(i).getTitle()%>');
-		$('.type:last').text('<%=quizzes.elementAt(i).getType()%>');
-		$('.description:last').text('<%=quizzes.elementAt(i).getDescription()%>');
-		$('a:last').attr('href','quiz?id='+'<%=quizzes.elementAt(i).getId()%>');
+		$('#myQuiz .no:last').text('<%=i+1%>');
+		$('#myQuiz .title:last').text('<%=quizzes.elementAt(i).getTitle()%>');
+		$('#myQuiz .type:last').text('<%=quizzes.elementAt(i).getType()%>');
+		$('#myQuiz .description:last').text('<%=quizzes.elementAt(i).getDescription()%>');
+		$('#myQuiz .createDate:last').text('<%=quizzes.elementAt(i).getCreateDate()%>');
+		$('#myQuiz a:last').attr('href','quiz?id='+'<%=quizzes.elementAt(i).getId()%>');
 	<%}%>
 	
 	<%	for (int i=0; i<followings.size(); ++i) {%>
@@ -154,22 +157,25 @@
 	
 	<%	for (int i=0; i<quizDone.size(); ++i) {%>
 	$('#quizDone').append(
-	'<div class="quiz panel panel-success">\
-		<div class="panel-heading">\
-			<a><span class="panel-title no"></span><span>. </span>\
-			<span class="panel-title title"></span></a>\
-			<span class="label label-success type" style="margin-left: 3%"></span>\
-			<span class="panel-title times" style="float: right;"></span>\
-		</div>\
-		<div class="panel-body">\
-			<p class="description" style="color:gray"></p>\
-		</div>\
-	</div>');
-	$('#quizDone .no:last').text('<%=i+1%>');
-	$('#quizDone .title:last').text('<%=quizDone.elementAt(i).getTitle()%>');
-	$('#quizDone .type:last').text('<%=quizDone.elementAt(i).getType()%>');
-	$('#quizDone .description:last').text('<%=quizDone.elementAt(i).getDescription()%>');
-	$('#quizDone a:last').attr('href','quiz?id='+'<%=quizDone.elementAt(i).getId()%>');
+		'<div class="quiz panel panel-success">\
+			<div class="panel-heading">\
+				<a><span class="panel-title no"></span><span>. </span>\
+				<span class="panel-title title"></span></a>\
+				<span class="label label-success type" style="margin-left: 3%"></span>\
+				<span class="panel-title" style="float: right;">\
+					创建日期：<span class="createDate"></span>\
+				</span>\
+			</div>\
+			<div class="panel-body">\
+				<p class="description" style="color:gray"></p>\
+			</div>\
+		</div>');
+		$('#quizDone .no:last').text('<%=i+1%>');
+		$('#quizDone .title:last').text('<%=quizDone.elementAt(i).getTitle()%>');
+		$('#quizDone .type:last').text('<%=quizDone.elementAt(i).getType()%>');
+		$('#quizDone .description:last').text('<%=quizDone.elementAt(i).getDescription()%>');
+		$('#quizDone .createDate:last').text('<%=quizDone.elementAt(i).getCreateDate()%>');
+		$('#quizDone a:last').attr('href','quiz?id='+'<%=quizDone.elementAt(i).getId()%>');
 	<%}
 %>
 	
@@ -185,20 +191,18 @@
 	%>	
 	});
 	function follow() {
-		$.post('follow',{id:'<%=owner.getId()%>'},function(data){
-			$('#confirm #myModalLabel').text('已关注！');
-			$('#confirm').modal({show:true});
-			$('#follow').css('display','none');
-			$('#unfollow').css('display','');
-		});
+		$.post('follow',{id:'<%=owner.getId()%>'});
+		$('#confirm #myModalLabel').text('已关注！');
+		$('#confirm').modal({show:true});
+		$('#follow').css('display','none');
+		$('#unfollow').css('display','');
 	}
 	function unfollow() {
-		$.post('unfollow',{id:'<%=owner.getId()%>'},function(data){
-			$('#confirm #myModalLabel').text('已取消关注！');
-			$('#confirm').modal({show:true});
-			$('#unfollow').css('display','none');
-			$('#follow').css('display','');
-		});
+		$.post('unfollow',{id:'<%=owner.getId()%>'});
+		$('#confirm #myModalLabel').text('已取消关注！');
+		$('#confirm').modal({show:true});
+		$('#unfollow').css('display','none');
+		$('#follow').css('display','');
 	}
 	
 	function popSend() {
@@ -242,8 +246,12 @@
 	</div>
 	<%String ta = owner.getGender().equals("M")?"他":owner.getGender().equals("F")?"她":"TA"; %>
 	<div class="container">
+	
 		<div class="row">
+			
 			<div class="col-md-4 col-xs-3">
+			<table>
+				<tr><td>
 				<div class="data">
 					<h5><a>关于<%=ta %></a></h5>
 					<hr/>
@@ -264,10 +272,21 @@
 					</div>
 					<div id="sendMsg" style="margin-top:3%">
 						<button onclick="popSend()" class="form-control btn-warning" style="width:60%">发消息</button>
-					</div>
+					</div>		
 				</div>
+				</td></tr>
+				<tr><td>
+				<!-- share -->
+				<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+					<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"Staples——你的专属社交问答平台\nRaise your questions, answer your interests","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+				</div>
+				<!-- share -->
+				</td></tr>
+			</table>
+				
 			</div>
 			<div class="col-md-7 col-xs-9">
+			
 				<%-- <h5><a><%=owner.getGender().equals("M")?"他":owner.getGender().equals("F")?"她":"TA" %>的测试</a></h5>
 				<hr>
 				<div id="myQuiz" style="cursor:pointer;"></div> --%>

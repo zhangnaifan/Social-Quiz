@@ -32,12 +32,96 @@
 	<!-- JS -->
 	<script>msg = '${msg}';</script>
 	<script src="JS/alert.js"></script>
+	<script type="text/javascript">
+		var usernameExpr = new RegExp("^[_a-zA-Z0-9]{4,20}$");
+		var nickname = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9 ]{3,20}$");
+		var password = new RegExp(".{6,20}$");
+		var email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ ;
+		var mobile = new RegExp("^1[3|4|5|7|8][0-9]\d{8}$");
+		$(document).ready(function(){
+			$('#username').blur(function(){
+				var val = $('#username').val();
+				if (!usernameExpr.test(val)) {
+					$(this).css('border', '1px solid red');
+					$(this).tooltip({title:'用户名长度4-20，由英文数字下划线构成！'});
+					$(this).addClass('error');
+				} else {
+					$(this).css('border', '1px solid #ccc');
+					$(this).tooltip('destroy');
+					$(this).removeClass('error');
+				}
+			}).addClass('error');
+			
+			$('#nickname').blur(function(){
+				var val = $('#nickname').val();
+				if (!nickname.test(val)) {
+					$(this).css('border', '1px solid red');
+					$(this).tooltip({title:'长度3-20，中英文数字下划线构成！',trigger:'hover focus'});
+					$(this).addClass('error');
+				} else {
+					$(this).css('border', '1px solid #ccc');
+					$(this).tooltip('destroy');
+					$(this).removeClass('error');
+				}
+			}).addClass('error');
+			
+			$('#password').blur(function(){
+				var val = $('#password').val();
+				if (!password.test(val)) {
+					$(this).css('border', '1px solid red');
+					$(this).tooltip({title:'密码长度6-20',trigger:'hover focus'});
+					$(this).addClass('error');
+				} else {
+					$(this).css('border', '1px solid #ccc');
+					$(this).tooltip('destroy');
+					$(this).removeClass('error');
+				}
+			}).addClass('error');
+			
+			$('#mobile').blur(function(){
+				var val = $('#mobile').val();
+				if (val != "" && !mobile.test(val)) {
+					$(this).css('border', '1px solid red');
+					$(this).tooltip({title:'请输入正确的手机号码！',trigger:'hover focus'});
+					$(this).addClass('error');
+				} else {
+					$(this).css('border', '1px solid #ccc');
+					$(this).tooltip('destroy');
+					$(this).removeClass('error');
+				}
+			});
+			
+			$('#email').blur(function(){
+				var val = $('#email').val();
+				if (val != "" && !email.test(val)) {
+					$(this).css('border', '1px solid red');
+					$(this).tooltip({title:'请输入正确的email！',trigger:'hover focus'});
+					$(this).addClass('error');
+				} else {
+					$(this).css('border', '1px solid #ccc');
+					$(this).tooltip('destroy');
+					$(this).removeClass('error');
+				}
+			});
+		});
+		
+		function checkAll() {
+			if ($('#username, #nickname, #password, #email, #mobile').is('.error')) {
+				$('#username, #nickname, #password, #email, #mobile')
+					.filter('.error')
+					.css('border', '1px solid red')
+					.tooltip({title:'请完善此项内容！',trigger:'hover focus'});
+			} else {
+				$('#signupForm').submit();
+			}
+		}
+	</script>
 </head>
 <body>
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
 	  		<div>
-	      		<a class="navbar-brand" href="#">Questionnaire</a>
+	      		<a class="navbar-brand" href="#">Staples</a>
 	      		<ul class="nav navbar-nav navbar-right" >
 		      		<li><a style='color:white' href=index >已有账号？登录</a></li>
 		  		</ul>
@@ -48,20 +132,20 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-6 col-md-4 col-center-block">
-				<form action="signUp" method="post">
+				<form action="signUp" method="post" id="signupForm">
 					<h2>创建账号</h2>
 					
 					<div class="form-group">
 						<p>用户名</p>
-						<input required type="text" class="form-control" placeholder="Used for logging in" name="user.username">
+						<input id="username" type="text" class="form-control" placeholder="用于网站登录" name="user.username">
 					</div>
 					<div class="form-group">
 						<p>昵称</p>
-						<input required type="text" class="form-control" placeholder="To be shown in websites" name="user.nickName">
+						<input  id="nickname"  type="text" class="form-control" placeholder="用于网站内显示" name="user.nickName">
 					</div>
 					<div class="form-group">
 						<p>密码</p>
-						<input required type="password" class="form-control" placeholder="Password" name="user.password">
+						<input  id="password"  type="password" class="form-control" placeholder="密码" name="user.password">
 					</div>
 					<div class="form-group">
 						<p>性别</p>
@@ -75,17 +159,17 @@
 					</div>
 					<div class="form-group">
 						<p>邮箱</p>
-						<input class="form-control" placeholder="your e-mail address" name="user.email" type="email"/>
+						<input  id="email" class="form-control" placeholder="邮箱地址" name="user.email" type="email"/>
 					</div>
 					<div class="form-group">
 						<p>手机</p>
-						<input class="form-control" placeholder="your e-mail address" name="user.phoneNum" type="text"/>
+						<input id="mobile" class="form-control" placeholder="手机号码" name="user.phoneNum" type="text"/>
 					</div>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>  
 				</form>
+					<button class="btn btn-lg btn-primary btn-block" onclick="checkAll()">注册</button>  
 			</div>
 		</div>
 	</div>
-
+	<h1></h1>
 </body>
 </html>

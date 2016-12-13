@@ -30,10 +30,10 @@
 
 		</global-results>
 
-		<!-- <global-exception-mappings> <exception-mapping exception="java.lang.Exception" 
+		 <global-exception-mappings> <exception-mapping exception="java.lang.Exception" 
 			result="ERROR"/> <exception-mapping exception="java.sql.SQLException" result="ERROR"/> 
 			<exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/> 
-			</global-exception-mappings> -->
+			</global-exception-mappings> 
 
 		<!-- basis -->
 
@@ -54,7 +54,7 @@
 		</action>
 
 		<action name="signUp" class="com.service.Signup" method="signup">
-			<result>/WEB-INF/home.jsp</result>
+			<result>/WEB-INF/user/info.jsp</result>
 			<result name="SIGNUP">/WEB-INF/signup.jsp</result>
 		</action>
 
@@ -115,11 +115,11 @@
 		</action>
 
 		<action name="follow" class="com.service.Follow">
-			<result></result>
+			<result name="success"></result>
 		</action>
 
 		<action name="unfollow" class="com.service.Unfollow">
-			<result></result>
+			<result name="success"></result>
 		</action>
 
 		<action name="myFollowing" class="com.service.Index">

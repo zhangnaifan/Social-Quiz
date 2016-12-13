@@ -118,6 +118,16 @@
 		}
 	</style>
 	<title>Welcome to Staples!</title>
+	<script type="text/javascript">
+		function check() {
+			var regexp = new RegExp("^[_a-zA-Z0-9]{4,20}$");
+			if (!regexp.test($('#username').val())) {
+				alert('用户名长度4-20，只能包含英文数字下划线！');
+				return;
+			}
+			$('#login').submit();
+		}
+	</script>
 </head>
 <body>
 
@@ -130,17 +140,18 @@
 		<div class="container"  >
 			<div class="row" >
 				<div class="col-sm-8 col-sm-offset-2 text">
-					<h1><strong>Questionnaire</strong></h1>
+					<h1><strong>Staples</strong></h1>
 					<div class="description">
-						<p style="color:white">一个社交性的测试网站</p>
+						<p style="color:white">你的专属社交问答平台</p>
 					</div>
 				</div>
 			</div>
+			
 			<div class="row" >
 				<div class="col-sm-6 col-md-offset-3 form-box" >
 					<div class="form-top">
 						<div class="form-top-left">
-							<h3>登录我们的网站</h3>
+							<h3>登录</h3>
 						<p style="color:#555">请输入用户名和密码：</p>
 						</div>
 						<div class="form-top-right">
@@ -148,19 +159,20 @@
 						</div>
 					</div>
 					<div class="form-bottom">
-						<form action="logIn" method="post" class="login-form" role="form" style="width:100%;">
+						<form id="login" action="logIn" method="post" class="login-form" role="form" style="width:100%;">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="User Name" name="username">
+								<input type="text" class="form-control" placeholder="用户名" name="username" id="username">
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control" placeholder="Password" name="password">
+								<input type="password" class="form-control" placeholder="密码" name="password" id="password">
 							</div>
-							<button class="btn btn-lg btn-success btn-block" type="submit">登录</button>
 						</form>
-					
-						<a href="#" style="float:left">忘记密码?</a>
+						<button class="btn btn-lg btn-success btn-block" onclick="check()">登录</button>
+	
 						<a href=toSignUp style="float:right">注册</a>
-
+						
+						<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"Staples——你的专属社交问答平台\nRaise your questions, answer your interests","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 					</div>
 				</div>
 			</div>

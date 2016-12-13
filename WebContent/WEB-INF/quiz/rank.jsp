@@ -32,6 +32,14 @@ $(document).ready(function(){
 <nav class="navbar navbar-default" role="navigation"></nav>
 <div class="container" style="margin-top:5%;">
 	<div class="row">
+		<div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+			<!-- share -->
+			<div class="bdsharebuttonbox" style="float:right"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+				<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"Staples——你的专属社交问答平台\nRaise your questions, answer your interests","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+			</div>
+			<!-- share -->
+		</div><br>
+	
 		<div class="col-xs-10 col-md-8 col-xs-offset-1 col-md-offset-2">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
