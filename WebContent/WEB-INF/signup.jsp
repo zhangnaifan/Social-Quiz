@@ -35,7 +35,7 @@
 	<script type="text/javascript">
 		var usernameExpr = new RegExp("^[_a-zA-Z0-9]{4,20}$");
 		var nickname = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9 ]{3,20}$");
-		var password = new RegExp(".{6,20}$");
+		var password = new RegExp("^.{6,20}$");
 		var email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ ;
 		var mobile = new RegExp("^1[3|4|5|7|8][0-9]\d{8}$");
 		$(document).ready(function(){
@@ -91,7 +91,7 @@
 				}
 			});
 			
-			$('#email').blur(function(){
+			/* $('#email').blur(function(){
 				var val = $('#email').val();
 				if (val != "" && !email.test(val)) {
 					$(this).css('border', '1px solid red');
@@ -102,7 +102,7 @@
 					$(this).tooltip('destroy');
 					$(this).removeClass('error');
 				}
-			});
+			}); */
 		});
 		
 		function checkAll() {

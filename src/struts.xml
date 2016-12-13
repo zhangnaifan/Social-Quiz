@@ -5,6 +5,8 @@
 
 <struts>
 	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources" value="messageResource" />
+ 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<package name="default" extends="struts-default">
 
 		<interceptors>
@@ -30,10 +32,10 @@
 
 		</global-results>
 
-		 <global-exception-mappings> <exception-mapping exception="java.lang.Exception" 
+		 <!-- <global-exception-mappings> <exception-mapping exception="java.lang.Exception" 
 			result="ERROR"/> <exception-mapping exception="java.sql.SQLException" result="ERROR"/> 
 			<exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/> 
-			</global-exception-mappings> 
+			</global-exception-mappings>  -->
 
 		<!-- basis -->
 
@@ -204,5 +206,9 @@
 			<result name="fail">/WEB-INF/error.jsp</result>
 		</action>
 		
+		<!--输出显示-->
+		<action name="outPicture" class="com.action.OutPictureAction">
+			<result name="input">/info.jsp</result>
+		</action>
 	</package>
 </struts>

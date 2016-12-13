@@ -1,9 +1,13 @@
 package com.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
+
 
 import com.db.Dao;
 import com.model.User;
@@ -18,12 +22,13 @@ public class Signup extends ActionSupport {
 	
 	private User user;
 	
-	public String signup() throws ClassNotFoundException, SQLException{
+	public String signup() throws ClassNotFoundException, SQLException, NoSuchAlgorithmException, IOException{
 		
 		user.setAccountLevel(3);
 		user.setMemberSince(new Date(System.currentTimeMillis()));
 		Dao dao = new Dao();
-		
+		user.setPassword(MD5.MD5password(user.getPassword()));
+		System.out.println(user.getPassword());
 		//check if there exists a same username
 		ResultSet rs = dao.executeQuery("SELECT * FROM user WHERE username = '"
 				+ user.getUsername()
@@ -41,6 +46,11 @@ public class Signup extends ActionSupport {
 		if (rs.next()) {
 			user.setId(rs.getInt("id"));
 		}
+		
+		//store default icon
+		File file = new File(getClass().getClassLoader().getResource("cat.jpg").getPath());
+		FileUploadService fuservice=new FileUploadService();
+		fuservice.fileUpload(file, user.getId());
 		
 		//put user's information into session
 		ActionContext actionContext = ActionContext.getContext();   //È¡µ½strutsÈÝÆ÷

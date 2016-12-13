@@ -49,24 +49,20 @@
 					
 					<div class="form-group">
 						<p>群名称</p>
-						<input type="text" class="form-control" placeholder="named for your group" name="groupname">
+						<input type="text" class="form-control" placeholder="" name="groupname">
 					</div>
 					<div class="form-group">
 						<p>群描述</p>
-						<input type="text" class="form-control" placeholder="description for your group" name="info">
+						<input type="text" class="form-control" placeholder="" name="info">
 					</div>
 					<div class="form-group">
 						<p>群标签</p>
-						<input type="text" class="form-control" placeholder="set a tag" name="tag">
+						<input type="text" class="form-control" placeholder="" name="tag">
 					</div>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>  
+					<button class="btn btn-lg btn-primary btn-block" type="submit">创建</button>  
 				</form>
 			</div>
 		</div>
 	</div>
-	<em>
-		tag is not available!
-	</em>
-	
 </body>
 </html>

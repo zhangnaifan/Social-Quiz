@@ -20,6 +20,10 @@ public class User {
 	private int id;
 	private Date memberSince;
 
+	// password back
+/*	private String validataCode;
+	private Date outDate;*/
+	
 	// account level 0 for supper root
 	// account level 1 for manager
 	// account level 2 for vip
@@ -200,4 +204,20 @@ public class User {
 	public void setFollowers(Vector<Integer> followers) {
 		this.followers = followers;
 	}
+	/*public String getValidataCode() {
+		return validataCode;
+	}
+
+	public void setValidataCode(String validataCode) {
+		this.validataCode = validataCode;
+	}
+
+	public Date getOutDate() {
+		return outDate;
+	}
+
+	public void setOutDate(Date outDate) {
+		this.outDate = outDate;
+	}*/
+
 }

@@ -1,7 +1,6 @@
 package test.poore;
 
 import java.sql.SQLException;
-import java.util.Scanner;
 
 import com.db.Dao;
 

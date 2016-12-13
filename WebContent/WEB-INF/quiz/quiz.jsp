@@ -325,7 +325,6 @@
 				</form>
 			</div>
 		</div>
-	</div>
 
 	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" style="z-index: 10000 !important;">

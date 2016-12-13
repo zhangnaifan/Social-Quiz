@@ -11,7 +11,7 @@
 	<script type="text/javascript">
 		var intro = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9,，.。!！?？@#%*（()） ]{0,40}$");
 		var nickname = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9 ]{3,20}$");
-		var password = new RegExp(".{6,20}$");
+		var password = new RegExp("^.{6,20}$");
 		var email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ ;
 		var mobile = new RegExp("^1[3|4|5|7|8][0-9]\d{8}$");
 		$(document).ready(function(){
@@ -52,7 +52,7 @@
 			
 			$('#password').blur(function(){
 				var val = $('#password').val();
-				if (!password.test(val)) {
+				if (val != "" && !password.test(val)) {
 					$(this).css('border', '1px solid red');
 					$(this).tooltip({title:'密码长度6-20',trigger:'hover focus'});
 					$(this).addClass('error');
@@ -109,7 +109,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xl-6 col-md-6 col-md-offset-3">
-				<form action="info" method="post" id="info">
+				<form action="info" method="post" id="info" enctype="multipart/form-data">
 					<h2>完善我的信息</h2><hr/>
 					
 					<div class="form-group" style="margin-top: 3%">
@@ -122,7 +122,11 @@
 					</div>
 					<div class="form-group">
 						<p>密码</p>
-						<input type="password" value="${user.password}" name="password" id="password">
+						<input type="password" name="password" value="" id="password">
+					</div>
+					<div class="form-group">	
+							<img src='outPicture.action?id=${ user.id }' style="width:150px; height:150px; border-radius:190px; display:inline;"> 
+							<input type="file" name="file" class = "form-control">
 					</div>
 					<div class="form-group">
 						<p>性别</p>
