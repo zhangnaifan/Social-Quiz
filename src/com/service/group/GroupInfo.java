@@ -64,6 +64,7 @@ public class GroupInfo implements Action {
 		for (int i = 0; i < grp.getManagerIds().size(); i++) {
 			managers.add(dao.getUserBasis(grp.getManagerIds().get(i)));
 		}
+		
 		return "success";
 	}
 

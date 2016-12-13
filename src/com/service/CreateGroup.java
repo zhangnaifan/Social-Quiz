@@ -4,6 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
+import javassist.compiler.ast.Keyword;
+
 import com.db.Dao;
 import com.model.User;
 import com.model.group;
@@ -75,7 +79,7 @@ public class CreateGroup extends ActionSupport {
 			System.err.println("create group error : empty name");
 			return "fail";
 		}
-
+		
 		Dao dao = new Dao();
 		user = (User) ActionContext.getContext().getSession().get("user");
 		ResultSet rs = dao.executeQuery(String.format(

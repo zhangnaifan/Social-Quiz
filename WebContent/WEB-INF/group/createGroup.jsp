@@ -49,20 +49,23 @@
 					
 					<div class="form-group">
 						<p>群名称</p>
-						<input type="text" class="form-control" placeholder="" name="groupname">
+
+						<input required oninvalid="this.setCustomValidity(this.willValidate?'':'只能包含中文、数字、英文字母，且长度不超过10个汉字或20个字符.');" type="text" class="form-control" placeholder="named for your group" name="groupname" pattern="^[\u4e00-\u9fa5_a-zA-Z0-9]{1,20}$">
 					</div>
 					<div class="form-group">
 						<p>群描述</p>
-						<input type="text" class="form-control" placeholder="" name="info">
+						<input required oninvalid="this.setCustomValidity(this.willValidate?'':'只能包含中文、数字、英文字母，且长度不超过50个汉字或100个字符.');" type="text" class="form-control" placeholder="description for your group" name="info" pattern="^[\u4e00-\u9fa5_a-zA-Z0-9]{1,100}$">
 					</div>
 					<div class="form-group">
 						<p>群标签</p>
-						<input type="text" class="form-control" placeholder="" name="tag">
+						<input required oninvalid="this.setCustomValidity(this.willValidate?'':'只能包含中文、数字、英文字母，且长度不超过10个汉字或20个字符.');" type="text" class="form-control" placeholder="set a tag" name="tag" pattern="^[\u4e00-\u9fa5_a-zA-Z0-9]{1,20}$">
+
 					</div>
 					<button class="btn btn-lg btn-primary btn-block" type="submit">创建</button>  
 				</form>
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>
