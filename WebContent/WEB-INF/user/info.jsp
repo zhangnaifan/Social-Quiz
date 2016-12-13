@@ -9,6 +9,11 @@
 	<link href="css/navbar.css" rel="stylesheet" type="text/css" />
 	<title>我的信息</title>
 	<script type="text/javascript">
+		var intro = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9,，.。!！?？@#%*（()） ]{0,40}$");
+		var nickname = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9 ]{3,20}$");
+		var password = new RegExp(".{6,20}$");
+		var email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ ;
+		var mobile = new RegExp("^1[3|4|5|7|8][0-9]\d{8}$");
 		$(document).ready(function(){
 			$('nav').load('HTML/nav.html');
 			$('input').addClass('form-control');
@@ -18,7 +23,84 @@
 			} else if ('${user.gender}' == "F"){
 				$('#F').attr('checked','checked');
 			}
+			
+			$('#intro').blur(function(){
+				var val = $('#intro').val();
+				if (!intro.test(val)) {
+					$(this).css('border', '1px solid red');
+					$(this).tooltip({title:'不超过40字符且不包含特殊字符',trigger:'hover focus'});
+					$(this).addClass('error');
+				} else {
+					$(this).css('border', '1px solid #ccc');
+					$(this).tooltip('destroy');
+					$(this).removeClass('error');
+				}
+			});
+			
+			$('#nickname').blur(function(){
+				var val = $('#nickname').val();
+				if (!nickname.test(val)) {
+					$(this).css('border', '1px solid red');
+					$(this).tooltip({title:'长度3-20，中英文数字下划线构成！',trigger:'hover focus'});
+					$(this).addClass('error');
+				} else {
+					$(this).css('border', '1px solid #ccc');
+					$(this).tooltip('destroy');
+					$(this).removeClass('error');
+				}
+			});
+			
+			$('#password').blur(function(){
+				var val = $('#password').val();
+				if (!password.test(val)) {
+					$(this).css('border', '1px solid red');
+					$(this).tooltip({title:'密码长度6-20',trigger:'hover focus'});
+					$(this).addClass('error');
+				} else {
+					$(this).css('border', '1px solid #ccc');
+					$(this).tooltip('destroy');
+					$(this).removeClass('error');
+				}
+			});
+			
+			$('#mobile').blur(function(){
+				var val = $('#mobile').val();
+				if (val != "" && !mobile.test(val)) {
+					$(this).css('border', '1px solid red');
+					$(this).tooltip({title:'请输入正确的手机号码！',trigger:'hover focus'});
+					$(this).addClass('error');
+				} else {
+					$(this).css('border', '1px solid #ccc');
+					$(this).tooltip('destroy');
+					$(this).removeClass('error');
+				}
+			});
+			
+			$('#email').blur(function(){
+				var val = $('#email').val();
+				if (val != "" && !email.test(val)) {
+					$(this).css('border', '1px solid red');
+					$(this).tooltip({title:'请输入正确的email！',trigger:'hover focus'});
+					$(this).addClass('error');
+				} else {
+					$(this).css('border', '1px solid #ccc');
+					$(this).tooltip('destroy');
+					$(this).removeClass('error');
+				}
+			});
 		});
+		
+		
+		function checkAll() {
+			if ($('#intro, #nickname, #password, #email, #mobile').is('.error')) {
+				$('#intro, #nickname, #password, #email, #mobile')
+					.filter('.error')
+					.css('border', '1px solid red')
+					.tooltip({title:'请完善此项内容！',trigger:'hover focus'});
+			} else {
+				$('#confirm').modal('show');
+			}
+		}
 	</script>
 </head>
 <body>
@@ -32,15 +114,15 @@
 					
 					<div class="form-group" style="margin-top: 3%">
 						<p>简介</p>
-						<input type="text" value="${user.intro} " name="intro">
+						<input type="text" value="${user.intro} " name="intro" id="intro">
 					</div>
 					<div class="form-group">
 						<p>昵称</p>
-						<input type="text" value="${user.nickName}" name="nickName">
+						<input type="text" value="${user.nickName}" name="nickName" id="nickname">
 					</div>
 					<div class="form-group">
 						<p>密码</p>
-						<input type="password" value="${user.password}" name="password">
+						<input type="password" value="${user.password}" name="password" id="password">
 					</div>
 					<div class="form-group">
 						<p>性别</p>
@@ -55,14 +137,14 @@
 					</div>
 					<div class="form-group">
 						<p>邮箱</p>
-						<input name="email" value="${user.email }" type="email"/>
+						<input name="email" value="${user.email }" type="email" id="email"/>
 					</div>
 					<div class="form-group">
 						<p>手机</p>
-						<input value="${ user.phoneNum}" name="phoneNum" type="text"/>
+						<input value="${ user.phoneNum}" name="phoneNum" type="text" id="mobile"/>
 					</div>
 				</form>
-				<button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#confirm">保存</button>  
+				<button class="btn btn-lg btn-primary btn-block" onclick="checkAll()">保存</button>  
 			</div>
 		</div>
 	</div>

@@ -15,15 +15,41 @@
 <%@ page language="java" import="com.db.Dao, com.model.*, java.util.*" pageEncoding="UTF-8"%>
 
 <!-- js -->
+
 <script type="text/javascript">
 var quesList = new Array();
 var last = 0;
+var reg1 = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9,，.。!！?？@#%*（()） ]{1,40}$");
+var reg2 = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9]{1,18}$");
 
 $(document).ready(function(){
 	$('nav').load('HTML/nav.html');
 	$('#myModal').modal({show:true});
 	$('#searchResult').on('click','.question',function(){
 		addQues(this);
+	});
+	
+	$('#title, #description').blur(function(){
+		if (!reg1.test($(this).val())) {
+			$(this).addClass('error');
+			$(this).css('border','1px solid red');
+			$(this).tooltip({title:'不能为空/超过40字符/包含特殊字符！', trigger:'focus hover'});
+		} else {
+			$(this).removeClass('error');
+			$(this).css('border','1px #ccc solid');
+			$(this).tooltip('destroy');
+		}
+	}).addClass('error');
+	$('#type').blur(function(){
+		if (reg2.test($(this).val()) || $(this).val()=="") {
+			$(this).removeClass('error');
+			$(this).css('border','1px #ccc solid');
+			$(this).tooltip('destroy');
+		} else {
+			$(this).addClass('error');
+			$(this).css('border','1px solid red');
+			$(this).tooltip({title:'不能超过18字符，只能包含中英文数字！', trigger:'focus hover'});
+		}
 	});
 });
 
@@ -67,10 +93,36 @@ function beforeSubmit() {
 		}
 	}
 	$('#quesListStr').val(arr.join('&'));
-	$('#quizInfo').submit();
+	
+	if ($('#title, #description, #type').is('.error')) {
+		var bad = $('#title, #description').filter('.error');
+		$(bad).css('border','1px solid red');
+		$(bad).tooltip({title:'不能为空/超过40字符/包含特殊字符！', trigger:'focus hover'});
+		var bad2 = $('#type').filter('.error');
+		$(bad2).css('border','1px solid red');
+		$(bad2).tooltip({title:'不能超过18字符/只能包含中英文数字！', trigger:'focus hover'});
+		$('#confirm').modal('hide');
+		$('#myModal').modal('show');
+	} else {
+		$('#quizInfo').submit();
+	}
+}
+
+function checkBasis() {
+	if ($('#title, #description, #type').is('.error')) {
+		var bad = $('#title, #description').filter('.error');
+		$(bad).css('border','1px solid red');
+		$(bad).tooltip({title:'不能为空/超过40字符/包含特殊字符！', trigger:'focus hover'});
+		var bad2 = $('#type').filter('.error');
+		$(bad2).css('border','1px solid red');
+		$(bad2).tooltip({title:'不能超过18字符/只能包含中英文数字！', trigger:'focus hover'});
+	} else {
+		$('#myModal').modal('hide');
+	}
 }
  
 </script>
+
 
 </head>
 <body>
@@ -118,7 +170,7 @@ function beforeSubmit() {
 	      	</form>
           </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" data-dismiss="modal">保存并关闭</button>
+	        <button type="button" class="btn btn-primary" onclick="checkBasis()">保存并关闭</button>
 	      </div>
 	    </div>
 	  </div>
@@ -137,7 +189,7 @@ function beforeSubmit() {
 	      </div>
 	    </div>
 	  </div>
-	</div>
+	</div>z
 
 </body>
 </html>
