@@ -13,8 +13,8 @@
 	
 	<script>
 		var quesCount = 0;
-		var reg1 = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9,，.。!！?？@#%*（()） ]{1,40}$");
-		var reg2 = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9]{1,18}$");
+		var reg1 = new RegExp("^[^&$|~^']{1,40}$");
+		var reg2 = new RegExp("^[^&$|~^']{0,18}$");
 		$(document).ready(function(){
 			$('nav').load('HTML/nav.html');
 			$('#myModal').modal({show:true});
@@ -91,7 +91,7 @@
 				if (!reg1.test($(this).val())) {
 					$(this).addClass('error');
 					$(this).css('border','1px solid red');
-					$(this).tooltip({title:'不能为空/超过40字符/包含特殊字符！', trigger:'focus hover'});
+					$(this).tooltip({title:'不能为空/超过40字符/包含\'！', trigger:'focus hover'});
 				} else {
 					$(this).removeClass('error');
 					$(this).css('border','1px #ccc solid');

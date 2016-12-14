@@ -28,6 +28,11 @@ for (int id : user.getPublishedQuiz()) {
 $(document).ready(function(){
 	$('nav').load('HTML/nav.html');
 	
+<%	if (quizzes.isEmpty()) {%>
+$('#myQuiz').append('<div class="alert alert-warning" role="alert">您暂时还没有发布测试哦！去\
+		<b><a href=toCreateQuiz>创建您的第一份测试</a></b>吧！</div>');
+<%}%>
+	
 <%	for (int i=0; i<quizzes.size(); ++i) {%>
 	$('#myQuiz').append(
 	'<div class="quiz panel panel-success">\

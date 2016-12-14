@@ -38,9 +38,10 @@
 <!-- javascript generate the web page -->
 <script type="text/javascript">
 	$(document).ready(function(){		
+		$('nav').load('HTML/nav.html');
 		$('#quizId').val('<%=quiz.getId()%>');
-		$('#title').text('<%=quiz.getTitle()%>');
-		$('#owner').text('<%=owner.getNickName()%>');
+		$('#title').append('<%=quiz.getTitle()%>');
+		$('#owner').append("<a href='user?id="+"<%=owner.getId()%>"+"'>"+"<%=owner.getNickName()%>"+"</a>");
 		$('#type').text('<%=quiz.getType()%>');
 		$('#description').text('<%=quiz.getDescription()%>');
 	<%! int no = 1;%>
@@ -240,8 +241,20 @@
 		$('.score-final').css('color','red').css('font-size','larger')
 		$('.user-score').addClass('panel-title').css('color','red');
 		$('.glyphicon-star').css('color','orange');
-		$('nav').load('HTML/nav.html');
-
+		
+		var regexp = new RegExp("^[^']{0,40}$");
+		$(':text').blur(function(){
+			var val = $(this).val();
+			if (!regexp.test(val)) {
+				$(this).css('border', '1px solid red');
+				$(this).tooltip({title:'请不要输入\'或超过40个字符！'});
+				$(this).addClass('error');
+			} else {
+				$(this).css('border', '1px solid #ccc');
+				$(this).tooltip('destroy');
+				$(this).removeClass('error');
+			}
+		});
 	});
 
 	function setSelVal(thisSel) {
@@ -253,6 +266,13 @@
 	}
 	
 	function calculate() {
+		if ($(':text').is('.error')) {
+			$('.error').css('border', '1px solid red');
+			$('.error').tooltip({title:'请不要输入\'或超过40个字符！'});
+			$('.error').addClass('error');
+			$('#confirm').modal('hide');
+			return;
+		}
 		var rec = "";
 		var total = 0;
 		$('.question').each(function(){

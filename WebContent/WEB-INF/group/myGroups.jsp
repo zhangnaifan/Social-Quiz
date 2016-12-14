@@ -28,6 +28,11 @@ for (int id : user.getGroups()) {
 $(document).ready(function(){
 	$('nav').load('HTML/nav.html');
 	
+	<%	if (groups.isEmpty()) {%>
+	$('#myGroups').append('<div class="alert alert-warning" role="alert">您暂时还没有加入任何群哦！去\
+			<b><a href=toCreateGroup>创建您的群</a></b>或者<b>点击左上角搜搜看</b>吧！</div>');
+	<%}%>
+	
 <%	for (int i=0; i<groups.size(); ++i) {%>
 	$('#myGroups').append(
 	'<div class="group panel panel-info">\

@@ -9,7 +9,7 @@
 	<link href="css/navbar.css" rel="stylesheet" type="text/css" />
 	<title>我的信息</title>
 	<script type="text/javascript">
-		var intro = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9,，.。!！?？@#%*（()） ]{0,40}$");
+		var intro = new RegExp("^[^']{0,40}$");
 		var nickname = new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9 ]{3,20}$");
 		var password = new RegExp("^.{6,20}$");
 		var email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ ;
@@ -28,7 +28,7 @@
 				var val = $('#intro').val();
 				if (!intro.test(val)) {
 					$(this).css('border', '1px solid red');
-					$(this).tooltip({title:'不超过40字符且不包含特殊字符',trigger:'hover focus'});
+					$(this).tooltip({title:'不超过40字符且不包含特殊字符\'',trigger:'hover focus'});
 					$(this).addClass('error');
 				} else {
 					$(this).css('border', '1px solid #ccc');

@@ -74,6 +74,10 @@ $(document).ready(function(){
 					count=1;
 					%>
 				</table>
+				<%	if (rank.isEmpty()) {%>
+					<div class="alert alert-warning" role="alert">暂时还没有人做过您的测试哦！去
+					<b><a href=myFollowing>邀请好友</a></b>或者<b><a href=toCreateQuiz>创建测试</a></b>吧！</div>
+				<%}%>
 			</div>
 		</div>
 	</div>

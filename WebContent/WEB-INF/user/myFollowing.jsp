@@ -24,6 +24,12 @@
 	$(document).ready(function(){
 		$('nav').load('HTML/nav.html');
 		
+		<%	if (followings.isEmpty()) {%>
+		$('#myFollowings').append('<div class="alert alert-warning" role="alert">您暂时还没有关注的用户哦！去\
+				左上角搜搜看吧！</div>');
+		$('#searchBox').focus();
+		<%}%>
+		
 	<%	for (int i=0; i<followings.size(); ++i) {%>
 		$('#myFollowings').append(
 		'<div class="quiz panel panel-warning">\

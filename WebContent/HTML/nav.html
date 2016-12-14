@@ -10,7 +10,7 @@
 	      		<a class="navbar-brand" href="home">Staples</a>
 	      		<form action="search" class="navbar-form navbar-right" role="search">
 					<div class="form-group">
-						<input name="keyword" type="text" class="form-control" placeholder="搜索">
+						<input id="searchBox" name="keyword" type="text" class="form-control" placeholder="搜索" oninvalid="this.setCustomValidity(this.willValidate?'':'只能包含中文、数字、英文字母、空格，且长度不超过10个汉字或20个字符.');" pattern="^[\u4e00-\u9fa5_a-zA-Z0-9 ]{0,20}$">
 					</div>
 					<button type="submit" class="btn btn-default">搜索</button>
 				</form>
@@ -20,8 +20,8 @@
 	    			<button class="dropbtn">我的测试</button>
 	    			<div class="dropdown-content">
 	    				<a href=myQuiz>已创建的测试</a>
-						<a href=quizTodo>待回答的测试</a>
-					    <a href=quizDone>已回答的测试</a>
+						<a href=quizTodo>被邀请的测试</a>
+					    <a href=quizDone>已完成的测试</a>
 					    <a href=myRank>好友排名</a>
 	    			</div>
 	    		</div>

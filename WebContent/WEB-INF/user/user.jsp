@@ -60,6 +60,7 @@
 	<%
 	Dao dao = new Dao();
 	User owner = dao.getUser(Integer.parseInt(request.getParameter("id")));
+	String ta = owner.getGender().equals("M")?"他":owner.getGender().equals("F")?"她":"TA";
 	User user = (User)session.getAttribute("user");
 	Vector<Quiz> quizzes = new Vector<Quiz>();
 	for (int id : owner.getPublishedQuiz()) {
@@ -84,6 +85,26 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('nav').load('HTML/nav.html');
+		
+		$('#content').blur(function(){
+			var regexp = new RegExp("^[^'\"]{1,160}$");
+			var val = $('#content').val();
+			if (!regexp.test(val)) {
+				$(this).css('border', '1px solid red');
+				$(this).tooltip({title:"长度不能超过160，且不应包含特殊字符，如'或者\""});
+				$(this).addClass('error');
+			} else {
+				$(this).css('border', '1px solid #ccc');
+				$(this).tooltip('destroy');
+				$(this).removeClass('error');
+			}
+		}).addClass('error');
+		
+	<%	if (quizzes.isEmpty()) {%>
+	$('#myQuiz').append('<div class="alert alert-success" role="alert"><%=ta%>暂时还没有测试哦</div>');
+	<%}%>
+		
+		
 	<%	for (int i=0; i<quizzes.size(); ++i) {%>
 		$('#myQuiz').append(
 			'<div class="quiz panel panel-success">\
@@ -105,6 +126,11 @@
 		$('#myQuiz .description:last').text('<%=quizzes.elementAt(i).getDescription()%>');
 		$('#myQuiz .createDate:last').text('<%=quizzes.elementAt(i).getCreateDate()%>');
 		$('#myQuiz a:last').attr('href','quiz?id='+'<%=quizzes.elementAt(i).getId()%>');
+	<%}%>
+	
+	
+	<%	if (followings.isEmpty()) {%>
+	$('#followings').append('<div class="alert alert-warning" role="alert"><%=ta%>暂时还没有关注的人哦</div>');
 	<%}%>
 	
 	<%	for (int i=0; i<followings.size(); ++i) {%>
@@ -131,6 +157,10 @@
 	$('#followings a:last').attr('href','user?id='+'<%=followings.elementAt(i).getId()%>');
 	<%}%>
 	
+	<%	if (followers.isEmpty()) {%>
+	$('#followers').append('<div class="alert alert-warning" role="alert"><%=ta%>暂时还没有关注的人哦</div>');
+	<%}%>
+	
 	<%	for (int i=0; i<followers.size(); ++i) {%>
 	$('#followers').append(
 	'<div class="quiz panel panel-warning">\
@@ -154,6 +184,11 @@
 	$('#followers .intro:last').text('<%=followers.elementAt(i).getIntro()%>');
 	$('#followers a:last').attr('href','user?id='+'<%=followers.elementAt(i).getId()%>');
 	<%}%>
+	
+	<%	if (quizDone.isEmpty()) {%>
+	$('#quizDone').append('<div class="alert alert-warning" role="alert"><%=ta%>暂时还没有做过的测试哦</div>');
+	<%}%>
+	
 	
 	<%	for (int i=0; i<quizDone.size(); ++i) {%>
 	$('#quizDone').append(
@@ -215,6 +250,12 @@
 	}
 	
 	function send() {
+		if ($('#content').is('.error')) {
+			$('#content')
+				.css('border', '1px solid red')
+				.tooltip({title:'请完善此项内容！',trigger:'hover focus'});
+			return;
+		}
 		var fromid = '<%=user.getId()%>';
 		var toid = '<%=owner.getId()%>';
 		var msg = $('#message #content').val();
@@ -244,7 +285,6 @@
 			</div>
 		</div>
 	</div>
-	<%String ta = owner.getGender().equals("M")?"他":owner.getGender().equals("F")?"她":"TA"; %>
 	<div class="container">
 	
 		<div class="row">

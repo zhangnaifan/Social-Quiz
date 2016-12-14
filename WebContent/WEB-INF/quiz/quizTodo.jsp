@@ -32,6 +32,11 @@
 $(document).ready(function(){
 	$('nav').load('HTML/nav.html');
 	
+	<%	if (quizzes.isEmpty()) {%>
+	$('#myQuiz').append('<div class="alert alert-warning" role="alert">您暂时还没有被邀请做新的测试哦！去\
+			<b><a href=myFollowing>看看好友</a></b>或者<b>点击左上角搜搜看</b>吧！</div>');
+	<%}%>
+	
 <%	for (int i=0; i<quizzes.size(); ++i) {%>
 	$('#myQuiz').append(
 	'<div class="panel panel-primary inform">\
@@ -95,7 +100,7 @@ $(document).ready(function(){
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
-				<h2 style="margin-bottom:4%;">未完成的测试</h2>
+				<h2 style="margin-bottom:4%;">被邀请的测试</h2>
 				<div id="myQuiz"></div>
 			</div>
 		</div>

@@ -30,7 +30,7 @@ public class Dao
     String username = "root";
     String password = "113095";
     String dbUrl = String.format("jdbc:mysql://%s:%s/%s", new Object[] {
-      "qqopxxnabssr.mysql.sae.sina.com.cn", "10624", "staples" });    
+      "qqopxxnabssr.mysql.sae.sina.com.cn", "10624", "staples" });
     
 	Class.forName(driver);
 	this.con = DriverManager.getConnection(dbUrl, username, password);

@@ -28,6 +28,12 @@
 $(document).ready(function(){
 	$('nav').load('HTML/nav.html');
 	
+	<%	if (quizzes.isEmpty()) {%>
+	$('#myQuiz').append('<div class="alert alert-warning" role="alert">您暂时还没有做过测试哦！去\
+			<b><a href=myFollowing>看看好友</a></b>或者<b>点击左上角搜搜看</b>吧！</div>');
+	<%}%>
+
+	
 <%	for (int i=0; i<quizzes.size(); ++i) {%>
 	$('#myQuiz').append(
 	'<div class="quiz panel panel-success">\

@@ -90,6 +90,12 @@
 $(document).ready(function(){
 	$('nav').load('HTML/nav.html');
 	
+	
+	<%	if (quizzes.isEmpty()) {%>
+	$('#myQuiz').append('<div class="alert alert-success" role="alert">您的好友暂时没有发布测试哦！去\
+			<b><a href=myFollowing>看看好友</a></b>或者点击<b>左上角</b>搜搜新的测试吧！</div>');
+	<%}%>
+	
 <%	for (int i=0; i<quizzes.size(); ++i) {%>
 	$('#myQuiz').append(
 	'<div class="panel panel-primary inform">\
@@ -129,6 +135,12 @@ $(document).ready(function(){
 	<%}%>
 	
 	//------------------------
+	
+	<%	if (quizzes2.isEmpty()) {%>
+	$('#groups-new').append('<div class="alert alert-success" role="alert">您的群暂时没有发布共有测试哦！去\
+			<b><a href=myGroups>看看群</a></b>或者<b><a href=toCreateGroup>创建一个新群</a></b>吧！</div>');
+	<%}%>
+	
 	<%	for (int i=0; i<quizzes2.size(); ++i) {%>
 	$('#groups-new').append(
 	'<div class="panel panel-primary inform">\
@@ -168,6 +180,11 @@ $(document).ready(function(){
 	<%}%>
 	
 	//------------------------
+	
+	<%	if (followings.isEmpty()) {%>
+		$('#myFollowings').append('<div class="alert alert-warning" role="alert">您暂时还没有关注的用户哦！去\
+				<b>左上角</b>搜搜看吧！</div>');
+		<%}%>
 	
 <%	for (int i=0; i<followings.size(); ++i) {%>
 		$('#myFollowings').append(
