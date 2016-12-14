@@ -32,10 +32,10 @@
 
 		</global-results>
 
-		 <!-- <global-exception-mappings> <exception-mapping exception="java.lang.Exception" 
+		  <!-- <global-exception-mappings> <exception-mapping exception="java.lang.Exception" 
 			result="ERROR"/> <exception-mapping exception="java.sql.SQLException" result="ERROR"/> 
 			<exception-mapping exception="java.lang.ClassNotFoundException" result="ERROR"/> 
-			</global-exception-mappings>  -->
+			</global-exception-mappings>  --> 
 
 		<!-- basis -->
 

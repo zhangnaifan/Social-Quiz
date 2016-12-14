@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import com.db.Dao;
 import com.model.Quiz;
 import com.model.User;
@@ -22,7 +24,8 @@ public class Search extends ActionSupport {
 		Dao dao = new Dao();
 		Dao dao2 = new Dao();
 		
-		keyword = new String(keyword.getBytes("ISO-8859-1"),"UTF-8");
+		//keyword = new String(keyword.getBytes("ISO-8859-1"),"UTF-8");
+		keyword = StringEscapeUtils.unescapeEcmaScript(keyword);
 		
 		ResultSet rs1 = dao.executeQuery("SELECT id FROM user WHERE nickname LIKE '%"
 				+keyword+"%' OR id ='"

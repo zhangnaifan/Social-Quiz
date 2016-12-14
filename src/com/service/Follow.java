@@ -16,12 +16,14 @@ public class Follow extends ActionSupport {
 	private InputStream msg;
 	public String execute() throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
 		User user = (User)ActionContext.getContext().getSession().get("user");
-		user.addFollowing(id);
-		Dao dao = new Dao();
-		dao.addUserFollowing(user.getId(), id);
-		dao.addUserFollower(id, user.getId());
-		setMsg(new ByteArrayInputStream("关注成功！".getBytes("utf-8")));
-		ActionContext.getContext().getSession().replace("user", user);
+		if (!user.getFollowers().contains(id)) {
+			user.addFollowing(id);
+			Dao dao = new Dao();
+			dao.addUserFollowing(user.getId(), id);
+			dao.addUserFollower(id, user.getId());
+			setMsg(new ByteArrayInputStream("关注成功！".getBytes("utf-8")));
+			ActionContext.getContext().getSession().replace("user", user);
+		}
 		return SUCCESS;
 	}
 	public int getId() {
