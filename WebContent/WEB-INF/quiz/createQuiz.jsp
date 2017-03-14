@@ -259,7 +259,7 @@
                     </span>\
                 	<span class="input-group-addon"><span class="glyphicon glyphicon-remove" onclick="popOpt(this)"></span></span>\
 				</div>');
-			$('.score:last').tooltip({title:'设置得分'});
+			$(thisQues).parents('.question').find('.score:last').tooltip({title:'设置得分'});
 			$('.option-content:last').blur(function(){
 				if (!reg1.test($(this).val())) {
 					$(this).addClass('error');
@@ -314,13 +314,13 @@
 		}
 		
 		function quizToString() {
-			if ($('.option-content, .content, .answer-SA, .tag').is('.error')) {
+			if ($('.option-content, .content, .answer-SA, .tag, #title, #description, #type').is('.error')) {
 				$('#confirm').modal('hide');
 				$('#error').modal('show');
-				var bad = $('.option-content, .content, .answer-SA').filter('.error');
+				var bad = $('.option-content, .content, .answer-SA, #title, #description').filter('.error');
 				$(bad).css('border','1px solid red');
 				$(bad).tooltip({title:'不能为空/超过40字符/包含特殊字符！', trigger:'focus hover'});
-				var bad2 = $('.tag').filter('.error');
+				var bad2 = $('.tag, #type').filter('.error');
 				$(bad2).css('border','1px solid red');
 				$(bad2).tooltip({title:'不能超过18字符/只能包含中英文数字！', trigger:'focus hover'});
 				return false;	
