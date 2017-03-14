@@ -1,1 +1,1 @@
-![image](https://github.com/Social-Quiz/foo.gif)   
+![image](https://github.com/zhangnaifan/Social-Quiz/blob/znf-final/foo.gif)   
